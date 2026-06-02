@@ -7,10 +7,9 @@
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           [0] TNO CORE VARIABLES & AESTHETICS (DYNAMIC DEFCON SUPPORT)
+           [0] TNO CORE VARIABLES & AESTHETICS
            ========================================================================== */
         :root {
-            /* TNO Base Palette */
             --tno-cyan: #42f5e3;
             --tno-cyan-dim: #165952;
             --tno-cyan-dark: #071f1c;
@@ -24,20 +23,17 @@
             --tno-hcm-red: #da251d; 
             --tno-hcm-gold: #ffff00;
             
-            /* Theme Variables (Change on DEFCON 1) */
             --theme-main: var(--tno-cyan);
             --theme-dim: var(--tno-cyan-dim);
             --theme-dark: var(--tno-cyan-dark);
             --theme-bg: var(--tno-bg);
             
-            /* Borders & Shadows */
             --border-main: 2px solid var(--theme-main);
             --border-sub: 1px solid var(--theme-dim);
             --shadow-glow: 0 0 15px var(--theme-main);
             --shadow-inset: inset 0 0 30px rgba(0,0,0,0.8);
         }
 
-        /* DEFCON 1 OVERRIDE (RED ALERT) */
         body.defcon-1 {
             --theme-main: var(--tno-red);
             --theme-dim: var(--tno-red-dim);
@@ -75,7 +71,7 @@
         }
         @keyframes scanline-move { 0% { top: -15px; } 100% { top: 100vh; } }
 
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--theme-bg); border-left: var(--border-sub); }
         ::-webkit-scrollbar-thumb { background: var(--theme-dim); border: 1px solid var(--theme-main); }
         ::-webkit-scrollbar-thumb:hover { background: var(--theme-main); }
@@ -98,19 +94,17 @@
            ========================================================================== */
         #main-ui { display: none; height: 100%; width: 100%; flex-direction: column; }
 
-        /* HEADER */
         .top-bar {
             flex: 0 0 50px; background: var(--theme-dark); border-bottom: var(--border-main);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 30px; font-size: 28px; font-weight: bold; text-shadow: 0 0 5px var(--theme-main);
             box-shadow: var(--shadow-glow); z-index: 100; transition: all 1s;
         }
-        .defcon-btn { background: var(--tno-red-dim); color: white; padding: 5px 25px; border: 2px solid var(--tno-red); cursor: pointer; transition: 0.3s; }
+        .defcon-btn { background: var(--tno-red-dim); color: white; padding: 5px 25px; border: 2px solid var(--tno-red); cursor: pointer; transition: 0.3s; font-family: 'VT323'; font-size: 22px; }
         .defcon-btn:hover { background: var(--tno-red); box-shadow: 0 0 20px var(--tno-red); }
         
         .workspace { display: flex; flex: 1; padding: 15px; gap: 15px; overflow: hidden; }
 
-        /* TICKER TAPE (FOOTER) */
         .news-ticker {
             flex: 0 0 35px; background: var(--theme-dark); border-top: var(--border-main);
             display: flex; align-items: center; overflow: hidden; color: var(--theme-main); font-size: 22px;
@@ -124,54 +118,53 @@
            [4] LEFT PANEL: COUNTRY / LEADER PROFILE / CABINET
            ========================================================================== */
         .panel-left {
-            flex: 0 0 420px; background: var(--tno-panel); border: var(--border-main);
+            flex: 0 0 440px; background: var(--tno-panel); border: var(--border-main);
             display: flex; flex-direction: column; overflow-y: auto; position: relative; box-shadow: var(--shadow-inset);
         }
         .panel-header {
-            background: var(--theme-main); color: #000; padding: 10px 20px;
+            background: var(--theme-main); color: #000; padding: 8px 20px;
             font-size: 28px; font-weight: bold; display: flex; justify-content: space-between;
             position: sticky; top: 0; z-index: 10; border-bottom: 2px solid #fff; letter-spacing: 1px;
         }
 
-        /* Portrait & Upload */
-        .portrait-container { height: 320px; background: #000; border-bottom: var(--border-main); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; }
+        .portrait-container { height: 280px; background: #000; border-bottom: var(--border-main); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: center; flex-shrink: 0; }
         #leader-portrait { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) sepia(0.3) hue-rotate(150deg); opacity: 0.9; }
-        body.defcon-1 #leader-portrait { filter: contrast(1.5) sepia(1) hue-rotate(330deg); } /* Red filter */
+        body.defcon-1 #leader-portrait { filter: contrast(1.5) sepia(1) hue-rotate(330deg); }
         
         .upload-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); border: 1px dashed var(--theme-main); padding: 5px 15px; cursor: pointer; font-size: 18px; color: var(--theme-main); transition: 0.3s; }
         .upload-overlay:hover { background: var(--theme-main); color: #000; font-weight: bold; }
         
         .leader-name-banner {
             position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0, 0.9);
-            border-top: var(--border-main); padding: 10px 20px; font-size: 34px; font-weight: bold;
+            border-top: var(--border-main); padding: 5px 20px; font-size: 32px; font-weight: bold;
             color: var(--theme-main); text-transform: uppercase; text-shadow: 2px 2px #000;
         }
 
         /* Ideology Block */
-        .ideology-block { display: flex; align-items: center; padding: 20px; border-bottom: var(--border-sub); background: linear-gradient(90deg, rgba(218, 37, 29, 0.15) 0%, transparent 100%); }
-        .pie-chart { width: 95px; height: 95px; border-radius: 50%; flex-shrink: 0; background: conic-gradient(var(--tno-hcm-gold) 0% 15%, var(--tno-hcm-red) 15% 100%); border: 2px solid var(--tno-hcm-gold); box-shadow: 0 0 25px rgba(218, 37, 29, 0.6); position: relative; display: flex; justify-content: center; align-items: center; }
-        .pie-chart::after { content: "★"; font-size: 45px; color: var(--tno-hcm-gold); position: absolute; text-shadow: 0 0 10px #000; }
+        .ideology-block { display: flex; align-items: center; padding: 15px; border-bottom: var(--border-sub); background: linear-gradient(90deg, rgba(218, 37, 29, 0.15) 0%, transparent 100%); }
+        .pie-chart { width: 85px; height: 85px; border-radius: 50%; flex-shrink: 0; background: conic-gradient(var(--tno-hcm-gold) 0% 15%, var(--tno-hcm-red) 15% 100%); border: 2px solid var(--tno-hcm-gold); box-shadow: 0 0 25px rgba(218, 37, 29, 0.6); position: relative; display: flex; justify-content: center; align-items: center; }
+        .pie-chart::after { content: "★"; font-size: 40px; color: var(--tno-hcm-gold); position: absolute; text-shadow: 0 0 10px #000; }
         
-        .ideology-text { margin-left: 20px; }
-        .ideology-title { font-size: 30px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold); }
-        .ideology-sub { font-size: 18px; color: #ccc; line-height: 1.4; margin-top: 5px; text-align: justify; }
+        .ideology-text { margin-left: 15px; }
+        .ideology-title { font-size: 26px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold); }
+        .ideology-sub { font-size: 17px; color: #ccc; line-height: 1.3; margin-top: 5px; text-align: justify; }
 
-        /* Cabinet (Advisors) - NEW FEATURE */
-        .cabinet-container { padding: 20px; border-bottom: var(--border-sub); }
-        .section-title { font-size: 24px; color: var(--tno-orange); border-bottom: 2px dashed var(--tno-orange); padding-bottom: 5px; margin-bottom: 15px; }
+        /* Cabinet (Advisors) */
+        .cabinet-container { padding: 15px; border-bottom: var(--border-sub); }
+        .section-title { font-size: 22px; color: var(--tno-orange); border-bottom: 1px dashed var(--tno-orange); padding-bottom: 5px; margin-bottom: 15px; }
         
-        .advisor-card { display: flex; align-items: center; background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 10px; margin-bottom: 10px; transition: 0.2s; }
+        .advisor-card { display: flex; align-items: center; background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 8px; margin-bottom: 10px; transition: 0.2s; }
         .advisor-card:hover { border-color: var(--theme-main); background: var(--theme-dark); transform: translateX(5px); }
-        .advisor-icon { font-size: 30px; width: 45px; text-align: center; border-right: 1px solid var(--theme-dim); margin-right: 15px; }
+        .advisor-icon { font-size: 26px; width: 40px; text-align: center; border-right: 1px solid var(--theme-dim); margin-right: 12px; }
         .advisor-info { flex: 1; }
-        .advisor-role { font-size: 16px; color: #aaa; text-transform: uppercase; }
-        .advisor-name { font-size: 22px; font-weight: bold; color: var(--theme-main); }
+        .advisor-role { font-size: 15px; color: #aaa; text-transform: uppercase; }
+        .advisor-name { font-size: 20px; font-weight: bold; color: var(--theme-main); }
 
-        /* Economy / Stats */
-        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 20px; }
-        .stat-box { background: var(--theme-dark); border: 1px solid var(--theme-dim); padding: 10px 15px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
-        .stat-label { font-size: 16px; color: #888; margin-bottom: 5px; }
-        .stat-value { font-size: 24px; color: var(--theme-main); font-weight: bold; text-shadow: 0 0 5px var(--theme-main); }
+        /* Demographics & Stats */
+        .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; }
+        .stat-box { background: var(--theme-dark); border: 1px solid var(--theme-dim); padding: 8px 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        .stat-label { font-size: 14px; color: #888; margin-bottom: 2px; }
+        .stat-value { font-size: 20px; color: var(--theme-main); font-weight: bold; text-shadow: 0 0 5px var(--theme-main); }
 
         /* ==========================================================================
            [5] CENTER PANEL: FOCUS TREE (PAN & ZOOM)
@@ -216,9 +209,8 @@
             display: flex; flex-direction: column; position: relative; box-shadow: var(--shadow-inset);
         }
 
-        /* Radar Box */
-        .radar-container { height: 180px; border-bottom: var(--border-main); background: #000; position: relative; overflow: hidden; flex-shrink: 0; }
-        .radar-circles { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 150px; height: 150px; border-radius: 50%; border: 2px solid var(--theme-dim); box-shadow: 0 0 30px var(--theme-dim) inset; }
+        .radar-container { height: 160px; border-bottom: var(--border-main); background: #000; position: relative; overflow: hidden; flex-shrink: 0; }
+        .radar-circles { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 140px; height: 140px; border-radius: 50%; border: 2px solid var(--theme-dim); box-shadow: 0 0 30px var(--theme-dim) inset; }
         .radar-circles::before { content: ""; position: absolute; top: 15%; left: 15%; width: 70%; height: 70%; border-radius: 50%; border: 1px solid var(--theme-dim); }
         .radar-circles::after { content: ""; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: var(--theme-dim); }
         .radar-sweep { position: absolute; top: 50%; left: 50%; width: 90px; height: 90px; background: conic-gradient(transparent 0deg, rgba(66, 245, 227, 0.7) 90deg, transparent 90deg); transform-origin: 0 0; animation: radar-spin 2s linear infinite; }
@@ -228,71 +220,76 @@
 
         /* TAB NAVIGATION */
         .tab-nav { display: flex; border-bottom: var(--border-main); background: var(--theme-dark); flex-shrink: 0; }
-        .tab-btn { flex: 1; background: transparent; border: none; border-right: 1px solid var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 22px; padding: 12px; cursor: pointer; transition: 0.2s; }
+        .tab-btn { flex: 1; background: transparent; border: none; border-right: 1px solid var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 20px; padding: 10px; cursor: pointer; transition: 0.2s; }
         .tab-btn:hover { background: var(--theme-dim); }
         .tab-btn.active { background: var(--theme-main); color: #000; font-weight: bold; }
 
         /* CONTENT DISPLAY AREA (DECRYPTION ZONE) */
         .focus-info-display {
-            flex: 1; padding: 30px; overflow-y: auto; font-size: 24px; border-bottom: var(--border-main);
+            flex: 1; padding: 25px; overflow-y: auto; font-size: 22px; border-bottom: var(--border-main);
             background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%); user-select: text;
         }
         
-        .decrypt-text { font-family: monospace; letter-spacing: 3px; color: var(--tno-yellow); word-break: break-all; opacity: 0.8; font-size: 18px; }
+        .decrypt-text { font-family: monospace; letter-spacing: 2px; color: var(--tno-yellow); word-break: break-all; opacity: 0.8; font-size: 18px; line-height: 1.2; }
         
-        .intel-header { color: var(--theme-main); margin-bottom: 25px; font-size: 34px; text-transform: uppercase; border-bottom: 3px double var(--theme-main); padding-bottom: 10px; font-weight: bold; text-shadow: 0 0 10px var(--theme-main); }
-        .intel-block { background: rgba(0,0,0,0.7); border: 1px solid var(--theme-dim); padding: 25px; margin-bottom: 25px; box-shadow: inset 0 0 15px rgba(0,0,0,0.9); }
-        .intel-title { background: var(--theme-main); color: #000; padding: 5px 15px; font-size: 26px; font-weight: bold; display: inline-block; margin-bottom: 15px; position: relative; top: -40px; border: 1px solid #fff; }
-        .intel-text { color: #e0e0e0; line-height: 1.6; font-size: 22px; text-align: justify; }
+        .intel-header { color: var(--theme-main); margin-bottom: 20px; font-size: 30px; text-transform: uppercase; border-bottom: 3px double var(--theme-main); padding-bottom: 10px; font-weight: bold; text-shadow: 0 0 10px var(--theme-main); }
+        .intel-block { background: rgba(0,0,0,0.7); border: 1px solid var(--theme-dim); padding: 20px; margin-bottom: 25px; box-shadow: inset 0 0 15px rgba(0,0,0,0.9); }
+        .intel-title { background: var(--theme-main); color: #000; padding: 5px 15px; font-size: 24px; font-weight: bold; display: inline-block; margin-bottom: 15px; position: relative; top: -35px; border: 1px solid #fff; }
+        .intel-text { color: #e0e0e0; line-height: 1.5; font-size: 20px; text-align: justify; }
         .intel-text strong { color: var(--tno-orange); }
-        .intel-text ul { padding-left: 25px; margin-top: 15px; }
-        .intel-text li { margin-bottom: 15px; }
-        .tag-good { color: var(--tno-cyan); font-weight: bold; background: rgba(66, 245, 227, 0.1); padding: 2px 5px; border: 1px solid var(--tno-cyan); }
-        .tag-warn { color: var(--tno-red); font-weight: bold; background: rgba(255, 51, 51, 0.1); padding: 2px 5px; border: 1px solid var(--tno-red); }
-        .tag-info { color: var(--tno-yellow); font-weight: bold; background: rgba(244, 211, 94, 0.1); padding: 2px 5px; border: 1px solid var(--tno-yellow); }
+        .intel-text ul { padding-left: 20px; margin-top: 10px; }
+        .intel-text li { margin-bottom: 10px; }
+        .tag-good { color: var(--tno-cyan); font-weight: bold; background: rgba(66, 245, 227, 0.1); padding: 2px 5px; border: 1px solid var(--tno-cyan); display: inline-block; margin-bottom: 5px; }
+        .tag-warn { color: var(--tno-red); font-weight: bold; background: rgba(255, 51, 51, 0.1); padding: 2px 5px; border: 1px solid var(--tno-red); display: inline-block; margin-bottom: 5px; }
+        .tag-info { color: var(--tno-yellow); font-weight: bold; background: rgba(244, 211, 94, 0.1); padding: 2px 5px; border: 1px solid var(--tno-yellow); display: inline-block; margin-bottom: 5px; }
 
-        .action-btn { display: block; width: 100%; background: var(--theme-dark); border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; cursor: pointer; transition: 0.2s; text-align: center; text-decoration: none; text-transform: uppercase; font-weight: bold; }
-        .action-btn:hover { background: var(--theme-main); color: #000; box-shadow: 0 0 25px var(--theme-main); letter-spacing: 2px; }
+        .action-btn { display: block; width: 100%; background: var(--theme-dark); border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 24px; padding: 12px; cursor: pointer; transition: 0.2s; text-align: center; text-decoration: none; text-transform: uppercase; font-weight: bold; }
+        .action-btn:hover { background: var(--theme-main); color: #000; box-shadow: 0 0 20px var(--theme-main); letter-spacing: 2px; }
 
-        /* SUPER EVENT TRIGGER */
         .super-event-trigger {
             background: var(--tno-red-dim); border: 3px solid var(--tno-red); color: #fff;
-            font-family: 'VT323'; font-size: 28px; padding: 15px; cursor: pointer; flex-shrink: 0;
+            font-family: 'VT323'; font-size: 26px; padding: 12px; cursor: pointer; flex-shrink: 0;
             text-align: center; text-transform: uppercase; animation: red-alert 1.5s infinite alternate; font-weight: bold;
         }
         .super-event-trigger:hover { background: var(--tno-red); box-shadow: 0 0 30px var(--tno-red); letter-spacing: 2px; }
 
         /* ADVANCED TERMINAL */
-        .terminal-container { height: 280px; background: #000; padding: 15px; flex-shrink: 0; display: flex; flex-direction: column; font-size: 22px; }
+        .terminal-container { height: 240px; background: #000; padding: 10px; flex-shrink: 0; display: flex; flex-direction: column; font-size: 20px; }
         .terminal-output { flex: 1; overflow-y: auto; color: #aaa; margin-bottom: 10px; padding-right: 10px; line-height: 1.4; }
         .term-user { color: var(--tno-yellow); }
         .term-sys { color: var(--theme-main); text-shadow: 0 0 5px var(--theme-main); }
         .term-err { color: var(--tno-red); font-weight: bold; }
-        .terminal-input-row { display: flex; align-items: center; border-top: 1px dashed #555; padding-top: 10px; }
-        .terminal-prompt { color: var(--tno-yellow); margin-right: 15px; font-weight: bold; }
-        .terminal-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 24px; outline: none; }
+        .terminal-input-row { display: flex; align-items: center; border-top: 1px dashed #555; padding-top: 5px; }
+        .terminal-prompt { color: var(--tno-yellow); margin-right: 10px; font-weight: bold; }
+        .terminal-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 22px; outline: none; }
 
         /* ==========================================================================
-           [7] MODALS (SUPER EVENT & AVATAR)
+           [7] MODALS (SUPER EVENT & AVATAR) - FIXED SCROLLING BUG
            ========================================================================== */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: rgba(0,0,0,0.95); z-index: 20000; justify-content: center; align-items: center;
+            background: rgba(0,0,0,0.95); z-index: 20000; justify-content: center; align-items: flex-start; /* FIX: Cho phép modal rơi từ trên xuống và cuộn được */
+            overflow-y: auto; /* FIX LỖI KHÔNG THỂ CUỘN ĐỂ TẮT */
+            padding: 30px 10px;
         }
         
-        .settings-box { background: var(--tno-panel); border: var(--border-main); width: 700px; padding: 40px; box-shadow: 0 0 60px var(--theme-dim); }
-        .settings-input { width: 100%; background: #000; border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 20px; margin: 25px 0; outline: none; }
+        .settings-box { background: var(--tno-panel); border: var(--border-main); width: 600px; padding: 30px; margin: auto; box-shadow: 0 0 60px var(--theme-dim); }
+        .settings-input { width: 100%; background: #000; border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 24px; padding: 15px; margin: 20px 0; outline: none; }
         
-        /* THE SUPER EVENT - MASSIVE UI */
-        .se-box { width: 1000px; background: #111; border: 6px solid #fff; box-shadow: 0 0 100px rgba(255,255,255,0.4); animation: se-drop 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        /* THE SUPER EVENT - RESPONSIVE HEIGHT */
+        .se-box { width: 900px; max-height: 95vh; display: flex; flex-direction: column; margin: auto; background: #111; border: 5px solid #fff; box-shadow: 0 0 100px rgba(255,255,255,0.4); animation: se-drop 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         @keyframes se-drop { 0% { transform: translateY(-200px) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
         
-        .se-title { text-align: center; font-size: 55px; color: #fff; padding: 20px; border-bottom: 4px solid #fff; background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px); text-shadow: 4px 4px #000; font-weight: bold; letter-spacing: 2px; }
-        .se-img-placeholder { height: 400px; background: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Static_television_screen.jpg') center/cover; border-bottom: 4px solid #fff; position: relative; }
-        .se-img-text { position: absolute; bottom: 20px; right: 20px; color: #fff; font-size: 32px; background: rgba(0,0,0,0.9); padding: 10px 20px; border: 2px solid #fff; }
-        .se-content { padding: 40px; color: #fff; font-size: 26px; line-height: 1.6; text-align: justify; }
-        .se-quote { font-style: italic; color: #bbb; text-align: right; padding: 0 40px 30px; font-size: 24px; }
-        .se-btn { display: block; width: 90%; margin: 0 auto 40px; padding: 20px; background: #fff; color: #000; text-align: center; font-size: 32px; font-weight: bold; cursor: pointer; border: 4px solid #555; transition: 0.3s; text-transform: uppercase; }
+        .se-title { text-align: center; font-size: 45px; color: #fff; padding: 15px; border-bottom: 3px solid #fff; background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px); text-shadow: 3px 3px #000; font-weight: bold; letter-spacing: 2px; flex-shrink: 0; }
+        .se-img-placeholder { height: 220px; /* Đã thu nhỏ ảnh để vừa màn hình */ flex-shrink: 0; background: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Static_television_screen.jpg') center/cover; border-bottom: 3px solid #fff; position: relative; }
+        .se-img-text { position: absolute; bottom: 15px; right: 15px; color: #fff; font-size: 26px; background: rgba(0,0,0,0.9); padding: 5px 15px; border: 2px solid #fff; }
+        
+        /* Phần chứa chữ giờ sẽ tự động cuộn (Scrollable Area) */
+        .se-content-wrapper { flex: 1; overflow-y: auto; padding: 30px; background: #111; }
+        .se-content { color: #fff; font-size: 22px; line-height: 1.5; text-align: justify; margin-bottom: 20px; }
+        .se-quote { font-style: italic; color: #bbb; text-align: right; padding: 0 10px 20px; font-size: 22px; }
+        
+        .se-btn { display: block; width: 90%; margin: 0 auto 20px; padding: 15px; background: #fff; color: #000; text-align: center; font-size: 28px; font-weight: bold; cursor: pointer; border: 4px solid #555; transition: 0.3s; text-transform: uppercase; flex-shrink: 0; }
         .se-btn:hover { background: #aaa; letter-spacing: 2px; }
 
     </style>
@@ -302,16 +299,19 @@
     <div class="scanlines"></div>
     <div class="scanline-bar"></div>
 
+    <!-- BOOT SCREEN -->
     <div id="boot-screen">
         <div id="boot-text"></div>
         <div><span class="blink-cursor">█</span></div>
     </div>
 
+    <!-- MAIN UI -->
     <div id="main-ui">
         
+        <!-- HEADER -->
         <div class="top-bar">
             <div>COMMAND SYSTEM // K70E-EC1</div>
-            <div style="color: var(--tno-yellow); font-size: 32px; letter-spacing: 3px;">THE MIDNIGHT HOUR</div>
+            <div style="color: var(--tno-yellow); font-size: 30px; letter-spacing: 2px;">THE MIDNIGHT HOUR</div>
             <div style="display: flex; gap: 30px; align-items: center;">
                 <div id="clock">00:00:00</div>
                 <button class="defcon-btn" onclick="toggleDefcon()">TOGGLE DEFCON</button>
@@ -320,6 +320,7 @@
 
         <div class="workspace">
             
+            <!-- LEFT PANEL: PROFILE & CABINET -->
             <div class="panel-left">
                 <div class="panel-header"><span>HỒ SƠ TỔNG TƯ LỆNH</span> <span>[ C N T R L ]</span></div>
                 
@@ -333,39 +334,45 @@
                     <div class="pie-chart"></div>
                     <div class="ideology-text">
                         <div class="ideology-title">HO CHI MINH THOUGHT</div>
-                        <div class="ideology-sub">Hệ tư tưởng Hồ Chí Minh: Áp dụng chủ nghĩa Mác-Lênin vào thực tiễn kỹ thuật. Đề cao tư duy biện chứng, tính đoàn kết tập thể và sự cải tiến công nghệ không ngừng nghỉ vì lợi ích chung.</div>
+                        <div class="ideology-sub">Hệ tư tưởng Hồ Chí Minh: Áp dụng tư duy biện chứng vào thực tiễn kỹ thuật. Đề cao tính tập thể và sự cải tiến công nghệ không ngừng vì lợi ích chung.</div>
                     </div>
                 </div>
 
+                <!-- CABINET / ADVISORS (NEW) -->
                 <div class="cabinet-container">
                     <div class="section-title">NỘI CÁC & KHÍ TÀI (CABINET)</div>
                     
                     <div class="advisor-card">
                         <div class="advisor-icon">🐍</div>
                         <div class="advisor-info">
-                            <div class="advisor-role">Bộ Trưởng Bộ Logic Thuật Toán</div>
+                            <div class="advisor-role">Bộ Trưởng Bộ Thuật Toán</div>
                             <div class="advisor-name">Hệ sinh thái Python Core</div>
+                            <div style="color: #888; font-size: 14px; margin-top: 2px;">Đặc trị: Logic toán học & Game mechanics (Flappy Bird clone).</div>
                         </div>
                     </div>
 
                     <div class="advisor-card">
                         <div class="advisor-icon">⏣</div>
                         <div class="advisor-info">
-                            <div class="advisor-role">Cố Vấn Quân Sự (Ma trận & Phân tích)</div>
+                            <div class="advisor-role">Cố Vấn Quân Sự (Phân Tích)</div>
                             <div class="advisor-name">Động cơ MATLAB Auspex</div>
+                            <div style="color: #888; font-size: 14px; margin-top: 2px;">Chuyên trách: Ma trận điện dẫn (Admittance matrices) & Mạch RLC.</div>
                         </div>
                     </div>
 
                     <div class="advisor-card">
-                        <div class="advisor-icon">🧠</div>
+                        <div class="advisor-icon">📜</div>
                         <div class="advisor-info">
-                            <div class="advisor-role">Cơ Quan Tình Báo Trí Tuệ Nhân Tạo</div>
-                            <div class="advisor-name">Generative AI (Prompting LLM)</div>
+                            <div class="advisor-role">Bộ Trưởng Văn Hóa Kịch Bản</div>
+                            <div class="advisor-name">D&D & Satirical Writing</div>
+                            <div style="color: #888; font-size: 14px; margin-top: 2px;">Phong cách: 1977 Vlogs humor. Kiến tạo lore 'The Midnight Hour'.</div>
                         </div>
                     </div>
                 </div>
 
+                <!-- ECONOMY & STATS -->
                 <div class="stats-grid">
+                    <div class="stat-box" style="grid-column: span 2;"><div class="stat-label">CHUYÊN MÔN KỸ THUẬT NÒNG CỐT</div><div class="stat-value" style="font-size: 20px;">Đại số Tuyến tính, Giải tích, Tín hiệu & Hệ thống</div></div>
                     <div class="stat-box"><div class="stat-label">NGÂN SÁCH TÍN CHỈ</div><div class="stat-value">135 TC</div></div>
                     <div class="stat-box"><div class="stat-label">MỤC TIÊU GPA</div><div class="stat-value">3.2 / 4.0</div></div>
                     <div class="stat-box"><div class="stat-label">TIÊU CHUẨN NGÔN NGỮ</div><div class="stat-value">IELTS 5.0 - 6.5</div></div>
@@ -373,12 +380,14 @@
                 </div>
             </div>
 
+            <!-- CENTER PANEL: FOCUS TREE (GRAND MAP) -->
             <div class="panel-center">
                 <div class="panel-header"><span>BẢN ĐỒ CHIẾN DỊCH (NATIONAL FOCUS TREE)</span> <span>[ M A P ]</span></div>
                 
                 <div class="focus-tree-viewport" id="viewport">
                     <div class="focus-tree-canvas" id="canvas">
                         <svg class="svg-lines">
+                            <!-- SVG Connections -->
                             <path class="focus-line" d="M 1250 200 L 1250 400" />
                             <path class="focus-line" d="M 1250 550 L 1250 650 L 800 650 L 800 750" />
                             <path class="focus-line" d="M 1250 550 L 1250 650 L 1700 650 L 1700 750" />
@@ -387,36 +396,42 @@
                             <path class="focus-line" d="M 1250 1250 L 1250 1400" />
                         </svg>
 
+                        <!-- ROOT -->
                         <div class="focus-node completed" style="top: 50px; left: 1100px;" onclick="selectNode(1, this)">
                             <div class="focus-icon">🗄️</div>
                             <div class="focus-title">[01] THAO TÁC TỆP TIN</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 1.4</div>
                         </div>
                         
+                        <!-- NODE 2 -->
                         <div class="focus-node completed" style="top: 400px; left: 1100px;" onclick="selectNode(2, this)">
                             <div class="focus-icon">📡</div>
                             <div class="focus-title">[02] TÌM KIẾM HỌC THUẬT</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 2.4</div>
                         </div>
 
+                        <!-- LEFT BRANCH -->
                         <div class="focus-node completed" style="top: 750px; left: 650px;" onclick="selectNode(3, this)">
                             <div class="focus-icon">🧠</div>
                             <div class="focus-title">[03] KỸ SƯ PROMPT AI</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 3.4</div>
                         </div>
 
+                        <!-- RIGHT BRANCH -->
                         <div class="focus-node completed" style="top: 750px; left: 1550px; border-color: var(--tno-yellow);" onclick="selectNode(4, this)">
                             <div class="focus-icon" style="color: var(--tno-yellow); text-shadow: 0 0 20px var(--tno-yellow);">🤝</div>
                             <div class="focus-title" style="color: var(--tno-yellow);">[04] HỢP TÁC TRỰC TUYẾN</div>
                             <div class="focus-time">Giao thức Mạng (Multiplayer)</div>
                         </div>
 
+                        <!-- MERGE -->
                         <div class="focus-node completed" style="top: 1100px; left: 1100px;" onclick="selectNode(5, this)">
                             <div class="focus-icon">⚙️</div>
                             <div class="focus-title">[05] AI TẠO SINH</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 5.4</div>
                         </div>
 
+                        <!-- FINAL -->
                         <div class="focus-node completed" style="top: 1400px; left: 1100px;" onclick="selectNode(6, this)">
                             <div class="focus-icon">⚖️</div>
                             <div class="focus-title">[06] LIÊM CHÍNH AI</div>
@@ -426,9 +441,11 @@
                 </div>
             </div>
 
+            <!-- RIGHT PANEL: INTEL, TABS & TERMINAL -->
             <div class="panel-right">
                 <div class="panel-header"><span>HỒ SƠ TÌNH BÁO (INTEL)</span> <span>[ _ ]</span></div>
                 
+                <!-- RADAR -->
                 <div class="radar-container">
                     <div class="radar-data" id="radar-data">
                         >> VỆ TINH K70_ORBIT ĐANG QUÉT...<br>
@@ -439,12 +456,14 @@
                     <div class="radar-sweep"></div>
                 </div>
 
+                <!-- TAB NAVIGATION -->
                 <div class="tab-nav">
                     <button class="tab-btn active" onclick="switchTab(0)">NỘI DUNG TÓM TẮT</button>
                     <button class="tab-btn" onclick="switchTab(1)">BÁO CÁO PHẢN ÁNH</button>
                     <button class="tab-btn" onclick="switchTab(2)">MINH CHỨNG</button>
                 </div>
 
+                <!-- CONTENT DISPLAY (DECRYPTION ZONE) -->
                 <div class="focus-info-display" id="info-display">
                     <h2 class="intel-header" style="color: var(--tno-orange); text-shadow: 0 0 10px var(--tno-orange); border-color: var(--tno-orange);">HỆ THỐNG ĐÃ SẴN SÀNG</h2>
                     <div class="intel-text" id="decrypt-area">
@@ -456,9 +475,10 @@
 
                 <div class="super-event-trigger" onclick="openSuperEvent()">[ XUẤT BÁO CÁO TỔNG KẾT CHIẾN DỊCH ]</div>
 
+                <!-- ADVANCED TERMINAL -->
                 <div class="terminal-container">
                     <div class="terminal-output" id="term-output">
-                        <div class="term-entry term-sys">> UET_OS KERNEL V10.0 INITIALIZED.</div>
+                        <div class="term-entry term-sys">> UET_OS KERNEL V11.0 INITIALIZED.</div>
                         <div class="term-entry term-sys">> Type 'help' for available root commands.</div>
                     </div>
                     <div class="terminal-input-row">
@@ -469,6 +489,7 @@
             </div>
         </div>
 
+        <!-- NEWS TICKER -->
         <div class="news-ticker">
             <div class="ticker-label">UET GLOBAL NEWS</div>
             <div class="ticker-text">
@@ -477,10 +498,15 @@
         </div>
     </div>
 
+    <!-- ==========================================================================
+         [8] MODALS (AVATAR SETUP & SUPER EVENT)
+         ========================================================================== */ -->
+    
+    <!-- Avatar Settings Modal -->
     <div class="modal-overlay" id="avatar-modal">
         <div class="settings-box">
-            <h2 style="border-bottom: 2px solid var(--theme-main); padding-bottom: 5px; margin-bottom: 20px; font-size: 36px; color: var(--theme-main);">GIAO THỨC CẬP NHẬT ẢNH NHẬN DIỆN</h2>
-            <p style="font-size: 24px;">Hệ thống yêu cầu đường link (URL) trực tiếp của hình ảnh chân dung để đồng bộ hóa với hồ sơ Lãnh đạo. <i>(Lưu ý: Dữ liệu được mã hóa trong Local Storage của trình duyệt).</i></p>
+            <h2 style="border-bottom: 2px solid var(--theme-main); padding-bottom: 5px; margin-bottom: 20px; font-size: 32px; color: var(--theme-main);">GIAO THỨC CẬP NHẬT ẢNH NHẬN DIỆN</h2>
+            <p style="font-size: 20px;">Hệ thống yêu cầu đường link (URL) trực tiếp của hình ảnh chân dung để đồng bộ hóa. <i>(Dữ liệu lưu trữ trong Local Storage).</i></p>
             <input type="text" class="settings-input" id="avatar-url-input" placeholder="Dán link ảnh vào đây (https://...)">
             <div style="display: flex; gap: 20px;">
                 <button class="action-btn" style="margin-top:0;" onclick="saveAvatar()">TIẾN HÀNH ĐỒNG BỘ</button>
@@ -489,28 +515,36 @@
         </div>
     </div>
 
+    <!-- Super Event Modal (FIXED SCROLLING BUG) -->
     <div class="modal-overlay" id="super-event-modal">
         <div class="se-box">
             <div class="se-title">THE MIDNIGHT HOUR STRIKES</div>
             <div class="se-img-placeholder">
                 <div class="se-img-text">HỆ THỐNG ĐÃ LƯU TRỮ TOÀN BỘ</div>
             </div>
-            <div class="se-content">
-                <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT CHIẾN DỊCH TỐI HẬU ]</strong><br><br>
-                Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao (tích hợp Bản đồ Pan & Zoom, Hiệu ứng Terminal và Giải mã đa luồng).<br><br>
-                Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao (như Chain of Thought) để ép AI phục tùng logic của mình. 
-                <br><br>
-                Khái niệm <strong>'Human-in-the-loop'</strong> được khắc sâu: <i>Máy móc dù có siêu việt đến đâu cũng chỉ là công cụ tính toán. Trách nhiệm kiểm chứng, đạo đức liêm chính và Tư duy logic của con người mới là kim chỉ nam quyết định giới hạn của sự sáng tạo.</i>
+            
+            <!-- Vùng cuộn bên trong hộp thoại (Fix lỗi cuộn) -->
+            <div class="se-content-wrapper">
+                <div class="se-content">
+                    <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT CHIẾN DỊCH TỐI HẬU ]</strong><br><br>
+                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao (tích hợp Bản đồ Pan & Zoom, Hiệu ứng Terminal và Giải mã đa luồng).<br><br>
+                    Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao (như Chain of Thought) để ép AI phục tùng logic của mình. 
+                    <br><br>
+                    Khái niệm <strong>'Human-in-the-loop'</strong> được khắc sâu: <i>Máy móc dù có siêu việt đến đâu cũng chỉ là công cụ tính toán. Trách nhiệm kiểm chứng, đạo đức liêm chính và Tư duy logic của con người mới là kim chỉ nam quyết định giới hạn của sự sáng tạo.</i>
+                </div>
+                <div class="se-quote">"Sự hiểu biết là vũ khí duy nhất đủ sức xuyên thủng bức màn đêm."<br>- Trích xuất Lưu trữ Intel UET K70 -</div>
+                <div class="se-btn" onclick="closeSuperEvent()">XÁC NHẬN [ THOÁT KHỎI SỰ KIỆN ]</div>
             </div>
-            <div class="se-quote">"Sự hiểu biết là vũ khí duy nhất đủ sức xuyên thủng bức màn đêm."<br>- Trích xuất Lưu trữ Intel UET K70 -</div>
-            <div class="se-btn" onclick="closeSuperEvent()">XÁC NHẬN [ THOÁT KHỎI SỰ KIỆN ]</div>
         </div>
     </div>
 
+    <!-- ==========================================================================
+         [9] COMPLEX JAVASCRIPT LOGIC & DATABASE
+         ========================================================================== */ -->
     <script>
         /* --- 1. BOOT SEQUENCE --- */
         const bootLines = [
-            "BIOS Date 06/03/26 23:59:59 Ver ULTIMATE.10",
+            "BIOS Date 06/03/26 23:59:59 Ver ULTIMATE.11",
             "CPU: K70 Neural-Link Processor (Hanoi Central Command)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Radar Scanners... [OK]",
@@ -574,42 +608,42 @@
             1: { 
                 title: "BÀI 1: KIẾN TRÚC LƯU TRỮ VÀ THAO TÁC TỆP TIN", 
                 tab1: "Tiến hành một cuộc đại tu toàn diện hệ thống lưu trữ dữ liệu học thuật. Xây dựng cấu trúc cây thư mục (Directory Tree) phân cấp nghiêm ngặt từ: <code>Root (Đại học) -> Năm học -> Học kỳ -> Môn học -> Bài tập/Tài liệu</code>. <br><br>Thiết lập và áp dụng triệt để quy tắc danh pháp (Naming Convention) cho mọi tệp tin đầu ra theo định dạng: <code>[Mã học phần]_[Tên bài tập/Dự án]_[Họ tên sinh viên]_[Phiên bản].pdf</code>. Quá trình này được đồng bộ hóa lên hệ thống Google Drive để đảm bảo nguyên tắc sao lưu 3-2-1 chống mất mát dữ liệu do sự cố phần cứng.",
-                tab2: "<ul><li><span class='tag-good'>[ THU HOẠCH ]</span>: Giác ngộ được triết lý '5S' trong không gian số. Việc quy hoạch thông tin bài bản giúp loại bỏ hoàn toàn rác kỹ thuật số, tăng tốc độ truy xuất tài liệu lên đến 50% trong các tình huống khẩn cấp (như lúc sắp đến deadline).</li><li><span class='tag-warn'>[ KHỦNG HOẢNG ]</span>: Rào cản tâm lý cực kỳ lớn khi phải đối mặt với hàng chục Gigabyte tệp tin hỗn tạp, không tên tuổi tồn đọng từ nhiều năm trước. Mất rất nhiều thời gian để phân loại và xóa bỏ dữ liệu thừa.</li><li><span class='tag-info'>[ THỰC TIỄN ]</span>: Giao thức lưu trữ này đã trở thành tiêu chuẩn bắt buộc của tôi khi quản lý mã nguồn code Python và cấu trúc thư mục các đồ án kỹ thuật phức tạp tại UET.</li></ul>",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC ]</span>: Giác ngộ được triết lý '5S' trong không gian số. Việc quy hoạch thông tin bài bản giúp loại bỏ hoàn toàn rác kỹ thuật số, tăng tốc độ truy xuất tài liệu lên đến 50% trong các tình huống khẩn cấp (như lúc sắp đến deadline).</li><li><span class='tag-warn'>[ KHÓ KHĂN ]</span>: Rào cản tâm lý cực kỳ lớn khi phải đối mặt với hàng chục Gigabyte tệp tin hỗn tạp, không tên tuổi tồn đọng từ nhiều năm trước. Mất rất nhiều thời gian để phân loại và xóa bỏ dữ liệu thừa.</li><li><span class='tag-info'>[ ỨNG DỤNG ]</span>: Giao thức lưu trữ này đã trở thành tiêu chuẩn bắt buộc của tôi khi quản lý mã nguồn code Python và cấu trúc thư mục các đồ án kỹ thuật phức tạp (như Tính toán Giải tích, Đại số tuyến tính) tại UET.</li></ul>",
                 tab3: "<a href='#' class='action-btn' onclick='termPrint(\"Opening directory visual evidence...\", \"term-sys\")'>[ TRUY CẬP ẢNH CHỤP CẤU TRÚC THƯ MỤC ]</a>"
             },
             2: { 
                 title: "BÀI 2: TOÁN TỬ TÌM KIẾM VÀ AUSPEX SCANNER", 
                 tab1: "Kích hoạt chiến dịch tình báo dữ liệu (Data Mining) thông qua các Toán tử tìm kiếm Boolean (Boolean Operators). Đi sâu vào việc sử dụng các cú pháp nâng cao: <code>site:.edu.vn</code> (giới hạn miền giáo dục), <code>filetype:pdf</code> (định dạng báo cáo), kết hợp các hàm <code>AND</code>, <code>OR</code>, <code>NOT (-)</code> và <code>\" \"</code> (cụm từ chính xác).<br><br>Đồng thời, áp dụng tiêu chuẩn <strong>CRAAP Test</strong> (Currency, Relevance, Authority, Accuracy, Purpose) để thiết lập một ma trận đánh giá mức độ uy tín của nguồn tin, loại bỏ các bài báo ngụy khoa học.",
-                tab2: "<ul><li><span class='tag-good'>[ THU HOẠCH ]</span>: Phá vỡ thói quen 'Google mù' (chỉ gõ từ khóa tự do). Kỹ năng này cho phép tôi khoan thủng các lớp thông tin rác, thuật toán SEO thương mại để tiếp cận thẳng các tài liệu gốc mang tính hàn lâm cao.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG ]</span>: Mạng Internet tràn ngập các trang web copy-paste tinh vi. Khó khăn nhất là việc truy xuất ngược (reverse search) để tìm ra tác giả gốc của một báo cáo kỹ thuật không ghi rõ nguồn.</li><li><span class='tag-info'>[ THỰC TIỄN ]</span>: Đây là vũ khí tối thượng phục vụ cho việc làm nghiên cứu khoa học, viết tiểu luận môn học và tìm kiếm các tài liệu lập trình chuyên sâu mà Google thông thường sẽ giấu đi.</li></ul>",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC ]</span>: Phá vỡ thói quen 'Google mù' (chỉ gõ từ khóa tự do). Kỹ năng này cho phép tôi khoan thủng các lớp thông tin rác, thuật toán SEO thương mại để tiếp cận thẳng các tài liệu gốc mang tính hàn lâm cao.</li><li><span class='tag-warn'>[ KHÓ KHĂN ]</span>: Mạng Internet tràn ngập các trang web copy-paste tinh vi. Khó khăn nhất là việc truy xuất ngược (reverse search) để tìm ra tác giả gốc của một báo cáo kỹ thuật không ghi rõ nguồn.</li><li><span class='tag-info'>[ ỨNG DỤNG ]</span>: Đây là vũ khí tối thượng phục vụ cho việc làm nghiên cứu khoa học, viết tiểu luận môn học (Tín hiệu & Hệ thống) và tìm kiếm các tài liệu lập trình chuyên sâu mà Google thông thường sẽ giấu đi.</li></ul>",
                 tab3: "<a href='#' class='action-btn' onclick='termPrint(\"Opening evaluation matrix (CRAAP)...\", \"term-sys\")'>[ MỞ BẢNG ĐÁNH GIÁ NGUỒN TIN (PDF) ]</a>"
             },
             3: { 
                 title: "BÀI 3: KỸ SƯ CÂU LỆNH (PROMPT ENGINEERING)", 
                 tab1: "Can thiệp vào lõi của các Mô hình Ngôn ngữ Lớn (LLM - Generative AI). Triển khai kỹ thuật Kỹ sư Câu lệnh (Prompt Engineering) chuyển đổi từ phương pháp Zero-shot thô sơ sang các framework nâng cao như <strong>RTF (Role - Task - Format)</strong> và <strong>Chain of Thought (CoT)</strong>.<br><br>Tiến trình: (1) Cấp vai trò chuyên gia cho AI -> (2) Định nghĩa rõ bối cảnh (Context Window) -> (3) Yêu cầu AI suy luận từng bước -> (4) Ép định dạng đầu ra. Lưu trữ và lập bảng đối chiếu sự tiến hóa của kết quả AI trước và sau khi tinh chỉnh.",
-                tab2: "<ul><li><span class='tag-good'>[ THU HOẠCH ]</span>: Ngộ ra bản chất của Trí tuệ nhân tạo: AI không tự nhiên thông minh, nó là tấm gương phản chiếu lại mức độ logic và tư duy hệ thống của chính người ra lệnh. Lệnh càng cấu trúc, kết quả càng sắc bén.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG ]</span>: AI thường mắc hội chứng 'Ảo giác thông tin' (Hallucination) - tự bịa ra các thư mục tài liệu không tồn tại hoặc giải sai các phương trình ma trận nhưng với giọng điệu cực kỳ tự tin. Mất nhiều công sức để thiết lập Prompt giới hạn sự sáng tạo của nó.</li><li><span class='tag-info'>[ THỰC TIỄN ]</span>: Đang sử dụng AI như một 'Senior Developer' trợ lý: Dùng để giải thích các khối code bị lỗi, debug thuật toán Python và tóm tắt các tài liệu kỹ thuật hàng chục trang.</li></ul>",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC ]</span>: Ngộ ra bản chất của Trí tuệ nhân tạo: AI không tự nhiên thông minh, nó là tấm gương phản chiếu lại mức độ logic và tư duy hệ thống của chính người ra lệnh. Lệnh càng cấu trúc, kết quả càng sắc bén.</li><li><span class='tag-warn'>[ KHÓ KHĂN ]</span>: AI thường mắc hội chứng 'Ảo giác thông tin' (Hallucination) - tự bịa ra các thư mục tài liệu không tồn tại hoặc giải sai các phương trình ma trận nhưng với giọng điệu cực kỳ tự tin. Mất nhiều công sức để thiết lập Prompt giới hạn sự sáng tạo của nó.</li><li><span class='tag-info'>[ ỨNG DỤNG ]</span>: Đang sử dụng AI như một trợ lý lập trình: Dùng để giải thích các khối code bị lỗi, debug thuật toán Python cơ bản và tóm tắt các tài liệu kỹ thuật phức tạp.</li></ul>",
                 tab3: "<a href='#' class='action-btn' onclick='termPrint(\"Opening prompt comparison tables...\", \"term-sys\")'>[ TRUY XUẤT BẢNG ĐỐI CHIẾU PROMPT AI ]</a>"
             },
             4: { 
                 title: "BÀI 4: GIAO THỨC HỢP TÁC TRỰC TUYẾN (AGILE/KANBAN)", 
                 tab1: "Vận hành chiến dịch hợp tác phi tập trung trên không gian mạng.<br><strong>Đề tài dự án:</strong> Ứng dụng AI trong Khoa học Tự nhiên & Kỹ thuật.<br><strong>Biệt đội Skitarii tham chiến:</strong> Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br><br>Hệ thống hóa quy trình làm việc bằng phương pháp Agile/Kanban. Sử dụng các nền tảng điện toán đám mây (Google Workspace, Trello) để phân chia nhiệm vụ (Task Tracking), quản lý phiên bản tài liệu (Version Control) và đảm bảo thông lượng dữ liệu giữa các thành viên được đồng bộ theo thời gian thực (Real-time sync).",
-                tab2: "<ul><li><span class='tag-good'>[ THU HOẠCH ]</span>: Nắm vững nghệ thuật điều phối vi mô (Micro-management) và tư duy làm việc nhóm (Synergy). Hiểu được sức mạnh của việc chia nhỏ dự án lớn thành các Sprint ngắn, cho phép nhiều bộ não cùng giải quyết một vấn đề mà không dẫm chân lên nhau.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG ]</span>: Xung đột lớn nhất là sự bất đồng bộ về thời gian biểu sinh hoạt và tốc độ xử lý công việc của 5 cá thể khác nhau. Việc ép tiến độ (push deadline) qua mạng khó khăn hơn nhiều so với gặp mặt trực tiếp.</li><li><span class='tag-info'>[ THỰC TIỄN ]</span>: Trang bị sẵn sàng kỹ năng quản trị dự án phần mềm - yếu tố sống còn cho mọi bài tập lớn (Group Assignments) và môi trường doanh nghiệp công nghệ sau này.</li></ul>",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC ]</span>: Nắm vững nghệ thuật điều phối vi mô (Micro-management) và tư duy làm việc nhóm (Synergy). Hiểu được sức mạnh của việc chia nhỏ dự án lớn thành các Sprint ngắn, cho phép nhiều bộ não cùng giải quyết một vấn đề mà không dẫm chân lên nhau.</li><li><span class='tag-warn'>[ KHÓ KHĂN ]</span>: Xung đột lớn nhất là sự bất đồng bộ về thời gian biểu sinh hoạt và tốc độ xử lý công việc của 5 cá thể khác nhau. Việc ép tiến độ (push deadline) qua mạng khó khăn hơn nhiều so với gặp mặt trực tiếp.</li><li><span class='tag-info'>[ ỨNG DỤNG ]</span>: Trang bị sẵn sàng kỹ năng quản trị dự án phần mềm - yếu tố sống còn cho mọi bài tập lớn (Group Assignments) và môi trường doanh nghiệp công nghệ sau này.</li></ul>",
                 tab3: "<a href='#' class='action-btn' onclick='termPrint(\"Accessing secure team workspace logs...\", \"term-sys\")'>[ KIỂM TRA BẰNG CHỨNG ĐỒNG BỘ NHÓM ]</a>"
             },
             5: { 
                 title: "BÀI 5: SÁNG TẠO SẢN PHẨM SỐ VỚI AI TẠO SINH", 
-                tab1: "Biến Trí tuệ nhân tạo thành bộ khuếch đại sức mạnh đồ họa và logic. Đưa AI vào quy trình sản xuất (Pipeline) để phá vỡ hội chứng 'Sợ trang giấy trắng' (Writer's Block).<br><br>Cụ thể: Dùng AI hỗ trợ viết bộ khung mã nguồn (Boilerplate code) cho thuật toán game mini, xây dựng kho tàng dữ liệu (Lore) cho vũ trụ lịch sử dị bản <strong>'The Midnight Hour'</strong>, và đặc biệt là hệ thống tạo mật mã Cypher 8 ký tự phục vụ chiến dịch giải đố dịp Tết 2026.",
-                tab2: "<ul><li><span class='tag-good'>[ THU HOẠCH ]</span>: Thừa nhận AI là một 'bàn đạp' siêu việt. Nó có khả năng rút ngắn thời gian phác thảo ý tưởng (Brainstorming) và xây dựng bộ khung (Prototyping) xuống gấp 10 lần so với phương pháp chế tác thủ công truyền thống.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG ]</span>: Nếu buông lỏng việc kiểm soát (thiếu Human-in-the-loop), sản phẩm sinh ra sẽ đậm đặc 'mùi công nghiệp' (Robotic tone/Generic art). Việc hiệu chỉnh văn phong, tinh chỉnh từng dòng code để mang lại linh hồn cá nhân tốn rất nhiều chất xám.</li><li><span class='tag-info'>[ THỰC TIỄN ]</span>: Đang áp dụng để thiết kế UI/UX cấp tốc, tạo các bài thuyết trình đồ họa cao và lập trình nhanh các module phần mềm thử nghiệm (Indie projects).</li></ul>",
+                tab1: "Biến Trí tuệ nhân tạo thành bộ khuếch đại sức mạnh đồ họa và logic. Đưa AI vào quy trình sản xuất (Pipeline) để phá vỡ hội chứng 'Sợ trang giấy trắng' (Writer's Block).<br><br>Cụ thể: Dùng AI hỗ trợ viết bộ khung mã nguồn (Boilerplate code) cho thuật toán <strong>Flappy Bird Clone bằng Python</strong>, xây dựng kho tàng dữ liệu (Lore) cho vũ trụ lịch sử dị bản <strong>'The Midnight Hour'</strong>, và đặc biệt là thiết lập hệ thống kịch bản mang âm hưởng <strong>1977 Vlogs / D&D</strong> cùng mật mã Cypher 8 ký tự phục vụ giải đố Tết 2026.",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC ]</span>: Thừa nhận AI là một 'bàn đạp' siêu việt. Nó có khả năng rút ngắn thời gian phác thảo ý tưởng (Brainstorming) và xây dựng bộ khung (Prototyping) xuống gấp 10 lần so với phương pháp chế tác thủ công truyền thống.</li><li><span class='tag-warn'>[ KHÓ KHĂN ]</span>: Nếu buông lỏng việc kiểm soát (thiếu Human-in-the-loop), sản phẩm sinh ra sẽ đậm đặc 'mùi công nghiệp' (Robotic tone). Việc hiệu chỉnh văn phong trào phúng kiểu 1977 Vlogs, tinh chỉnh từng dòng code để mang lại linh hồn cá nhân tốn rất nhiều chất xám.</li><li><span class='tag-info'>[ ỨNG DỤNG ]</span>: Đang áp dụng để thiết kế UI/UX cấp tốc, tạo các bài thuyết trình đồ họa cao và lập trình nhanh các module game/app thử nghiệm.</li></ul>",
                 tab3: "<a href='#' class='action-btn' onclick='termPrint(\"Decrypting AI generated final assets...\", \"term-sys\")'>[ TRÍCH XUẤT SẢN PHẨM NỘI DUNG SỐ ]</a>"
             },
             6: { 
                 title: "BÀI 6: LEX MECHANICUS - ĐẠO LUẬT LIÊM CHÍNH HỌC THUẬT", 
                 tab1: "Biên soạn và công bố Tuyên ngôn Đạo đức Trí tuệ Nhân tạo cá nhân (Lex Mechanicus). Văn bản thiết lập nguyên tắc tối thượng: <strong>'AI là Công cụ, Con người là Đạo diễn'</strong>.<br><br>Tuyệt đối nghiêm cấm việc sử dụng AI để đạo văn (Plagiarism) hoặc vi phạm bản quyền (IP Infringement). Mọi thông tin, số liệu do thuật toán sinh ra bắt buộc phải trải qua quy trình kiểm duyệt chéo khắt khe (Cross-checking & Fact-checking) với cơ sở dữ liệu gốc của nhân loại. Yêu cầu trích dẫn minh bạch tỷ lệ phần trăm có sự can thiệp của AI trong mọi báo cáo đồ án.",
-                tab2: "<ul><li><span class='tag-good'>[ THU HOẠCH ]</span>: Định hình được ranh giới đạo đức rạch ròi, mỏng manh giữa việc 'Sử dụng công cụ hỗ trợ để tối ưu' và 'Lạm dụng máy móc để gian lận, lười biếng'. Tri thức bền vững bắt buộc phải mọc lên từ sự thấu hiểu cốt lõi của tế bào thần kinh.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG ]</span>: Liên tục phải đấu tranh tâm lý trước sự cám dỗ của việc copy-paste giải pháp có sẵn. Hệ thống đòi hỏi kỷ luật thép để buộc bản thân phải tự viết lại, cấu trúc lại kiến thức bằng ngôn ngữ tư duy của chính mình.</li><li><span class='tag-info'>[ THỰC TIỄN ]</span>: Rèn luyện tư duy phản biện (Critical Thinking) trước mọi thông tin trên mạng. Bảo vệ bản thân khỏi các rủi ro pháp lý, rớt môn hoặc bị kỷ luật vì vi phạm đạo đức học thuật tại UET.</li></ul>",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC ]</span>: Định hình được ranh giới đạo đức rạch ròi, mỏng manh giữa việc 'Sử dụng công cụ hỗ trợ để tối ưu' và 'Lạm dụng máy móc để gian lận, lười biếng'. Tri thức bền vững bắt buộc phải mọc lên từ sự thấu hiểu cốt lõi của tế bào thần kinh.</li><li><span class='tag-warn'>[ KHÓ KHĂN ]</span>: Liên tục phải đấu tranh tâm lý trước sự cám dỗ của việc copy-paste giải pháp có sẵn. Hệ thống đòi hỏi kỷ luật thép để buộc bản thân phải tự viết lại, cấu trúc lại kiến thức bằng ngôn ngữ tư duy của chính mình.</li><li><span class='tag-info'>[ ỨNG DỤNG ]</span>: Rèn luyện tư duy phản biện (Critical Thinking) trước mọi thông tin trên mạng. Bảo vệ bản thân khỏi các rủi ro pháp lý, rớt môn hoặc bị kỷ luật vì vi phạm đạo đức học thuật tại UET.</li></ul>",
                 tab3: "<a href='#' class='action-btn' onclick='termPrint(\"Opening compliance and ethics document...\", \"term-sys\")'>[ ĐỌC BỘ TUYÊN NGÔN LIÊM CHÍNH ]</a>"
             }
         };
 
-        /* --- 4. TAB NAVIGATION & DECRYPTION SYSTEM (UPGRADED) --- */
+        /* --- 4. TAB NAVIGATION & MILITARY DECRYPTION SYSTEM --- */
         let currentFocusId = null;
         
         function switchTab(tabIndex) {
@@ -623,10 +657,10 @@
             const display = document.getElementById('decrypt-area');
             const data = database[id];
             
-            // Decryption Visual Effect
+            // Decryption Visual Effect (Hex & Binary)
             display.style.fontFamily = 'monospace';
             display.classList.add('decrypt-text');
-            display.innerHTML = generateScramble(400);
+            display.innerHTML = generateScramble(600);
             
             setTimeout(() => {
                 display.style.fontFamily = "'VT323', monospace";
@@ -646,15 +680,15 @@
                 else if(tabIndex === 2) contentHTML = data.tab3;
                 
                 display.innerHTML = contentHTML;
-            }, 600); // 600ms delay for that heavy military decryption feel
+            }, 750); // 750ms delay for that heavy military decryption feel
         }
 
         function generateScramble(length) {
-            const chars = '0123456789ABCDEF!@#$%^&*()<>{}[]/\\|';
+            const chars = '01ABCDEF!@#$%^&*()<>{}[]/\\|01010110100101';
             let result = '';
             for (let i = 0; i < length; i++) {
                 result += chars.charAt(Math.floor(Math.random() * chars.length));
-                if(i % 50 === 0) result += '<br>';
+                if(i % 55 === 0) result += '<br>';
             }
             return result;
         }
@@ -683,7 +717,7 @@
         }
 
         /* --- 5. PAN & ZOOM LOGIC (THE GRAND MAP) --- */
-        let scale = 0.5; // Khởi tạo Map thu nhỏ lại một chút để thấy toàn cảnh
+        let scale = 0.5; // Khởi tạo Map thu nhỏ
         let panning = false; 
         let pointX = -250; 
         let pointY = -50; 
