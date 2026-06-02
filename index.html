@@ -27,7 +27,6 @@
             /* Borders & Shadows */
             --border-main: 2px solid var(--tno-cyan);
             --border-sub: 1px solid var(--tno-cyan-dim);
-            --border-red: 2px solid var(--tno-red);
             --shadow-glow: 0 0 10px rgba(66, 245, 227, 0.3);
             --shadow-inset: inset 0 0 20px rgba(22, 89, 82, 0.5);
         }
@@ -66,8 +65,8 @@
         }
 
         /* Scrollbar CSS */
-        ::-webkit-scrollbar { width: 10px; height: 10px; }
-        ::-webkit-scrollbar-track { background: var(--tno-bg); border-left: var(--border-sub); border-top: var(--border-sub); }
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--tno-bg); border-left: var(--border-sub); }
         ::-webkit-scrollbar-thumb { background: var(--tno-cyan-dim); border: 1px solid var(--tno-cyan); }
         ::-webkit-scrollbar-thumb:hover { background: var(--tno-cyan); }
 
@@ -126,8 +125,8 @@
         }
         
         #leader-portrait {
-            width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) sepia(0.5) hue-rotate(130deg); /* Lọc màu cho hợp tông TNO */
-            opacity: 0.8; transition: all 0.5s;
+            width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) sepia(0.3) hue-rotate(150deg);
+            opacity: 0.9; transition: all 0.5s;
         }
         
         .upload-overlay {
@@ -135,7 +134,7 @@
             border: 1px dashed var(--tno-cyan); padding: 5px 10px; cursor: pointer;
             font-size: 16px; color: var(--tno-cyan); transition: 0.3s;
         }
-        .upload-overlay:hover { background: var(--tno-cyan); color: #000; }
+        .upload-overlay:hover { background: var(--tno-cyan); color: #000; font-weight: bold; }
 
         .leader-name-banner {
             position: absolute; bottom: 0; left: 0; width: 100%;
@@ -147,7 +146,7 @@
         /* Ideology Block - Ho Chi Minh Thought */
         .ideology-block {
             display: flex; align-items: center; padding: 15px; border-bottom: var(--border-sub);
-            background: linear-gradient(90deg, rgba(218, 37, 29, 0.1) 0%, transparent 100%);
+            background: linear-gradient(90deg, rgba(218, 37, 29, 0.15) 0%, transparent 100%);
         }
         .pie-chart {
             width: 80px; height: 80px; border-radius: 50%; flex-shrink: 0;
@@ -155,11 +154,11 @@
             border: 2px solid var(--tno-hcm-gold); box-shadow: 0 0 15px rgba(218, 37, 29, 0.5);
             position: relative; display: flex; justify-content: center; align-items: center;
         }
-        .pie-chart::after { content: "★"; font-size: 30px; color: var(--tno-hcm-gold); position: absolute; text-shadow: 0 0 5px #000; }
+        .pie-chart::after { content: "★"; font-size: 35px; color: var(--tno-hcm-gold); position: absolute; text-shadow: 0 0 5px #000; }
         
         .ideology-text { margin-left: 15px; }
         .ideology-title { font-size: 26px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold); }
-        .ideology-sub { font-size: 16px; color: #ccc; line-height: 1.2; margin-top: 5px; }
+        .ideology-sub { font-size: 16px; color: #ccc; line-height: 1.2; margin-top: 5px; text-align: justify; }
 
         /* Demographics & Stats */
         .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 15px; border-bottom: var(--border-sub); }
@@ -173,7 +172,7 @@
         .spirit-item { display: flex; align-items: center; padding: 10px; background: rgba(0,0,0,0.5); border: 1px solid var(--tno-cyan-dim); margin-bottom: 10px; transition: 0.2s; cursor: help; }
         .spirit-item:hover { border-color: var(--tno-cyan); background: var(--tno-cyan-dark); }
         .spirit-icon { font-size: 24px; margin-right: 15px; width: 30px; text-align: center; }
-        .spirit-name { font-size: 18px; font-weight: bold; }
+        .spirit-name { font-size: 18px; font-weight: bold; color: #fff; }
 
         /* ==========================================================================
            [5] CENTER PANEL: FOCUS TREE (PAN & ZOOM AREA)
@@ -196,7 +195,7 @@
         /* Focus Area that gets Transformed (Zoom/Pan) */
         .focus-tree-canvas {
             position: absolute; top: 0; left: 0; width: 2000px; height: 2000px;
-            transform-origin: 0 0; /* Important for scaling */
+            transform-origin: 0 0; 
         }
 
         /* Focus Node Lines */
@@ -223,39 +222,46 @@
            [6] RIGHT PANEL: INTEL & INTERACTIVE TERMINAL
            ========================================================================== */
         .panel-right {
-            flex: 0 0 450px; background: var(--tno-panel); border: var(--border-main);
+            flex: 0 0 500px; background: var(--tno-panel); border: var(--border-main);
             display: flex; flex-direction: column; position: relative;
         }
 
         /* Radar Box */
         .radar-container {
-            height: 200px; border-bottom: var(--border-main); position: relative; overflow: hidden; background: #000;
+            height: 150px; border-bottom: var(--border-main); position: relative; overflow: hidden; background: #000; flex-shrink: 0;
         }
-        .radar-circles { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 180px; height: 180px; border-radius: 50%; border: 1px solid var(--tno-cyan-dim); box-shadow: 0 0 20px var(--tno-cyan-dim) inset; }
+        .radar-circles { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 130px; height: 130px; border-radius: 50%; border: 1px solid var(--tno-cyan-dim); box-shadow: 0 0 20px var(--tno-cyan-dim) inset; }
         .radar-circles::before { content: ""; position: absolute; top: 15%; left: 15%; width: 70%; height: 70%; border-radius: 50%; border: 1px solid var(--tno-cyan-dim); }
-        .radar-sweep { position: absolute; top: 50%; left: 50%; width: 100px; height: 100px; background: conic-gradient(transparent 0deg, rgba(66, 245, 227, 0.6) 90deg, transparent 90deg); transform-origin: 0 0; animation: radar-spin 3s linear infinite; }
+        .radar-sweep { position: absolute; top: 50%; left: 50%; width: 80px; height: 80px; background: conic-gradient(transparent 0deg, rgba(66, 245, 227, 0.6) 90deg, transparent 90deg); transform-origin: 0 0; animation: radar-spin 3s linear infinite; }
         @keyframes radar-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        
-        .radar-text { position: absolute; top: 10px; left: 10px; color: var(--tno-cyan); font-size: 16px; pointer-events: none; }
+        .radar-text { position: absolute; top: 5px; left: 10px; color: var(--tno-cyan); font-size: 16px; pointer-events: none; }
 
-        /* Focus Content Display */
+        /* Focus Content Display (Highly Detailed Section) */
         .focus-info-display {
             flex: 1; padding: 20px; overflow-y: auto; font-size: 20px; border-bottom: var(--border-main);
             background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(22, 89, 82, 0.1) 100%);
+            user-select: text; /* Allow user to copy text here */
         }
-        .focus-info-display h2 { color: var(--tno-orange); margin-bottom: 15px; font-size: 28px; text-transform: uppercase; border-bottom: 1px solid var(--tno-orange); padding-bottom: 5px; }
-        .focus-desc { color: #ccc; line-height: 1.5; margin-bottom: 20px; text-align: justify; }
         
+        .intel-header { color: var(--tno-orange); margin-bottom: 20px; font-size: 28px; text-transform: uppercase; border-bottom: 2px solid var(--tno-orange); padding-bottom: 5px; font-weight: bold; text-shadow: 0 0 5px rgba(255,153,0,0.5); }
+        
+        .intel-block { background: rgba(0,0,0,0.6); border: 1px solid var(--tno-cyan-dim); padding: 15px; margin-bottom: 20px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
+        .intel-title { background: var(--tno-cyan-dark); color: var(--tno-cyan); padding: 5px 10px; font-size: 22px; font-weight: bold; border-left: 3px solid var(--tno-cyan); margin-bottom: 10px; display: inline-block; }
+        .intel-text { color: #ddd; line-height: 1.5; font-size: 18px; text-align: justify; }
+        .intel-text ul { padding-left: 20px; margin-top: 10px; }
+        .intel-text li { margin-bottom: 8px; }
+        .intel-highlight { color: var(--tno-yellow); font-weight: bold; }
+
         .action-btn {
-            display: block; width: 100%; background: transparent; border: 2px solid var(--tno-cyan);
-            color: var(--tno-cyan); font-family: 'VT323'; font-size: 22px; padding: 10px;
+            display: block; width: 100%; background: var(--tno-cyan-dark); border: 1px solid var(--tno-cyan);
+            color: var(--tno-cyan); font-family: 'VT323'; font-size: 22px; padding: 12px; margin-top: 10px;
             cursor: pointer; transition: 0.2s; text-align: center; text-decoration: none;
         }
         .action-btn:hover { background: var(--tno-cyan); color: #000; font-weight: bold; box-shadow: 0 0 15px var(--tno-cyan); }
 
         /* Interactive Terminal Console */
         .terminal-container {
-            height: 250px; background: #000; padding: 10px;
+            height: 220px; background: #000; padding: 10px; flex-shrink: 0;
             display: flex; flex-direction: column; font-size: 18px;
         }
         .terminal-output { flex: 1; overflow-y: auto; color: #aaa; margin-bottom: 10px; padding-right: 5px; }
@@ -273,15 +279,15 @@
 
         /* Super Event Button */
         .super-event-trigger {
-            background: var(--tno-red-dim); border: var(--border-red); color: #fff;
-            font-family: 'VT323'; font-size: 24px; padding: 15px; cursor: pointer;
+            background: var(--tno-red-dim); border-top: 2px solid var(--tno-red); border-bottom: 2px solid var(--tno-red); color: #fff;
+            font-family: 'VT323'; font-size: 24px; padding: 10px; cursor: pointer; flex-shrink: 0;
             text-align: center; text-transform: uppercase; animation: red-alert 2s infinite alternate;
         }
         .super-event-trigger:hover { background: var(--tno-red); }
-        @keyframes red-alert { from { box-shadow: 0 0 5px var(--tno-red); } to { box-shadow: 0 0 20px var(--tno-red); } }
+        @keyframes red-alert { from { box-shadow: 0 0 5px var(--tno-red) inset; } to { box-shadow: inset 0 0 20px var(--tno-red); } }
 
         /* ==========================================================================
-           [7] MODALS (SUPER EVENT & SETTINGS)
+           [7] MODALS (AVATAR SETUP & SUPER EVENT)
            ========================================================================== */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -305,8 +311,8 @@
         .se-title { text-align: center; font-size: 45px; color: #fff; padding: 10px; border-bottom: 2px solid #fff; background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px); text-shadow: 2px 2px #000; }
         .se-img-placeholder { height: 300px; background: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Static_television_screen.jpg') center/cover; border-bottom: 2px solid #fff; position: relative; }
         .se-img-text { position: absolute; bottom: 10px; right: 10px; color: #fff; font-size: 24px; background: rgba(0,0,0,0.7); padding: 5px 10px; }
-        .se-content { padding: 25px; color: #fff; font-size: 24px; line-height: 1.5; text-align: justify; }
-        .se-quote { font-style: italic; color: #aaa; text-align: right; padding: 0 25px 25px; font-size: 22px; }
+        .se-content { padding: 25px; color: #fff; font-size: 22px; line-height: 1.5; text-align: justify; }
+        .se-quote { font-style: italic; color: #aaa; text-align: right; padding: 0 25px 25px; font-size: 20px; }
         .se-btn { display: block; width: 90%; margin: 0 auto 25px; padding: 15px; background: #fff; color: #000; text-align: center; font-size: 26px; font-weight: bold; cursor: pointer; border: 2px solid #555; transition: 0.2s; }
         .se-btn:hover { background: #ccc; }
 
@@ -341,12 +347,12 @@
             
             <!-- LEFT PANEL: PROFILE -->
             <div class="panel-left">
-                <div class="panel-header"><span>HỒ SƠ LÃNH ĐẠO</span> <span>[ ! ]</span></div>
+                <div class="panel-header"><span>HỒ SƠ ĐỊNH DANH</span> <span>[ ! ]</span></div>
                 
                 <div class="portrait-container">
                     <!-- Default placeholder avatar -->
                     <img id="leader-portrait" src="https://i.pinimg.com/736x/8f/c3/7b/8fc37b7ca8436ceb562a122e23b169db.jpg" alt="Leader Portrait">
-                    <div class="upload-overlay" onclick="openAvatarModal()">[ CẬP NHẬT ẢNH ]</div>
+                    <div class="upload-overlay" onclick="openAvatarModal()">[ CẬP NHẬT ẢNH CÁ NHÂN ]</div>
                     <div class="leader-name-banner">NGUYỄN VŨ ĐÔNG</div>
                 </div>
 
@@ -355,7 +361,7 @@
                     <div class="pie-chart"></div>
                     <div class="ideology-text">
                         <div class="ideology-title">HO CHI MINH THOUGHT</div>
-                        <div class="ideology-sub">Tư tưởng Hồ Chí Minh: Áp dụng tư duy biện chứng và logic hệ thống vào quản lý dự án công nghệ, đặt tập thể và sự tiến bộ lên hàng đầu.</div>
+                        <div class="ideology-sub">Tư tưởng Hồ Chí Minh: Áp dụng tư duy biện chứng và logic hệ thống vào quản lý kỹ thuật, ưu tiên tính thực tiễn, tính tập thể và sự tiến bộ không ngừng.</div>
                     </div>
                 </div>
 
@@ -363,33 +369,33 @@
                     <div class="stat-box"><div class="stat-label">MỤC TIÊU GPA</div><div class="stat-value">3.2 / 4.0</div></div>
                     <div class="stat-box"><div class="stat-label">TÍN CHỈ (CREDITS)</div><div class="stat-value">135 TC</div></div>
                     <div class="stat-box"><div class="stat-label">NGÔN NGỮ (IELTS)</div><div class="stat-value">Band 5.0-6.5</div></div>
-                    <div class="stat-box"><div class="stat-label">TRẠNG THÁI MẠNG</div><div class="stat-value" style="color:var(--tno-cyan);">STABLE</div></div>
+                    <div class="stat-box"><div class="stat-label">TRẠNG THÁI MẠNG</div><div class="stat-value" style="color:var(--tno-cyan);">ONLINE</div></div>
                 </div>
 
                 <div class="spirits-container">
                     <div class="spirits-title">▶ ĐẶC QUYỀN VÀ KỸ NĂNG (NATIONAL SPIRITS)</div>
                     
-                    <div class="spirit-item" title="Python: Thành thạo kiến tạo logic hệ thống và xử lý kịch bản vật lý giả lập.">
+                    <div class="spirit-item">
                         <div class="spirit-icon">🐍</div>
                         <div>
                             <div class="spirit-name">Kiến trúc sư Serpentis</div>
-                            <div style="font-size: 14px; color: #aaa;">Lập trình Python Core</div>
+                            <div style="font-size: 15px; color: #aaa;">Lập trình Python Core. Khả năng thiết kế logic tuần tự và xử lý kịch bản vật lý giả lập.</div>
                         </div>
                     </div>
                     
-                    <div class="spirit-item" title="MATLAB: Khả năng giải quyết ma trận Y-bus và nội suy dòng điện chuyển tiếp.">
+                    <div class="spirit-item">
                         <div class="spirit-icon">⏣</div>
                         <div>
                             <div class="spirit-name">Đôi mắt Auspex</div>
-                            <div style="font-size: 14px; color: #aaa;">Xử lý Ma trận MATLAB</div>
+                            <div style="font-size: 15px; color: #aaa;">Xử lý Ma trận MATLAB. Thành thạo giải thuật tính toán điện dẫn Y-bus và phân tích mạch.</div>
                         </div>
                     </div>
                     
-                    <div class="spirit-item" title="Đam mê thiết kế các thế giới dị bản (Alternate History) và game đại chiến lược.">
+                    <div class="spirit-item">
                         <div class="spirit-icon">🗺️</div>
                         <div>
                             <div class="spirit-name">Chiến lược gia Đại cục</div>
-                            <div style="font-size: 14px; color: #aaa;">TNO / Red Dusk Architect</div>
+                            <div style="font-size: 15px; color: #aaa;">Đam mê kiến tạo lịch sử dị bản (Alternate History). TNO / Red Dusk Architect.</div>
                         </div>
                     </div>
                 </div>
@@ -397,7 +403,7 @@
 
             <!-- CENTER PANEL: FOCUS TREE (PAN & ZOOM) -->
             <div class="panel-center">
-                <div class="panel-header"><span>CÂY TIÊU ĐIỂM QUỐC GIA (PROJECT FOCUS)</span> <span>[ M A P ]</span></div>
+                <div class="panel-header"><span>BẢN ĐỒ CHIẾN DỊCH (PROJECT FOCUS TREE)</span> <span>[ M A P ]</span></div>
                 
                 <div class="focus-tree-viewport" id="viewport">
                     <div class="focus-tree-canvas" id="canvas">
@@ -416,42 +422,42 @@
                         <!-- ROOT -->
                         <div class="focus-node completed" style="top: 0px; left: 370px;" onclick="selectNode(1, this)">
                             <div class="focus-icon">🗄️</div>
-                            <div class="focus-title">[01] KHỞI TẠO DATABANK</div>
-                            <div class="focus-time">7 Days</div>
+                            <div class="focus-title">[01] THAO TÁC TỆP TIN</div>
+                            <div class="focus-time">Giai đoạn 1.4</div>
                         </div>
                         
                         <div class="focus-node completed" style="top: 250px; left: 370px;" onclick="selectNode(2, this)">
                             <div class="focus-icon">📡</div>
-                            <div class="focus-title">[02] AUSPEX SCANNER</div>
-                            <div class="focus-time">14 Days</div>
+                            <div class="focus-title">[02] TÌM KIẾM THÔNG TIN</div>
+                            <div class="focus-time">Giai đoạn 2.4</div>
                         </div>
 
                         <!-- LEFT BRANCH -->
                         <div class="focus-node completed" style="top: 450px; left: 120px;" onclick="selectNode(3, this)">
                             <div class="focus-icon">🧠</div>
-                            <div class="focus-title">[03] TINH CHỈNH PROMPT</div>
-                            <div class="focus-time">21 Days</div>
+                            <div class="focus-title">[03] VIẾT PROMPT AI</div>
+                            <div class="focus-time">Giai đoạn 3.4</div>
                         </div>
 
                         <!-- RIGHT BRANCH -->
                         <div class="focus-node completed" style="top: 450px; left: 620px; border-color: var(--tno-yellow);" onclick="selectNode(4, this)">
                             <div class="focus-icon" style="color: var(--tno-yellow); text-shadow: 0 0 10px var(--tno-yellow);">🤝</div>
-                            <div class="focus-title" style="color: var(--tno-yellow);">[04] LIÊN MINH SKITARII</div>
-                            <div class="focus-time">Multiplayer</div>
+                            <div class="focus-title" style="color: var(--tno-yellow);">[04] HỢP TÁC TRỰC TUYẾN</div>
+                            <div class="focus-time">Hoạt động Nhóm</div>
                         </div>
 
                         <!-- MERGE -->
                         <div class="focus-node completed" style="top: 650px; left: 370px;" onclick="selectNode(5, this)">
                             <div class="focus-icon">⚙️</div>
-                            <div class="focus-title">[05] LAST ORDER AI</div>
-                            <div class="focus-time">28 Days</div>
+                            <div class="focus-title">[05] AI TẠO SINH</div>
+                            <div class="focus-time">Giai đoạn 5.4</div>
                         </div>
 
                         <!-- FINAL -->
                         <div class="focus-node completed" style="top: 850px; left: 370px;" onclick="selectNode(6, this)">
                             <div class="focus-icon">⚖️</div>
-                            <div class="focus-title">[06] LEX MECHANICUS</div>
-                            <div class="focus-time">Permanent</div>
+                            <div class="focus-title">[06] LIÊM CHÍNH AI</div>
+                            <div class="focus-time">Giai đoạn 6.4</div>
                         </div>
 
                     </div>
@@ -460,21 +466,21 @@
 
             <!-- RIGHT PANEL: TERMINAL & INTEL -->
             <div class="panel-right">
-                <div class="panel-header"><span>HỆ THỐNG PHÂN TÍCH (INTEL)</span> <span>[ _ ]</span></div>
+                <div class="panel-header"><span>BÁO CÁO TÌNH BÁO (INTEL)</span> <span>[ _ ]</span></div>
                 
                 <div class="radar-container">
-                    <div class="radar-text">>> VỆ TINH GIÁM SÁT K70...</div>
+                    <div class="radar-text">>> ĐANG QUÉT DỮ LIỆU...</div>
                     <div class="radar-circles"></div>
                     <div class="radar-sweep"></div>
                 </div>
 
                 <div class="focus-info-display" id="info-display">
-                    <h2>ĐANG CHỜ LỆNH CHỈ HUY...</h2>
-                    <p class="focus-desc">Hệ thống The Midnight Hour đã sẵn sàng. Vui lòng nhấp vào các nút Tiêu điểm trên bản đồ chiến lược, hoặc sử dụng Terminal bên dưới để truy vấn cơ sở dữ liệu.</p>
+                    <h2 class="intel-header">HỆ THỐNG ĐÃ SẴN SÀNG</h2>
+                    <p style="color: #ccc; font-size: 20px;">Vui lòng nhấp vào các nút Tiêu điểm trên bản đồ chiến lược bên trái, hoặc sử dụng Terminal bên dưới để truy xuất hồ sơ báo cáo chi tiết của từng bài tập.</p>
                 </div>
 
                 <!-- SUPER EVENT BUTTON -->
-                <div class="super-event-trigger" onclick="openSuperEvent()">[ KẾT THÚC CHIẾN DỊCH: BÁO CÁO TỔNG KẾT ]</div>
+                <div class="super-event-trigger" onclick="openSuperEvent()">[ XUẤT BÁO CÁO TỔNG KẾT CHIẾN DỊCH ]</div>
 
                 <!-- WORKING TERMINAL -->
                 <div class="terminal-container">
@@ -500,11 +506,11 @@
     <div class="modal-overlay" id="avatar-modal">
         <div class="settings-box">
             <h2 style="border-bottom: 2px solid var(--tno-cyan); padding-bottom: 5px; margin-bottom: 15px;">CẬP NHẬT ẢNH NHẬN DIỆN (AVATAR)</h2>
-            <p>Vui lòng dán đường link (URL) hình ảnh của bạn vào bên dưới. Chấp nhận các định dạng .jpg, .png từ Imgur, Facebook, Google Drive (direct link).</p>
-            <input type="text" class="settings-input" id="avatar-url-input" placeholder="https://example.com/image.jpg">
+            <p style="font-size: 18px;">Vui lòng dán đường link (URL) hình ảnh cá nhân của bạn vào bên dưới. Chấp nhận các định dạng .jpg, .png từ các kho lưu trữ trực tuyến.</p>
+            <input type="text" class="settings-input" id="avatar-url-input" placeholder="Dán link ảnh vào đây (https://...)">
             <div style="display: flex; gap: 10px;">
-                <button class="action-btn" onclick="saveAvatar()">XÁC NHẬN TẢI LÊN</button>
-                <button class="action-btn" style="border-color: #555; color: #aaa;" onclick="closeAvatarModal()">HỦY BỎ</button>
+                <button class="action-btn" style="margin-top:0;" onclick="saveAvatar()">XÁC NHẬN TẢI LÊN</button>
+                <button class="action-btn" style="margin-top:0; border-color: #555; color: #aaa;" onclick="closeAvatarModal()">HỦY BỎ</button>
             </div>
         </div>
     </div>
@@ -517,23 +523,24 @@
                 <div class="se-img-text">HỆ THỐNG ĐÃ LƯU TRỮ HOÀN TOÀN</div>
             </div>
             <div class="se-content">
-                <strong>BÁO CÁO TỔNG KẾT CHIẾN DỊCH "NHẬP MÔN CNS":</strong><br><br>
-                Việc hệ thống hóa toàn bộ kết quả học tập vào một Portfolio kỹ thuật số mô phỏng giao diện <strong>TNO Dashboard</strong> là một dự án đầy tham vọng. Khởi chạy hệ thống này đã nâng cấp toàn diện năng lực quản trị dữ liệu cấu trúc phức tạp bằng GitHub và lập trình Front-end (HTML/CSS/JS).<br><br>
-                Bên cạnh việc làm chủ các công cụ Trí tuệ nhân tạo (AI) qua kỹ thuật Prompting để tránh bị máy móc thao túng, dự án này tái khẳng định triết lý: <i>"Máy móc là công cụ, Tư duy logic là kim chỉ nam"</i>. Lỗi xung đột hiển thị giao diện cũ đã được triệt tiêu hoàn toàn qua kiến trúc bản đồ Pan & Zoom.
+                <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT ]</strong><br><br>
+                Việc hệ thống hóa toàn bộ kiến thức môn học vào một Portfolio kỹ thuật số mô phỏng giao diện <strong>Hệ điều hành Chiến lược</strong> là một trải nghiệm đột phá. Khởi chạy hệ thống này đã ép tôi phải vượt qua giới hạn lý thuyết, trực tiếp thao tác với cấu trúc dữ liệu, HTML/CSS/JS và tư duy hệ thống UI/UX.<br><br>
+                Hành trình từ Bài 1 đến Bài 6 là quá trình học cách làm chủ công nghệ. Thay vì phụ thuộc và bị Trí tuệ nhân tạo (AI) dắt mũi, tôi đã học được cách sử dụng <i>Toán tử tìm kiếm</i> để lọc rác, và dùng <i>Prompt Engineering</i> để buộc AI sinh ra kết quả chính xác. <br><br>
+                Lỗi xung đột giao diện ban đầu đã được giải quyết triệt để nhờ áp dụng thuật toán bản đồ Pan & Zoom. Triết lý cuối cùng được khẳng định: <i>Máy móc chỉ là công cụ, Tư duy logic của con người mới là kim chỉ nam.</i>
             </div>
-            <div class="se-quote">"Khoa học không có lương tâm chỉ là sự tàn lụi của linh hồn."<br>- François Rabelais -</div>
-            <div class="se-btn" onclick="closeSuperEvent()">TIẾP TỤC [ TRỞ VỀ MÀN HÌNH CHÍNH ]</div>
+            <div class="se-quote">"Sự hiểu biết là vũ khí duy nhất xuyên thủng màn đêm."<br>- UET Intel Archive -</div>
+            <div class="se-btn" onclick="closeSuperEvent()">XÁC NHẬN [ TRỞ VỀ MÀN HÌNH CHÍNH ]</div>
         </div>
     </div>
 
     <!-- ==========================================================================
-         [9] COMPLEX JAVASCRIPT LOGIC
+         [9] COMPLEX JAVASCRIPT LOGIC (DATABASE & FUNCTIONS)
          ========================================================================== */ -->
     <script>
         /* --- 1. BOOT SEQUENCE --- */
         const bootLines = [
-            "BIOS Date 03/06/26 12:21:57 Ver 8.00",
-            "CPU: K70 Neural-Link Processor",
+            "BIOS Date 06/03/26 12:33:57 Ver 9.00",
+            "CPU: K70 Neural-Link Processor (Hanoi Node)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Scanners... [OK]",
             "Loading Ho Chi Minh Thought Protocols... [OK]",
@@ -553,7 +560,7 @@
                 p.innerText = "> " + bootLines[bootLineIndex];
                 bootTextDiv.appendChild(p);
                 bootLineIndex++;
-                setTimeout(runBoot, Math.random() * 200 + 100);
+                setTimeout(runBoot, Math.random() * 200 + 50);
             } else {
                 setTimeout(() => {
                     document.getElementById('boot-screen').style.display = 'none';
@@ -566,46 +573,105 @@
 
         /* --- 2. SYSTEM CLOCK --- */
         setInterval(() => {
-            document.getElementById('clock').innerText = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19);
         }, 1000);
 
-        /* --- 3. DATA STRUCTURE FOR FOCUS TREE --- */
+        /* --- 3. HIGH-DENSITY DATABASE FOR ASSIGNMENTS (EXPANDED CONTENT) --- */
         const database = {
-            1: { title: "[01] KHỞI TẠO DATABANK", desc: "Tác vụ 1.4: Tối ưu hóa cấu trúc lưu trữ và quy tắc đặt tên. Ngăn chặn sự phân mảnh dữ liệu trong quá trình tác chiến dài hạn.", btn: "TRUY XUẤT ẢNH THƯ MỤC" },
-            2: { title: "[02] AUSPEX SCANNER", desc: "Tác vụ 2.4: Khởi chạy các toán tử tìm kiếm nâng cao. Thanh lọc dữ liệu giả, trích xuất chính xác nguồn thông tin học thuật đã được kiểm chứng.", btn: "MỞ BẢNG ĐÁNH GIÁ" },
-            3: { title: "[03] TINH CHỈNH PROMPT", desc: "Tác vụ 3.4: Kỹ sư hóa câu lệnh (Prompt Engineering). Khảo sát độ lệch pha của AI Tạo sinh trước và sau khi tiêm ngữ cảnh chi tiết. AI phục tùng chính xác hơn khi logic được định hình.", btn: "MỞ BẢNG ĐỐI CHIẾU AI" },
-            4: { title: "[04] LIÊN MINH SKITARII", desc: "Tác vụ 4.4: Ứng dụng AI trong Khoa học Tự nhiên & Kỹ thuật.<br><br><strong>Kill-Team:</strong> Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br>Mạng lưới đồng bộ thành công.", btn: "KIỂM TRA BẰNG CHỨNG NHÓM" },
-            5: { title: "[05] LAST ORDER AI", desc: "Tác vụ 5.4: Sử dụng AI tạo sinh để sản xuất nội dung số. Hỗ trợ thiết kế mã nguồn logic, kiến tạo kịch bản 'The Midnight Hour' và mã hóa Cypher 8 ký tự.", btn: "TRÍCH XUẤT SẢN PHẨM SỐ" },
-            6: { title: "[06] LEX MECHANICUS", desc: "Tác vụ 6.4: Tuyên ngôn Liêm chính Học thuật. AI chỉ là công cụ nội suy hỗ trợ, không được quyền thay thế tư duy độc lập. Trích dẫn minh bạch 100%.", btn: "ĐỌC TUYÊN NGÔN LIÊM CHÍNH" }
+            1: { 
+                title: "BÀI 1: THAO TÁC TỆP TIN VÀ THƯ MỤC", 
+                basicContent: "Xây dựng cấu trúc thư mục học tập khoa học trên hệ thống máy tính cá nhân. Đặt tên tệp theo quy chuẩn đồng bộ (VD: <code>[Mã môn]_[Tên bài]_[Họ tên].pdf</code>).",
+                learned: "Nhận thức được tầm quan trọng của việc quy hoạch dữ liệu. Một hệ thống thư mục tốt giúp tiết kiệm 30% thời gian tìm kiếm tài liệu so với thói quen lưu trữ lộn xộn trước đây.",
+                diff: "Mất khá nhiều thời gian ban đầu để rà soát và cấu trúc lại hàng trăm tệp tin cũ kỹ đang nằm rải rác trên màn hình Desktop.",
+                app: "Ứng dụng ngay vào việc lưu trữ tài liệu ôn thi các môn đại cương và quản lý tiến độ các dự án kỹ thuật chuyên ngành một cách bài bản.",
+                btnText: "▶ XUẤT MINH CHỨNG BÀI 1 (ẢNH THƯ MỤC)"
+            },
+            2: { 
+                title: "BÀI 2: TÌM KIẾM THÔNG TIN HỌC THUẬT", 
+                basicContent: "Triển khai các toán tử tìm kiếm nâng cao (như <code>filetype:pdf</code>, <code>site:.edu.vn</code>, <code>AND</code>, <code>OR</code>) trên Google. Tiến hành lập bảng đánh giá chéo độ tin cậy của các nguồn tài liệu dựa trên tác giả và tính khách quan.",
+                learned: "Học được kỹ năng 'đãi cát tìm vàng' giữa kỷ nguyên bùng nổ thông tin. Biết cách loại bỏ các trang web tin giả, SEO rác để tiếp cận thẳng các báo cáo khoa học uy tín.",
+                diff: "Khó khăn trong việc phân định các nguồn tin được viết rất chuyên nghiệp nhưng thực chất lại thiếu nguồn trích dẫn kiểm chứng rõ ràng.",
+                app: "Phục vụ trực tiếp cho việc làm tiểu luận, nghiên cứu tài liệu chuẩn bị cho đồ án kỹ thuật của hệ thống K70.",
+                btnText: "▶ TRUY XUẤT BẢNG ĐÁNH GIÁ (BÀI 2)"
+            },
+            3: { 
+                title: "BÀI 3: VIẾT PROMPT HIỆU QUẢ", 
+                basicContent: "Áp dụng kỹ thuật Prompt Engineering (Kỹ sư câu lệnh). Thiết lập các Prompt đóng vai trò, cung cấp ngữ cảnh chi tiết và định dạng đầu ra cho AI. So sánh kết quả sinh ra giữa câu lệnh thô sơ và câu lệnh được tối ưu.",
+                learned: "Trí tuệ nhân tạo không tự nhiên thông minh. Nó chỉ trả lời xuất sắc khi nhận được một bối cảnh (context) và luồng tư duy mạch lạc từ chính người đặt câu hỏi.",
+                diff: "Tốn thời gian tinh chỉnh Prompt nhiều lần do AI thỉnh thoảng gặp hiện tượng 'ảo giác' (hallucination) và đưa ra các số liệu toán học sai lệch.",
+                app: "Dùng AI để làm trợ lý giải thích code Python, tóm tắt các khái niệm ma trận phức tạp thành ngôn ngữ dễ hiểu hơn.",
+                btnText: "▶ MỞ BẢNG ĐỐI CHIẾU AI (BÀI 3)"
+            },
+            4: { 
+                title: "BÀI 4: HỢP TÁC TRỰC TUYẾN (DỰ ÁN NHÓM)", 
+                basicContent: "Vận hành hệ thống quản lý dự án trực tuyến (Google Workspace, Trello).<br><strong>Đề tài:</strong> Ứng dụng AI trong KHTN & Kỹ thuật.<br><strong>Đặc vụ tham gia:</strong> Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.",
+                learned: "Làm chủ kỹ năng điều phối, phân chia luồng công việc (Task Flow) và kiểm soát tiến độ trên không gian mạng. Hiểu được sức mạnh của làm việc nhóm đồng bộ.",
+                diff: "Khó khăn lớn nhất là việc sắp xếp lịch họp trực tuyến (online meeting) do thời gian biểu của 5 thành viên trong nhóm bị lệch nhau khá nhiều.",
+                app: "Cải thiện năng suất và chất lượng cho mọi bài tập lớn (Group Projects) trong các học kỳ sắp tới tại trường Đại học Công nghệ.",
+                btnText: "▶ KIỂM TRA BẰNG CHỨNG NHÓM (BÀI 4)"
+            },
+            5: { 
+                title: "BÀI 5: SÁNG TẠO VỚI AI TẠO SINH", 
+                basicContent: "Sử dụng AI để vượt qua rào cản bí ý tưởng (Writer's block). AI hỗ trợ việc thiết kế thuật toán logic cơ bản, xây dựng thế giới quan cho dự án <i>'The Midnight Hour'</i> và khởi tạo mã Cypher 8 ký tự.",
+                learned: "Nhận ra AI là một 'bàn đạp' tuyệt vời để tăng tốc độ sản xuất nội dung số. Nó giúp phác thảo bộ khung nhanh gấp 5 lần so với làm thủ công.",
+                diff: "Quá trình hiệu chỉnh văn phong rất tốn công. Nếu không cẩn thận, sản phẩm sẽ mang cảm giác 'vô hồn' và rập khuôn theo phong cách công nghiệp của AI.",
+                app: "Thiết kế các bài thuyết trình ấn tượng, lập trình nhanh các module game mini để kiểm tra tư duy logic cá nhân.",
+                btnText: "▶ XEM SẢN PHẨM HOÀN THIỆN (BÀI 5)"
+            },
+            6: { 
+                title: "BÀI 6: SỬ DỤNG AI CÓ TRÁCH NHIỆM", 
+                basicContent: "Biên soạn và công bố Tuyên ngôn Liêm chính Học thuật cá nhân. Cam kết không sử dụng AI để đạo văn. Mọi thông tin do thuật toán sinh ra đều phải trải qua bước kiểm duyệt chéo (Cross-check) với dữ liệu gốc.",
+                learned: "Hiểu rõ ranh giới mỏng manh giữa việc 'sử dụng trợ lý công nghệ' và 'lạm dụng máy móc để gian lận'. Nền tảng của tri thức phải đến từ sự hiểu biết cốt lõi của bộ não.",
+                diff: "Đôi lúc bị cám dỗ bởi sự tiện lợi của việc copy-paste toàn bộ câu trả lời, đòi hỏi sự kỷ luật bản thân rất lớn để ép mình tự viết lại bằng văn phong cá nhân.",
+                app: "Hình thành thói quen kiểm chứng sự thật (Fact-checking). Bảo vệ bản thân khỏi các rủi ro vi phạm bản quyền hoặc sai sót kỹ thuật nghiêm trọng trong tương lai.",
+                btnText: "▶ ĐỌC TUYÊN NGÔN LIÊM CHÍNH (BÀI 6)"
+            }
         };
 
         function selectNode(id, el) {
-            // Hiệu ứng Active
+            // Visual Active State Update
             document.querySelectorAll('.focus-node').forEach(n => n.style.boxShadow = "inset 0 0 15px rgba(0,0,0,0.9), 5px 5px 15px rgba(0,0,0,0.8)");
-            if(el) el.style.boxShadow = "0 0 20px var(--tno-cyan), inset 0 0 10px rgba(66, 245, 227, 0.5)";
+            if(el) el.style.boxShadow = "0 0 25px var(--tno-cyan), inset 0 0 10px rgba(66, 245, 227, 0.5)";
             
-            // Ghi Log Terminal
-            termPrint(`Executing read command for Databank_ID: ${id}...`, 'term-sys');
+            // Terminal Logging
+            termPrint(`Executing read command for Archive_ID: ${id}...`, 'term-sys');
             
-            // Hiển thị dữ liệu
+            // Inject Detailed Content into Right Panel
             const display = document.getElementById('info-display');
             const data = database[id];
             
             if(data) {
                 display.innerHTML = `
-                    <h2>${data.title}</h2>
-                    <p class="focus-desc">${data.desc}</p>
-                    <a href="#" class="action-btn" onclick="termPrint('Opening secure link...', 'term-sys')">▶ ${data.btn}</a>
+                    <h2 class="intel-header">${data.title}</h2>
+                    
+                    <div class="intel-block">
+                        <div class="intel-title">I. NỘI DUNG CƠ BẢN</div>
+                        <div class="intel-text">${data.basicContent}</div>
+                    </div>
+
+                    <div class="intel-block" style="border-color: var(--tno-orange);">
+                        <div class="intel-title" style="background: var(--tno-orange); color: #000; border-color: #fff;">II. BÁO CÁO PHẢN ÁNH CÁ NHÂN</div>
+                        <div class="intel-text">
+                            <ul>
+                                <li><span class="intel-highlight">[ BÀI HỌC THU ĐƯỢC ]:</span> ${data.learned}</li>
+                                <li><span class="intel-highlight" style="color: var(--tno-red);">[ KHÓ KHĂN/SỰ CỐ ]:</span> ${data.diff}</li>
+                                <li><span class="intel-highlight" style="color: var(--tno-cyan);">[ THỰC TIỄN ÁP DỤNG ]:</span> ${data.app}</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <a href="#" class="action-btn" onclick="termPrint('Opening secure data link...', 'term-sys')">${data.btnText}</a>
                 `;
             } else {
-                display.innerHTML = `<h2>ERROR 404</h2><p class="focus-desc" style="color:var(--tno-red);">Dữ liệu không tồn tại hoặc đã bị mã hóa.</p>`;
+                display.innerHTML = `<h2>ERROR 404</h2><p style="color:var(--tno-red);">Dữ liệu bị mã hóa hoặc không tồn tại.</p>`;
             }
         }
 
         /* --- 4. PAN & ZOOM LOGIC (BẢN ĐỒ CÂY TIÊU ĐIỂM) --- */
         let scale = 1;
         let panning = false;
-        let pointX = -100; // Khởi tạo dịch sang trái một chút cho cân giữa
+        let pointX = -50; 
         let pointY = 0;
         let start = { x: 0, y: 0 };
         const viewport = document.getElementById("viewport");
@@ -616,16 +682,17 @@
         }
 
         function initPanZoom() {
-            setTransform(); // Áp dụng vị trí ban đầu
+            setTransform(); 
             
             viewport.onmousedown = function (e) {
                 e.preventDefault();
                 start = { x: e.clientX - pointX, y: e.clientY - pointY };
                 panning = true;
+                viewport.style.cursor = 'grabbing';
             };
 
-            viewport.onmouseup = function (e) { panning = false; };
-            viewport.onmouseleave = function (e) { panning = false; };
+            viewport.onmouseup = function (e) { panning = false; viewport.style.cursor = 'grab'; };
+            viewport.onmouseleave = function (e) { panning = false; viewport.style.cursor = 'grab'; };
 
             viewport.onmousemove = function (e) {
                 if (!panning) return;
@@ -642,8 +709,8 @@
                 let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
                 (delta > 0) ? (scale *= 1.1) : (scale /= 1.1);
                 
-                // Giới hạn Zoom
-                scale = Math.min(Math.max(0.4, scale), 2);
+                // Giới hạn tỷ lệ Zoom
+                scale = Math.min(Math.max(0.4, scale), 1.8);
                 
                 pointX = e.clientX - xs * scale;
                 pointY = e.clientY - ys * scale;
@@ -674,48 +741,43 @@
 
                 switch (cmd) {
                     case 'help':
-                        termPrint("> COMMANDS:", 'term-sys');
+                        termPrint("> SYSTEM COMMANDS:", 'term-sys');
                         termPrint("  help         : Show this message", 'term-sys');
                         termPrint("  clear        : Clear terminal", 'term-sys');
-                        termPrint("  read <id>    : Read portfolio databank (1-6)", 'term-sys');
-                        termPrint("  set_avatar   : Update profile picture via URL", 'term-sys');
-                        termPrint("  ping         : Check network status", 'term-sys');
+                        termPrint("  read <id>    : Read portfolio archive (1-6)", 'term-sys');
+                        termPrint("  set_avatar   : Open GUI to update profile picture", 'term-sys');
+                        termPrint("  ping         : Check UET network status", 'term-sys');
                         break;
                     case 'clear':
                         termOutput.innerHTML = '';
                         break;
                     case 'ping':
-                        termPrint("> Pinging UET_SERVER...", 'term-sys');
+                        termPrint("> Pinging Hanoi UET_SERVER...", 'term-sys');
                         setTimeout(() => termPrint("  Reply from 10.0.0.1: bytes=32 time=14ms TTL=135", 'term-sys'), 500);
                         break;
                     case 'read':
                         if(args[1] >= 1 && args[1] <= 6) {
                             selectNode(args[1], null);
                         } else {
-                            termPrint("> Error: Invalid ID. Use read 1-6.", 'term-err');
+                            termPrint("> Error: Invalid ID. Use 'read 1' to 'read 6'.", 'term-err');
                         }
                         break;
                     case 'set_avatar':
-                        if(args[1]) {
-                            updateAvatarImage(args[1]);
-                        } else {
-                            openAvatarModal();
-                            termPrint("> Opening GUI Avatar setup...", 'term-sys');
-                        }
+                        openAvatarModal();
+                        termPrint("> Opening GUI Avatar protocol...", 'term-sys');
                         break;
                     default:
-                        termPrint(`> Error: Command '${cmd}' not found. Type 'help'.`, 'term-err');
+                        termPrint(`> Error: Command '${cmd}' not recognized. Type 'help'.`, 'term-err');
                 }
                 termInput.value = '';
             }
         });
 
-        /* --- 6. AVATAR UPLOAD LOGIC --- */
+        /* --- 6. CUSTOM AVATAR UPLOAD LOGIC --- */
         const avatarImg = document.getElementById('leader-portrait');
         
-        // Khôi phục avatar nếu đã lưu trong bộ nhớ máy (Local Storage)
-        if(localStorage.getItem('tno_avatar')) {
-            avatarImg.src = localStorage.getItem('tno_avatar');
+        if(localStorage.getItem('tno_avatar_k70')) {
+            avatarImg.src = localStorage.getItem('tno_avatar_k70');
         }
 
         function openAvatarModal() { document.getElementById('avatar-modal').style.display = 'flex'; }
@@ -723,14 +785,12 @@
         
         function saveAvatar() {
             const url = document.getElementById('avatar-url-input').value.trim();
-            if(url) updateAvatarImage(url);
+            if(url) {
+                avatarImg.src = url;
+                localStorage.setItem('tno_avatar_k70', url); 
+                termPrint("> Avatar protocol updated successfully.", 'term-sys');
+            }
             closeAvatarModal();
-        }
-
-        function updateAvatarImage(url) {
-            avatarImg.src = url;
-            localStorage.setItem('tno_avatar', url); // Lưu lại để F5 không bị mất
-            termPrint("> Avatar protocol updated successfully.", 'term-sys');
         }
 
         /* --- 7. SUPER EVENT LOGIC --- */
