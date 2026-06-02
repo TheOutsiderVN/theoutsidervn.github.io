@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquisitorial Archive - Cogitator Terminal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* CSS: Cấu trúc Giao diện Grimdark & Hiệu ứng CRT */
+        :root {
+            --term-red: #cc0000;
+            --term-glow: rgba(204, 0, 0, 0.6);
+            --term-bg: #050000;
+            --term-text: #d4c4a8; /* Màu giấy da */
+        }
+        
+        body {
+            background-color: var(--term-bg);
+            color: var(--term-text);
+            font-family: 'VT323', monospace;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Hiệu ứng màn hình cong và nhiễu sóng CRT */
+        body::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            border: 2px solid var(--term-red);
+            padding: 40px;
+            box-shadow: 0 0 20px var(--term-glow), inset 0 0 20px var(--term-glow);
+            position: relative;
+            z-index: 3;
+            background: radial-gradient(circle, #1a0000 0%, #000000 100%);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--term-red);
+            text-transform: uppercase;
+            text-shadow: 0 0 5px var(--term-red);
+            border-bottom: 1px solid var(--term-red);
+            padding-bottom: 5px;
+        }
+
+        /* Menu điều hướng */
+        .nav-menu {
+            text-align: center;
+            margin-bottom: 30px;
+            border: 1px solid var(--term-red);
+            padding: 10px;
+            background: rgba(204, 0, 0, 0.1);
+        }
+        .nav-menu a {
+            color: var(--term-red);
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 22px;
+            transition: all 0.3s;
+        }
+        .nav-menu a:hover {
+            color: #fff;
+            text-shadow: 0 0 10px #fff, 0 0 20px var(--term-red);
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 20px;
+            background: rgba(20, 0, 0, 0.6);
+            border-left: 4px solid var(--term-red);
+        }
+
+        .term { color: #ff9900; font-weight: bold; }
+        .success { color: #00ff00; }
+        
+        /* Hiệu ứng Glitch Text */
+        .glitch {
+            animation: glitch 1.5s linear infinite;
+        }
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+
+        /* Con trỏ nhấp nháy */
+        .cursor {
+            display: inline-block;
+            width: 10px;
+            height: 20px;
+            background-color: var(--term-red);
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1 class="glitch" style="text-align: center;">Adeptus Mechanicus - Data Shrine</h1>
+    
+    <p style="color: var(--term-red); text-align: center;" id="boot-text"></p>
+    
+    <div class="nav-menu">
+        <a href="#profile">[ I. Acolyte Profile ]</a>
+        <a href="#archives">[ II. Sacred Archives (Dự án) ]</a>
+        <a href="#conclusion">[ III. Final Logs (Tổng kết) ]</a>
+    </div>
+
+    <div id="profile" class="section">
+        <h2>Identify: Acolyte Profile</h2>
+        <p>> Designation: <strong>[Nguyễn Vũ Đông]</strong></p>
+        <p>> Origin Forge World: Đại học Công nghệ (UET) - K70 Cohort.</p>
+        <p>> Linguistic Protocol Target: Mức chứng thực Band 6.5 High Gothic (IELTS).</p>
+        <p>> <span class="term">Primary Directive (Mục tiêu học tập):</span> Hoàn tất quy trình giải mã 135 tín chỉ bắt buộc. Tối ưu hóa chuỗi logic để vươn tới Thánh chỉ <span class="term">Holy Standard GPA 3.2</span>. Giao thức hoạt động dựa trên sự chính xác tuyệt đối của toán học đại số và mạch điện.</p>
+        <p>> <span class="term">Secondary Protocols (Sở thích):</span> Khởi chạy giả lập chiến lược sa bàn đại cục. Khai phá các kịch bản phân nhánh thời gian dị bản, kiến tạo trật tự từ hỗn loạn.</p>
+        <p>> <span class="term">Tech-Stack:</span> Giao tiếp Serpentis (Python), phân tích Matrix Auspex (MATLAB - Y-bus, RLC).</p>
+    </div>
+
+    <div id="archives" class="section">
+        <h2>Data-Vault: Inquisitorial Archives</h2>
+        <p>> Đang xuất dữ liệu từ môn Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo...</p>
+
+        <h3>Archive 1: Data Vault Structuring (Bài 1)</h3>
+        <p>> Mục tiêu: Thao tác cơ bản với tệp tin và thư mục.<br>
+           > Trạng thái: Đã thiết lập cấu trúc lưu trữ chuẩn hóa theo quy tắc cơ khí. <br>
+           > [CHÈN ẢNH CHỤP MÀN HÌNH THƯ MỤC CỦA BẠN VÀO ĐÂY BẰNG THẺ IMG HOẶC LINK GOOGLE DRIVE]</p>
+
+        <h3>Archive 2: Auspex Information Retrieval (Bài 2)</h3>
+        <p>> Mục tiêu: Tìm kiếm và đánh giá thông tin học thuật.<br>
+           > Tác vụ: Khởi chạy thuật toán tìm kiếm nâng cao (Advanced Operators).<br>
+           > Minh chứng: [BẢNG ĐÁNH GIÁ NGUỒN TIN - CHÈN LINK/ẢNH VÀO ĐÂY]</p>
+
+        <h3>Archive 3: Machine Spirit Communication (Bài 3)</h3>
+        <p>> Mục tiêu: Viết Prompt hiệu quả cho tác vụ học tập.<br>
+           > Tác vụ: Tối ưu hóa câu lệnh (Prompt) để ra lệnh cho Abominable Intelligence.<br>
+           > Kết quả: Prompt được tinh chỉnh với ngữ cảnh chi tiết, tạo ra mã lệnh logic chính xác.<br>
+           > Minh chứng: [CHÈN HÌNH ẢNH SO SÁNH PROMPT GỐC VÀ PROMPT CẢI TIẾN]</p>
+
+        <h3>Archive 4: Skitarii Squad Coordination (Bài 4)</h3>
+        <p>> Mục tiêu: Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm.<br>
+           > Chiến dịch: Ứng dụng AI trong Khoa học Tự nhiên và Kỹ thuật.<br>
+           > Kill-Team Members: Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br>
+           > Giao thức: Đồng bộ hóa chiến thuật qua không gian mạng. <span class="success">[VERIFIED]</span></p>
+
+        <h3>Archive 5: Logic Creation Protocol (Bài 5)</h3>
+        <p>> Mục tiêu: AI tạo sinh hỗ trợ sáng tạo nội dung.<br>
+           > Dự án tiêu biểu: Phân tích kiến trúc <strong>The Midnight Hour: Last Order</strong> và khôi phục chuỗi mật mã 8 ký tự cho Lễ hội Giao thời 2026.<br>
+           > Minh chứng: [CHÈN LINK SẢN PHẨM HOÀN THIỆN TẠI ĐÂY]</p>
+
+        <h3>Archive 6: Lex Mechanicus Compliance (Bài 6)</h3>
+        <p>> Mục tiêu: Sử dụng AI có trách nhiệm trong học tập.<br>
+           > Bộ Nguyên tắc: Tuyệt đối tuân thủ liêm chính học thuật. Cấm sao chép dữ liệu cấm. Mọi thuật toán AI đều phải qua bộ lọc kiểm chứng nguồn cấp dữ liệu gốc.<br>
+           > Minh chứng: [CHÈN LINK HOẶC ẢNH CHỤP BẢN TUYÊN NGÔN CỦA BẠN]</p>
+    </div>
+
+    <div id="conclusion" class="section">
+        <h2>Final Logs: Reflection Matrix</h2>
+        <p>> <strong>1. System Diagnosis (Trải nghiệm):</strong> Quá trình tích hợp dữ liệu vào Cogitator Portfolio này là một bài kiểm tra nghiêm ngặt về khả năng tổ chức hệ thống và tư duy thiết kế web.</p>
+        <p>> <strong>2. Uploaded Protocols (Kỹ năng đã học):</strong>
+           <br> &nbsp;&nbsp; - Kỹ thuật làm chủ và điều hướng hệ thống dữ liệu đám mây.
+           <br> &nbsp;&nbsp; - Làm chủ cách thức giao tiếp và khai thác sức mạnh của các mô hình ngôn ngữ lớn (AI) phục vụ mục đích kỹ thuật.
+        </p>
+        <p>> <strong>3. Error/Debug (Thách thức & Khắc phục):</strong>
+           <br> &nbsp;&nbsp; - <span class="term">Cảnh báo:</span> Ban đầu, việc đóng gói 6 tệp lưu trữ riêng biệt gây ra hiện tượng phân mảnh dữ liệu.
+           <br> &nbsp;&nbsp; - <span class="success">Giải pháp:</span> Chuyển đổi định dạng thành các Archive tích hợp trên một Terminal duy nhất, đảm bảo tính liên kết và truyền đạt mạch lạc.
+        </p>
+    </div>
+
+    <p style="text-align: center; color: #555; margin-top: 50px; font-style: italic;">
+        > "KNOWLEDGE IS POWER, GUARD IT WELL." <br>
+        > <span class="term">CONNECTION TERMINATED.</span>
+    </p>
+</div>
+
+<script>
+    const textArray = [
+        "> INITIALIZING COGITATOR TERMINAL...",
+        "> SCANNING BIOMETRICS...",
+        "> ACCESS GRANTED.",
+        "> WELCOME, TECH-ACOLYTE."
+    ];
+    let textIndex = 0;
+    let charIndex = 0;
+    const typingSpeed = 50;
+    const lineDelay = 500;
+    
+    function typeWriter() {
+        if (textIndex < textArray.length) {
+            if (charIndex < textArray[textIndex].length) {
+                document.getElementById("boot-text").innerHTML += textArray[textIndex].charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, typingSpeed);
+            } else {
+                document.getElementById("boot-text").innerHTML += "<br>";
+                charIndex = 0;
+                textIndex++;
+                setTimeout(typeWriter, lineDelay);
+            }
+        } else {
+            document.getElementById("boot-text").innerHTML += '<span class="cursor"></span>';
+        }
+    }
+    
+    window.onload = typeWriter;
+</script>
+
+</body>
+</html>
