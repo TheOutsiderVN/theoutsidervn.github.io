@@ -3,319 +3,336 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNO TERMINAL // N.V.DONG</title>
+    <title>TNO // K70E-EC1 - THE MIDNIGHT HOUR</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        /* === BIẾN HỆ THỐNG === */
+        /* === TNO CORE VARIABLES === */
         :root {
-            --tno-cyan: #42f5e3;
-            --tno-cyan-dim: #165952;
-            --tno-bg: #050a0a;
-            --tno-panel: #0a1414;
-            --tno-red: #ff3c38;
-            --tno-yellow: #f4d35e;
-            --tno-border: 1px solid var(--tno-cyan);
+            --cyan: #42f5e3;
+            --cyan-dim: #10403b;
+            --bg-color: #020505;
+            --panel-bg: #051010;
+            --tno-orange: #ff9900;
+            --tno-red: #ff3333;
+            --border: 1px solid var(--cyan);
         }
 
-        /* === CẤU TRÚC CHÍNH (ĐÃ FIX LỖI CUỘN TRANG) === */
-        body {
+        /* === NATIVE SCROLL LAYOUT (FIX LỖI CUỘN) === */
+        html, body {
             margin: 0; padding: 0;
-            background-color: var(--tno-bg);
-            color: var(--tno-cyan);
+            background-color: var(--bg-color);
+            color: var(--cyan);
             font-family: 'VT323', monospace;
-            display: flex; flex-direction: column;
-            height: 100vh; overflow: hidden; /* Chỉ khóa cuộn tổng */
+            min-height: 100%; /* Cho phép nội dung dài tự động tạo thanh cuộn */
+            overflow-x: hidden;
+            background-image: 
+                linear-gradient(rgba(0, 20, 20, 0.8) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 20, 20, 0.8) 1px, transparent 1px);
+            background-size: 30px 30px;
         }
 
-        /* Hiệu ứng CRT */
+        /* Scanlines & CRT Flicker */
         body::after {
             content: ""; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15), rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px);
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.1), rgba(0,0,0,0.1) 1px, transparent 1px, transparent 2px);
             pointer-events: none; z-index: 9999;
         }
+        
+        .crt-flicker {
+            animation: flicker 0.15s infinite;
+            pointer-events: none;
+        }
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            50% { opacity: 1; }
+            100% { opacity: 0.99; }
+        }
 
-        /* Tùy chỉnh thanh cuộn mang phong cách TNO */
-        ::-webkit-scrollbar { width: 12px; }
-        ::-webkit-scrollbar-track { background: var(--tno-bg); border-left: var(--tno-border); }
-        ::-webkit-scrollbar-thumb { background: var(--tno-cyan-dim); border: 1px solid var(--tno-cyan); }
-        ::-webkit-scrollbar-thumb:hover { background: var(--tno-cyan); }
+        /* Tùy chỉnh thanh cuộn trình duyệt */
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); border-left: var(--border); }
+        ::-webkit-scrollbar-thumb { background: var(--cyan-dim); border: 1px solid var(--cyan); }
+        ::-webkit-scrollbar-thumb:hover { background: var(--cyan); }
 
-        /* === THANH TOP BAR === */
+        /* === TOP BAR (TNO STYLE STATS) === */
         .top-bar {
-            flex: 0 0 auto;
-            background-color: var(--tno-cyan-dim); color: #fff;
-            padding: 5px 20px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 18px; font-weight: bold;
-            border-bottom: 2px solid var(--tno-cyan);
-            text-transform: uppercase;
-        }
-
-        /* === KHUNG CHỨA NỘI DUNG (MAIN CONTAINER) === */
-        .container {
-            flex: 1 1 auto;
-            display: flex;
-            overflow: hidden; /* Đảm bảo layout 2 cột không bị vỡ */
-            padding: 15px; gap: 15px;
-        }
-
-        /* === CỘT BÊN TRÁI (SIDEBAR) === */
-        .sidebar {
-            flex: 0 0 320px;
-            background-color: var(--tno-panel);
-            border: var(--tno-border);
-            display: flex; flex-direction: column;
-            overflow-y: auto; /* Cho phép cuộn sidebar nếu màn hình nhỏ */
-            position: relative;
-        }
-        
-        /* Box thẻ thông tin liên hệ */
-        .id-card {
-            padding: 15px; border-bottom: var(--tno-border);
-            background: rgba(66, 245, 227, 0.05);
-        }
-        .ascii-art { font-size: 10px; line-height: 10px; color: var(--tno-cyan-dim); text-align: center; margin-bottom: 10px; }
-        .contact-info p { margin: 5px 0; font-size: 18px; }
-        .highlight-text { color: var(--tno-yellow); }
-
-        /* Menu điều hướng */
-        .nav-menu { padding: 15px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; }
-        .tno-btn {
-            background-color: transparent;
-            color: var(--tno-cyan);
-            border: 1px dashed var(--tno-cyan-dim);
-            padding: 12px 15px;
-            font-family: 'VT323', monospace; font-size: 20px; text-align: left;
-            cursor: pointer; transition: 0.2s;
-            display: flex; justify-content: space-between; align-items: center;
-        }
-        .tno-btn::after { content: "[ ]"; font-size: 16px; color: var(--tno-cyan-dim); }
-        .tno-btn:hover, .tno-btn.active { background-color: var(--tno-cyan-dim); border: 1px solid var(--tno-cyan); color: #fff; }
-        .tno-btn.active::after { content: "[✓]"; color: var(--tno-cyan); }
-
-        /* Khung thông số ảo */
-        .sys-stats {
-            padding: 15px; border-top: var(--tno-border); font-size: 16px;
-            color: var(--tno-cyan-dim); background: #000;
-        }
-
-        /* === CỘT BÊN PHẢI (MAIN CONTENT) === */
-        .main-content {
-            flex: 1 1 auto;
-            background-color: var(--tno-panel);
-            border: var(--tno-border);
-            overflow-y: auto; /* ĐÃ FIX: Cho phép vùng nội dung cuộn độc lập */
-            padding: 30px;
-            position: relative;
-        }
-        
-        /* Các góc viền (Decorations) */
-        .corner-tl { position: absolute; top: 0; left: 0; width: 15px; height: 15px; border-top: 3px solid var(--tno-cyan); border-left: 3px solid var(--tno-cyan); }
-        .corner-tr { position: absolute; top: 0; right: 0; width: 15px; height: 15px; border-top: 3px solid var(--tno-cyan); border-right: 3px solid var(--tno-cyan); }
-        .corner-bl { position: absolute; bottom: 0; left: 0; width: 15px; height: 15px; border-bottom: 3px solid var(--tno-cyan); border-left: 3px solid var(--tno-cyan); }
-        .corner-br { position: absolute; bottom: 0; right: 0; width: 15px; height: 15px; border-bottom: 3px solid var(--tno-cyan); border-right: 3px solid var(--tno-cyan); }
-
-        /* Nội dung trang */
-        .page { display: none; animation: glitch-fade 0.2s linear; }
-        .page.active { display: block; }
-        @keyframes glitch-fade { 0% { opacity: 0; transform: translateX(-5px); } 50% { opacity: 0.5; transform: translateX(5px); } 100% { opacity: 1; transform: translateX(0); } }
-
-        /* Typography */
-        h1 { font-size: 28px; border-bottom: 2px dashed var(--tno-cyan-dim); padding-bottom: 10px; margin-top: 0; text-shadow: 0 0 5px var(--tno-cyan-dim); }
-        h2 { background: var(--tno-cyan-dim); color: var(--tno-bg); display: inline-block; padding: 2px 10px; margin-bottom: 15px; font-size: 22px; }
-        p, li { font-size: 20px; line-height: 1.4; margin-bottom: 15px; }
-
-        /* Box sự kiện (Event / Task boxes) */
-        .task-box {
-            border: 1px solid var(--tno-cyan-dim);
-            padding: 20px; margin-bottom: 20px;
-            background: rgba(0, 0, 0, 0.5);
-            position: relative;
-        }
-        .task-box::before { content: "▼ SYS_DATA_NODE"; position: absolute; top: -10px; right: 10px; background: var(--tno-bg); padding: 0 5px; font-size: 14px; color: var(--tno-cyan-dim); }
-        
-        .tno-link { color: var(--tno-bg); background: var(--tno-cyan); text-decoration: none; padding: 2px 8px; font-weight: bold; display: inline-block; margin-top: 5px; }
-        .tno-link:hover { background: var(--tno-yellow); color: var(--tno-bg); }
-
-        /* === THANH BOTTOM BAR === */
-        .bottom-bar {
-            flex: 0 0 auto;
-            background-color: var(--tno-cyan-dim); color: #fff;
-            padding: 2px 20px; font-size: 16px;
+            background-color: var(--cyan-dim);
+            color: var(--bg-color);
+            padding: 8px 20px;
             display: flex; justify-content: space-between;
+            font-size: 22px; font-weight: bold;
+            border-bottom: 2px solid var(--cyan);
+            position: sticky; top: 0; z-index: 100;
+        }
+        .stat { display: flex; gap: 15px; }
+        .stat span { background: var(--cyan); padding: 0 8px; color: #000; }
+
+        /* === MAIN LAYOUT (GRID) === */
+        .wrapper {
+            max-width: 1400px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: 350px 1fr;
+            gap: 20px;
+            padding: 0 20px;
         }
 
+        /* === TNO BOX UI ELEMENT === */
+        .tno-box {
+            background-color: var(--panel-bg);
+            border: var(--border);
+            padding: 15px;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(66, 245, 227, 0.1);
+        }
+        /* Chi tiết viền góc đặc trưng của TNO */
+        .tno-box::before, .tno-box::after {
+            content: ''; position: absolute; width: 6px; height: 6px; background: var(--cyan);
+        }
+        .tno-box::before { top: -1px; left: -1px; }
+        .tno-box::after { bottom: -1px; right: -1px; }
+
+        .box-title {
+            font-size: 24px; text-transform: uppercase;
+            border-bottom: 1px dashed var(--cyan);
+            padding-bottom: 5px; margin-top: 0;
+            color: #fff; text-shadow: 0 0 5px var(--cyan);
+        }
+
+        /* === LEFT COLUMN: COUNTRY PROFILE === */
+        .profile-pic {
+            width: 100%; height: 200px;
+            border: 2px solid var(--cyan-dim);
+            background: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Static_television_screen.jpg') center/cover;
+            position: relative; margin-bottom: 15px;
+            display: flex; align-items: flex-end;
+        }
+        .profile-name { background: rgba(0,0,0,0.8); width: 100%; padding: 5px; font-size: 24px; border-top: 1px solid var(--cyan); }
+        
+        .contact-info { margin: 15px 0; font-size: 18px; line-height: 1.6; }
+        .highlight { color: var(--tno-orange); }
+
+        /* TNO Ideology Pie Chart */
+        .ideology-container { display: flex; align-items: center; gap: 15px; margin: 20px 0; padding: 10px; background: rgba(66, 245, 227, 0.05); border: 1px solid var(--cyan-dim); }
+        .pie-chart {
+            width: 80px; height: 80px; border-radius: 50%;
+            background: conic-gradient(var(--cyan) 0% 45%, var(--cyan-dim) 45% 75%, #000 75% 100%);
+            border: 2px solid var(--cyan); box-shadow: 0 0 10px var(--cyan-dim);
+        }
+        .ideology-text { font-size: 18px; }
+
+        /* National Spirits */
+        .spirit-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 15px; }
+        .spirit {
+            border: 1px solid var(--tno-orange); background: #110a00;
+            padding: 10px 5px; text-align: center; font-size: 14px;
+            color: var(--tno-orange); cursor: pointer; transition: 0.2s;
+        }
+        .spirit:hover { background: var(--tno-orange); color: #000; }
+
+        /* === RIGHT COLUMN: FOCUS TREE (DỰ ÁN) === */
+        .focus-tree-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            position: relative;
+            margin-top: 20px;
+        }
+        /* Đường nối của Cây Tiêu Điểm */
+        .focus-tree-container::before {
+            content: ''; position: absolute;
+            top: 0; bottom: 0; left: 50%; width: 2px;
+            background: var(--cyan-dim); z-index: 0;
+        }
+
+        .focus-node {
+            background: var(--bg-color); border: 2px solid var(--cyan);
+            padding: 20px; position: relative; z-index: 1;
+            box-shadow: inset 0 0 15px rgba(66, 245, 227, 0.1);
+            transition: all 0.3s;
+        }
+        .focus-node:hover {
+            transform: scale(1.02);
+            border-color: #fff;
+            box-shadow: 0 0 15px var(--cyan);
+        }
+        
+        .node-icon { font-size: 30px; margin-bottom: 10px; color: var(--cyan); text-align: center; }
+        .node-title { font-size: 22px; color: #fff; text-align: center; border-bottom: 1px solid var(--cyan-dim); padding-bottom: 5px; margin-bottom: 10px; }
+        .node-desc { font-size: 18px; color: #aaa; line-height: 1.4; }
+        .btn-link {
+            display: block; width: 100%; text-align: center;
+            background: var(--cyan-dim); color: #fff; text-decoration: none;
+            padding: 5px 0; margin-top: 15px; border: 1px solid var(--cyan);
+            font-size: 18px; transition: 0.2s;
+        }
+        .btn-link:hover { background: var(--cyan); color: #000; font-weight: bold; }
+
+        /* TNO Event Popup (Báo cáo tổng kết) */
+        .tno-event {
+            margin-top: 40px;
+            border: 2px solid #fff;
+            background: var(--panel-bg);
+        }
+        .event-header { background: #fff; color: #000; padding: 5px 15px; font-size: 24px; font-weight: bold; }
+        .event-body { padding: 20px; font-size: 20px; line-height: 1.6; }
+        .event-btn {
+            display: block; width: 90%; margin: 20px auto; text-align: center;
+            border: 1px solid var(--cyan); padding: 10px; color: var(--cyan);
+            cursor: pointer; background: transparent; transition: 0.2s; font-family: 'VT323'; font-size: 20px;
+        }
+        .event-btn:hover { background: var(--cyan); color: #000; }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .wrapper { grid-template-columns: 1fr; }
+            .focus-tree-container { grid-template-columns: 1fr; }
+            .focus-tree-container::before { display: none; }
+        }
     </style>
 </head>
-<body>
+<body class="crt-flicker">
 
+    <!-- TOP BAR STATS -->
     <div class="top-bar">
-        <span>[◧] TNO_SYS_VER_7.0.2 // SECURE_NODE_ACTIVE</span>
-        <span style="color: var(--tno-yellow);">DEFCON: 5</span>
-        <span id="clock">00:00:00</span>
+        <div>THE MIDNIGHT HOUR // UET INTELLIGENCE</div>
+        <div class="stat">
+            <div>GPA_TARGET: <span>3.2</span></div>
+            <div>CREDITS: <span>135</span></div>
+            <div>DEFCON: <span style="background: var(--tno-red); color: white;">5</span></div>
+        </div>
     </div>
 
-    <div class="container">
+    <div class="wrapper">
         
-        <div class="sidebar">
-            <div class="id-card">
-                <div class="ascii-art">
-                    ████████████████████<br>
-                    █▄─▄▄▀█▄─██─▄█▄─▄▄▀█<br>
-                    ██─██─██─██─███─██─█<br>
-                    ▀▄▄▄▄▀▀▀▄▄▄▄▀▀▄▄▄▄▀▀<br>
-                </div>
-                <div class="contact-info">
-                    <p style="text-align: center; font-size: 24px; font-weight: bold; border-bottom: 1px solid var(--tno-cyan); padding-bottom: 5px; margin-bottom: 10px;">NGUYỄN VŨ ĐÔNG</p>
-                    <p>> [ID]: <span class="highlight-text">K70E-EC1</span></p>
-                    <p>> [ORG]: UET (ĐH CÔNG NGHỆ)</p>
-                    <p>> [TEL]: <span class="highlight-text">0902069838</span></p>
-                    <p>> [MAIL]: <span class="highlight-text">thetrueoutsidervn@gmail.com</span></p>
+        <!-- ================= TRANG GIỚI THIỆU (LEFT COLUMN) ================= -->
+        <div class="tno-box">
+            <h2 class="box-title">LÃNH ĐẠO HỆ THỐNG</h2>
+            
+            <div class="profile-pic">
+                <div class="profile-name">▶ NGUYỄN VŨ ĐÔNG</div>
+            </div>
+
+            <!-- Dữ liệu cá nhân chi tiết -->
+            <div class="contact-info">
+                <div>[ TAG ]: <span class="highlight">K70E-EC1</span></div>
+                <div>[ ORG ]: Đại học Công nghệ (UET)</div>
+                <div>[ TEL ]: <span class="highlight">0902069838</span></div>
+                <div>[ MAIL]: <span class="highlight">thetrueoutsidervn@gmail.com</span></div>
+                <div style="margin-top: 10px; color: var(--cyan-dim);">> Đang giải mã Giao thức Ngôn ngữ... [MỤC TIÊU: IELTS 5.0 - 6.5]</div>
+            </div>
+
+            <!-- TNO Ideology -->
+            <div class ý="ideology-container">
+                <div class="pie-chart"></div>
+                <div class="ideology-text">
+                    <strong>HỆ TƯ TƯỞNG TƯ DUY:</strong><br>
+                    Logic Hệ thống (Systematic Logic)<br>
+                    <span style="color: #888; font-size: 16px;">Tập trung vào tối ưu hóa luồng dữ liệu thông qua công nghệ.</span>
                 </div>
             </div>
 
-            <div class="nav-menu">
-                <div style="font-size: 14px; color: var(--tno-cyan-dim); margin-bottom: -5px;">▼ DIRECTORIES</div>
-                <button class="tno-btn active" onclick="switchPage('page-intro', this)">01_PROFILE.EXE</button>
-                <button class="tno-btn" onclick="switchPage('page-projects', this)">02_ARCHIVES.DIR</button>
-                <button class="tno-btn" onclick="switchPage('page-report', this)">03_REPORT.TXT</button>
+            <!-- National Spirits -->
+            <div style="font-size: 18px; border-bottom: 1px solid var(--cyan-dim); padding-bottom: 5px;">▶ TINH THẦN QUỐC GIA (KỸ NĂNG)</div>
+            <div class="spirit-grid">
+                <div class="spirit">
+                    [ PY ]<br>Python<br>Logic Code
+                </div>
+                <div class="spirit">
+                    [ ML ]<br>MATLAB<br>Y-bus Auspex
+                </div>
+                <div class="spirit">
+                    [ HOI4 ]<br>TNO/Red Dusk<br>Chiến lược
+                </div>
             </div>
 
-            <div class="sys-stats">
-                CPU_LOAD: <span id="cpu-load">12%</span> | RAM: 135TB<br>
-                ENCRYPTION: <span style="color: var(--tno-red);">ACTIVE</span><br>
-                NET_STATUS: STABLE
+            <div style="margin-top: 20px; font-size: 16px; color: var(--cyan-dim); text-align: justify;">
+                "Portfolio này lưu trữ toàn bộ hồ sơ năng lực số, phản ánh khả năng xử lý thông tin, áp dụng Trí tuệ nhân tạo có trách nhiệm và tư duy chiến lược dị bản."
             </div>
         </div>
 
-        <div class="main-content" id="content-area">
-            <div class="corner-tl"></div><div class="corner-tr"></div>
-            <div class="corner-bl"></div><div class="corner-br"></div>
-
-            <div id="page-intro" class="page active">
-                <h1>[ 01 ] HỒ SƠ NĂNG LỰC CÁ NHÂN</h1>
-                
-                <div class="task-box" style="border-color: var(--tno-cyan);">
-                    <h2>TÓM TẮT ĐỊNH DANH (EXECUTIVE SUMMARY)</h2>
-                    <p>> <strong>Nhân sự:</strong> Nguyễn Vũ Đông - Mã đặc vụ K70E-EC1.</p>
-                    <p>> <strong>Kỹ năng Khí tài:</strong> Thành thạo giao thức Python, phân tích mạch hệ thống qua MATLAB, và xây dựng logic kịch bản phân nhánh dị bản.</p>
-                </div>
-
-                <h2>CHỈ THỊ NHIỆM VỤ (DIRECTIVES)</h2>
-                <ul>
-                    <li><span class="highlight-text">[PRIMARY_TARGET]:</span> Duy trì tính ổn định của hệ thống điểm số qua 135 tín chỉ. Thiết lập mục tiêu chuẩn đầu ra tại ngưỡng GPA 3.2.</li>
-                    <li><span class="highlight-text">[SECONDARY_TARGET]:</span> Vượt qua bộ lọc ngôn ngữ hệ thống, đạt chuẩn IELTS Band 5.0 - 6.5.</li>
-                </ul>
-
-                <h2>MỤC ĐÍCH HỆ THỐNG LƯU TRỮ</h2>
-                <p>> Terminal này đóng vai trò là điểm tập kết dữ liệu (Portfolio) cho môn học <i>Nhập môn Công nghệ số và Ứng dụng AI</i>. Toàn bộ thông tin được thiết kế nhằm phản ánh năng lực tương tác với công nghệ, tư duy hệ thống và khả năng quản trị tài nguyên số của cá nhân tôi.</p>
+        <!-- ================= TRANG DỰ ÁN (RIGHT COLUMN - FOCUS TREE) ================= -->
+        <div>
+            <div class="tno-box" style="padding: 10px 20px;">
+                <h2 class="box-title" style="border: none; margin: 0;">CÂY TIÊU ĐIỂM QUỐC GIA: DỰ ÁN NHẬP MÔN CÔNG NGHỆ SỐ</h2>
             </div>
 
-            <div id="page-projects" class="page">
-                <h1>[ 02 ] TRÍCH XUẤT DỮ LIỆU BÀI TẬP</h1>
+            <div class="focus-tree-container">
                 
-                <div class="task-box">
-                    <h2>[+] BÀI 1 & BÀI 2: XỬ LÝ VÀ PHÂN TÍCH DỮ LIỆU</h2>
-                    <p><strong>> Tác vụ 1.4: Thao tác tệp tin.</strong><br>
-                    Đã thiết lập cấu trúc cây thư mục tối ưu cho việc lưu trữ. Quy tắc đặt tên tệp tuân thủ tiêu chuẩn dễ dàng truy xuất.<br>
-                    <a href="#" class="tno-link">▶ MỞ FILE MINH CHỨNG (BÀI 1)</a></p>
-                    <hr style="border: 0; border-top: 1px dashed var(--tno-cyan-dim); margin: 15px 0;">
-                    <p><strong>> Tác vụ 2.4: Đánh giá thông tin học thuật.</strong><br>
-                    Đã triển khai các toán tử tìm kiếm nâng cao (Advanced Operators) nhằm trích xuất và lọc nhiễu các nguồn tin học thuật.<br>
-                    <a href="#" class="tno-link">▶ MỞ BẢNG ĐÁNH GIÁ (BÀI 2)</a></p>
+                <!-- NODE 1 -->
+                <div class="focus-node">
+                    <div class="node-icon">[ 🗄️ ]</div>
+                    <div class="node-title">BÀI 1: KHỞI TẠO DATABANK</div>
+                    <div class="node-desc">Cấu trúc lại toàn bộ hệ thống tệp tin lưu trữ. Thiết lập chuẩn hóa quy tắc đặt tên nhằm truy xuất dữ liệu tối ưu trong môi trường thông tin nhiễu loạn.</div>
+                    <a href="#" class="btn-link">TRÍCH XUẤT ẢNH MINH CHỨNG</a>
                 </div>
 
-                <div class="task-box">
-                    <h2>[+] BÀI 3 & BÀI 4: GIAO TIẾP VÀ PHỐI HỢP MẠNG LƯỚI</h2>
-                    <p><strong>> Tác vụ 3.4: Tối ưu Prompt cho AI.</strong><br>
-                    Hiệu chuẩn lại các câu lệnh (Prompt). So sánh độ chính xác của AI trước và sau khi được cung cấp ngữ cảnh cụ thể.<br>
-                    <a href="#" class="tno-link">▶ MỞ BẢNG ĐỐI CHIẾU PROMPT (BÀI 3)</a></p>
-                    <hr style="border: 0; border-top: 1px dashed var(--tno-cyan-dim); margin: 15px 0;">
-                    <p><strong>> Tác vụ 4.4: Hợp tác trực tuyến (Chiến dịch nhóm).</strong><br>
-                    Dự án: AI trong Khoa học Tự nhiên và Kỹ thuật.<br>
-                    Nhân sự phối hợp trực tuyến: Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br>
-                    <a href="#" class="tno-link">▶ MỞ MINH CHỨNG HOẠT ĐỘNG NHÓM (BÀI 4)</a></p>
+                <!-- NODE 2 -->
+                <div class="focus-node">
+                    <div class="node-icon">[ 📡 ]</div>
+                    <div class="node-title">BÀI 2: AUSPEX SCANNER</div>
+                    <div class="node-desc">Ứng dụng thuật toán và toán tử tìm kiếm nâng cao. Đánh giá tính xác thực của nguồn tin học thuật trên không gian mạng, loại bỏ tin giả.</div>
+                    <a href="#" class="btn-link">TRUY XUẤT BẢNG ĐÁNH GIÁ</a>
                 </div>
 
-                <div class="task-box">
-                    <h2>[+] BÀI 5 & BÀI 6: SÁNG TẠO VÀ LIÊM CHÍNH</h2>
-                    <p><strong>> Tác vụ 5.4: Ứng dụng AI Tạo sinh.</strong><br>
-                    Trưng bày sản phẩm nội dung số cuối cùng được hỗ trợ hoàn thiện bởi các thuật toán trí tuệ nhân tạo.<br>
-                    <a href="#" class="tno-link">▶ TRUY CẬP SẢN PHẨM SỐ (BÀI 5)</a></p>
-                    <hr style="border: 0; border-top: 1px dashed var(--tno-cyan-dim); margin: 15px 0;">
-                    <p><strong>> Tác vụ 6.4: Tuyên ngôn Liêm chính Học thuật.</strong><br>
-                    Bộ nguyên tắc cá nhân: Không dùng AI để đạo văn. Mọi thông tin do AI sinh ra phải qua quá trình kiểm duyệt và trích dẫn nguồn (cross-check).<br>
-                    <a href="#" class="tno-link">▶ MỞ BỘ NGUYÊN TẮC (BÀI 6)</a></p>
+                <!-- NODE 3 -->
+                <div class="focus-node">
+                    <div class="node-icon">[ 🧠 ]</div>
+                    <div class="node-title">BÀI 3: TINH CHỈNH PROMPT</div>
+                    <div class="node-desc">Can thiệp vào lõi AI Tạo sinh. So sánh kết quả đầu ra giữa các câu lệnh thô sơ và câu lệnh được kỹ sư hóa (Prompt Engineering) với ngữ cảnh sâu.</div>
+                    <a href="#" class="btn-link">MỞ BẢNG ĐỐI CHIẾU</a>
                 </div>
+
+                <!-- NODE 4 (ĐẶC BIỆT) -->
+                <div class="focus-node" style="border-color: var(--tno-orange);">
+                    <div class="node-icon" style="color: var(--tno-orange);">[ 🤝 ]</div>
+                    <div class="node-title" style="color: var(--tno-orange); border-color: var(--tno-orange);">BÀI 4: LIÊN MINH SKITARII</div>
+                    <div class="node-desc">
+                        <strong>Dự án:</strong> AI trong Khoa học Tự nhiên & Kỹ thuật.<br>
+                        <strong>Biệt đội:</strong> Mậu Hà, Duy Đan, Minh Đức, Vũ Đông, Thành Đạt.<br>
+                        Đồng bộ hóa chiến dịch qua không gian Workspace.
+                    </div>
+                    <a href="#" class="btn-link" style="background: var(--tno-orange); color: #000; border-color: var(--tno-orange);">KIỂM TRA BẰNG CHỨNG</a>
+                </div>
+
+                <!-- NODE 5 -->
+                <div class="focus-node">
+                    <div class="node-icon">[ ⚙️ ]</div>
+                    <div class="node-title">BÀI 5: THE LAST ORDER</div>
+                    <div class="node-desc">Hợp tác cùng AI sinh ra sản phẩm số. Kịch bản thế giới dị bản The Midnight Hour và mã hóa Cypher 8 ký tự phục vụ chiến dịch Tết 2026.</div>
+                    <a href="#" class="btn-link">XEM SẢN PHẨM HOÀN THIỆN</a>
+                </div>
+
+                <!-- NODE 6 -->
+                <div class="focus-node">
+                    <div class="node-icon">[ ⚖️ ]</div>
+                    <div class="node-title">BÀI 6: LEX MECHANICUS</div>
+                    <div class="node-desc">Công bố tuyên ngôn về Liêm chính Học thuật. AI chỉ là công cụ nội suy, không được quyền thay thế tư duy độc lập. Trích dẫn minh bạch 100%.</div>
+                    <a href="#" class="btn-link">ĐỌC BỘ NGUYÊN TẮC</a>
+                </div>
+
             </div>
 
-            <div id="page-report" class="page">
-                <h1>[ 03 ] LOGS TỔNG KẾT CHIẾN DỊCH</h1>
-                
-                <div class="task-box" style="border-color: var(--tno-yellow);">
-                    <h2 style="background: var(--tno-yellow); color: #000;">1. TRẢI NGHIỆM HỆ THỐNG</h2>
-                    <p>Việc phát triển và tổng hợp dự án Portfolio kỹ thuật số này không chỉ dừng lại ở mức độ hoàn thành bài tập. Khởi chạy hệ thống này trên không gian mạng là một bước đệm giúp tôi rèn luyện tư duy xử lý thông tin, sắp xếp dữ liệu cấu trúc phức tạp thành một giao diện UI/UX trực quan.</p>
+            <!-- ================= TRANG TỔNG KẾT (TNO EVENT POPUP) ================= -->
+            <div class="tno-event">
+                <div class="event-header">SỰ KIỆN: BÁO CÁO TỔNG KẾT CHIẾN DỊCH</div>
+                <div class="event-body">
+                    <p><strong>> TỔNG QUAN TRẢI NGHIỆM:</strong> Việc quy hoạch dữ liệu học thuật thành một hệ thống Terminal mô phỏng UI/UX của TNO là một thách thức lớn về mặt lập trình Front-end. Cấu trúc mới đã giải quyết triệt để lỗi phân mảnh giao diện.</p>
+                    
+                    <p><strong>> TÀI SẢN KỸ NĂNG:</strong> Hệ thống hóa được tư duy quản lý dự án trên GitHub Pages. Thay vì bị AI "dắt mũi", tôi đã học được cách kiểm soát các mô hình ngôn ngữ thông qua kỹ thuật Prompting cấu trúc.</p>
+                    
+                    <p><strong>> KHẮC PHỤC KHỦNG HOẢNG:</strong> Giao diện hộp (Boxy) tĩnh trước đây gây xung đột với bộ máy cuộn (scroll engine) của trình duyệt. Việc áp dụng mô hình luồng lưới (CSS Grid) và thiết lập cuộn tự do (Native Scroll) đã đưa hệ thống vào trạng thái ổn định tối đa.</p>
+                    
+                    <div class="event-btn" onclick="alert('Báo cáo đã được lưu vào hệ thống máy chủ UET.')">
+                        LƯU TRỮ VÀ TIẾP TỤC [Click]
+                    </div>
                 </div>
-
-                <div class="task-box">
-                    <h2>2. TÀI NGUYÊN KIẾN THỨC ĐÃ THU THẬP</h2>
-                    <ul>
-                        <li>Nắm vững nguyên lý hoạt động của các công cụ tìm kiếm và lọc dữ liệu nâng cao.</li>
-                        <li>Hiểu rõ bản chất của AI Tạo sinh (Generative AI), từ đó viết Prompt chuẩn xác hơn, biến máy móc thành trợ lý thay vì bị nó chi phối.</li>
-                        <li>Kỹ năng thiết lập không gian làm việc nhóm qua mạng (Workspace/Trello) để đảm bảo tiến độ đồng bộ.</li>
-                    </ul>
-                </div>
-
-                <div class="task-box">
-                    <h2>3. DEBUG (KHẮC PHỤC SỰ CỐ)</h2>
-                    <p><strong>[CẢNH BÁO LỖI]:</strong> Trong giai đoạn đầu thiết lập, việc chuyển đổi từ cấu trúc thư mục HTML đa tầng (như kho lưu trữ mẫu) sang nền tảng Terminal Single-page gặp xung đột về cách hiển thị cuộn trang (scroll overflow).</p>
-                    <p><strong>[GIẢI PHÁP]:</strong> Áp dụng cấu trúc Flexbox toàn diện. Khóa chiều cao tổng của hệ thống (`100vh`) và phân lập quyền cuộn trang (`overflow-y: auto`) riêng biệt cho từng khối hiển thị (Sidebar và Main Content). Trạng thái hiện tại: Đã xử lý triệt để.</p>
-                </div>
-                
-                <p style="text-align: center; color: var(--tno-cyan-dim); margin-top: 40px;">
-                    ========================================<br>
-                    END OF REPORT. CONNECTION SECURED.<br>
-                    ========================================
-                </p>
             </div>
             
+            <!-- Khoảng trống đáy trang -->
             <div style="height: 50px;"></div>
         </div>
     </div>
 
-    <div class="bottom-bar">
-        <span>> UET_OS_PORTFOLIO_SYSTEM</span>
-        <span style="color: var(--tno-cyan);">[██████████] 100% SECURE</span>
-    </div>
-
-    <script>
-        // Cập nhật đồng hồ
-        function updateClock() {
-            const now = new Date();
-            document.getElementById('clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19);
-        }
-        setInterval(updateClock, 1000);
-        updateClock();
-
-        // Tạo hiệu ứng nhảy số CPU giả cho ngầu
-        setInterval(() => {
-            const cpu = Math.floor(Math.random() * (25 - 5 + 1) + 5);
-            document.getElementById('cpu-load').innerText = cpu + '%';
-        }, 2000);
-
-        // Chuyển trang & Đảm bảo cuộn lên đầu (Fix cuộn)
-        function switchPage(pageId, button) {
-            // Đổi trạng thái nút
-            document.querySelectorAll('.tno-btn').forEach(btn => btn.classList.remove('active'));
-            button.classList.add('active');
-
-            // Đổi nội dung hiển thị
-            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-            document.getElementById(pageId).classList.add('active');
-
-            // Lệnh quan trọng: Tự động cuộn khung nội dung về lại trên cùng khi bấm chuyển trang
-            document.getElementById('content-area').scrollTop = 0;
-        }
-    </script>
 </body>
 </html>
