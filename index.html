@@ -3,219 +3,293 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inquisitorial Archive - Cogitator Terminal</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700&family=VT323&display=swap" rel="stylesheet">
+    <title>TNO - The Midnight Hour Database</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
-        /* CSS: Cấu trúc Giao diện Grimdark & Hiệu ứng CRT */
+        /* TNO UI Aesthetic: Cyan CRT, Scanlines, Retro Terminal */
         :root {
-            --term-red: #cc0000;
-            --term-glow: rgba(204, 0, 0, 0.6);
-            --term-bg: #050000;
-            --term-text: #d4c4a8; /* Màu giấy da */
+            --tno-cyan: #33ffcc;
+            --tno-dark: #001a1a;
+            --tno-bg: #000808;
+            --tno-red: #ff3333;
+            --tno-orange: #ffaa00; /* Dành cho các Event đặc biệt */
         }
-        
+
         body {
-            background-color: var(--term-bg);
-            color: var(--term-text);
+            background-color: var(--tno-bg);
+            color: var(--tno-cyan);
             font-family: 'VT323', monospace;
             margin: 0;
-            padding: 0;
-            overflow-x: hidden;
+            padding: 20px;
+            overflow: hidden; /* Chặn cuộn trang, giống màn hình máy tính thật */
         }
 
-        /* Hiệu ứng màn hình cong và nhiễu sóng CRT */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
+        /* Hiệu ứng sọc màn hình (Scanlines) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
             pointer-events: none;
+            z-index: 999;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 40px auto;
-            border: 2px solid var(--term-red);
-            padding: 40px;
-            box-shadow: 0 0 20px var(--term-glow), inset 0 0 20px var(--term-glow);
-            position: relative;
-            z-index: 3;
-            background: radial-gradient(circle, #1a0000 0%, #000000 100%);
+        /* Tiêu đề hệ thống */
+        .header {
+            border-bottom: 2px solid var(--tno-cyan);
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            text-shadow: 0 0 5px var(--tno-cyan);
         }
 
-        h1, h2, h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--term-red);
-            text-transform: uppercase;
-            text-shadow: 0 0 5px var(--term-red);
-            border-bottom: 1px solid var(--term-red);
+        /* Lưới thư mục (Desktop) */
+        .directory-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 50px;
+        }
+
+        .folder-btn {
+            background: var(--tno-dark);
+            border: 1px solid var(--tno-cyan);
+            color: var(--tno-cyan);
+            padding: 20px;
+            text-align: center;
+            font-family: 'VT323', monospace;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: inset 0 0 10px rgba(51, 255, 204, 0.2);
+        }
+
+        .folder-btn:hover {
+            background: var(--tno-cyan);
+            color: var(--tno-bg);
+            box-shadow: 0 0 15px var(--tno-cyan);
+        }
+
+        /* Cửa sổ Hồ sơ (Window) */
+        .window {
+            display: none; /* Ẩn đi cho đến khi click */
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-height: 80vh;
+            background: var(--tno-bg);
+            border: 2px solid var(--tno-cyan);
+            box-shadow: 0 0 30px rgba(51, 255, 204, 0.4);
+            z-index: 100;
+            overflow-y: auto;
+        }
+
+        .window-header {
+            background: var(--tno-cyan);
+            color: var(--tno-bg);
+            padding: 5px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .close-btn {
+            background: var(--tno-red);
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-family: 'VT323', monospace;
+            font-weight: bold;
+            padding: 0 10px;
+        }
+
+        .window-content {
+            padding: 20px;
+            line-height: 1.6;
+            font-size: 18px;
+        }
+
+        /* TNO Event Box Style */
+        .tno-event {
+            border: 2px solid var(--tno-orange);
+            background: #111;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .tno-event-title {
+            color: var(--tno-orange);
+            text-align: center;
+            font-size: 24px;
+            border-bottom: 1px solid var(--tno-orange);
             padding-bottom: 5px;
         }
 
-        /* Menu điều hướng */
-        .nav-menu {
+        /* Màn hình tải/giải mã */
+        #loading-screen {
+            display: none;
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
             text-align: center;
-            margin-bottom: 30px;
-            border: 1px solid var(--term-red);
-            padding: 10px;
-            background: rgba(204, 0, 0, 0.1);
-        }
-        .nav-menu a {
-            color: var(--term-red);
-            text-decoration: none;
-            margin: 0 15px;
-            font-size: 22px;
-            transition: all 0.3s;
-        }
-        .nav-menu a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px #fff, 0 0 20px var(--term-red);
+            font-size: 24px;
+            z-index: 200;
         }
 
-        .section {
-            margin-bottom: 40px;
-            padding: 20px;
-            background: rgba(20, 0, 0, 0.6);
-            border-left: 4px solid var(--term-red);
-        }
-
-        .term { color: #ff9900; font-weight: bold; }
-        .success { color: #00ff00; }
-        
-        /* Hiệu ứng Glitch Text */
-        .glitch {
-            animation: glitch 1.5s linear infinite;
-        }
-        @keyframes glitch {
-            2%, 64% { transform: translate(2px, 0) skew(0deg); }
-            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-            62% { transform: translate(0, 0) skew(5deg); }
-        }
-
-        /* Con trỏ nhấp nháy */
-        .cursor {
-            display: inline-block;
-            width: 10px;
-            height: 20px;
-            background-color: var(--term-red);
-            animation: blink 1s step-end infinite;
-        }
-        @keyframes blink { 50% { opacity: 0; } }
+        .red-text { color: var(--tno-red); }
+        .orange-text { color: var(--tno-orange); }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1 class="glitch" style="text-align: center;">Adeptus Mechanicus - Data Shrine</h1>
-    
-    <p style="color: var(--term-red); text-align: center;" id="boot-text"></p>
-    
-    <div class="nav-menu">
-        <a href="#profile">[ I. Acolyte Profile ]</a>
-        <a href="#archives">[ II. Sacred Archives (Dự án) ]</a>
-        <a href="#conclusion">[ III. Final Logs (Tổng kết) ]</a>
+    <div class="header">
+        <div>
+            <h1 style="margin:0;">SYSTEM: THE MIDNIGHT HOUR</h1>
+            <p style="margin:0;">> GLOBAL INTELLIGENCE DATABASE - UET SECURE NETWORK</p>
+        </div>
+        <div style="text-align: right;">
+            <p style="margin:0;">DEFCON: <span class="red-text">5</span></p>
+            <p style="margin:0;" id="clock"></p>
+        </div>
     </div>
 
-    <div id="profile" class="section">
-        <h2>Identify: Acolyte Profile</h2>
-        <p>> Designation: <strong>[Nguyễn Vũ Đông]</strong></p>
-        <p>> Origin Forge World: Đại học Công nghệ (UET) - K70 Cohort.</p>
-        <p>> Linguistic Protocol Target: Mức chứng thực Band 6.5 High Gothic (IELTS).</p>
-        <p>> <span class="term">Primary Directive (Mục tiêu học tập):</span> Hoàn tất quy trình giải mã 135 tín chỉ bắt buộc. Tối ưu hóa chuỗi logic để vươn tới Thánh chỉ <span class="term">Holy Standard GPA 3.2</span>. Giao thức hoạt động dựa trên sự chính xác tuyệt đối của toán học đại số và mạch điện.</p>
-        <p>> <span class="term">Secondary Protocols (Sở thích):</span> Khởi chạy giả lập chiến lược sa bàn đại cục. Khai phá các kịch bản phân nhánh thời gian dị bản, kiến tạo trật tự từ hỗn loạn.</p>
-        <p>> <span class="term">Tech-Stack:</span> Giao tiếp Serpentis (Python), phân tích Matrix Auspex (MATLAB - Y-bus, RLC).</p>
+    <p>> LỜI NHẮC HỆ THỐNG: Truy cập các thư mục bên dưới để trích xuất dữ liệu.</p>
+
+    <!-- Màn hình chính (Gồm các nút bấm) -->
+    <div class="directory-grid">
+        <button class="folder-btn" onclick="openDir('dossier')">
+            [ DIR_01 ]<br><br>PROFILE_DOSSIER.EXE
+        </button>
+        <button class="folder-btn" onclick="openDir('operations')">
+            [ DIR_02 ]<br><br>PROJECT_ARCHIVES.DIR
+        </button>
+        <button class="folder-btn" onclick="openDir('reflection')">
+            [ DIR_03 ]<br><br>AFTER_ACTION_REPORT.TXT
+        </button>
     </div>
 
-    <div id="archives" class="section">
-        <h2>Data-Vault: Inquisitorial Archives</h2>
-        <p>> Đang xuất dữ liệu từ môn Nhập môn Công nghệ số và Ứng dụng Trí tuệ nhân tạo...</p>
-
-        <h3>Archive 1: Data Vault Structuring (Bài 1)</h3>
-        <p>> Mục tiêu: Thao tác cơ bản với tệp tin và thư mục.<br>
-           > Trạng thái: Đã thiết lập cấu trúc lưu trữ chuẩn hóa theo quy tắc cơ khí. <br>
-           > [CHÈN ẢNH CHỤP MÀN HÌNH THƯ MỤC CỦA BẠN VÀO ĐÂY BẰNG THẺ IMG HOẶC LINK GOOGLE DRIVE]</p>
-
-        <h3>Archive 2: Auspex Information Retrieval (Bài 2)</h3>
-        <p>> Mục tiêu: Tìm kiếm và đánh giá thông tin học thuật.<br>
-           > Tác vụ: Khởi chạy thuật toán tìm kiếm nâng cao (Advanced Operators).<br>
-           > Minh chứng: [BẢNG ĐÁNH GIÁ NGUỒN TIN - CHÈN LINK/ẢNH VÀO ĐÂY]</p>
-
-        <h3>Archive 3: Machine Spirit Communication (Bài 3)</h3>
-        <p>> Mục tiêu: Viết Prompt hiệu quả cho tác vụ học tập.<br>
-           > Tác vụ: Tối ưu hóa câu lệnh (Prompt) để ra lệnh cho Abominable Intelligence.<br>
-           > Kết quả: Prompt được tinh chỉnh với ngữ cảnh chi tiết, tạo ra mã lệnh logic chính xác.<br>
-           > Minh chứng: [CHÈN HÌNH ẢNH SO SÁNH PROMPT GỐC VÀ PROMPT CẢI TIẾN]</p>
-
-        <h3>Archive 4: Skitarii Squad Coordination (Bài 4)</h3>
-        <p>> Mục tiêu: Sử dụng công cụ hợp tác trực tuyến cho dự án nhóm.<br>
-           > Chiến dịch: Ứng dụng AI trong Khoa học Tự nhiên và Kỹ thuật.<br>
-           > Kill-Team Members: Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br>
-           > Giao thức: Đồng bộ hóa chiến thuật qua không gian mạng. <span class="success">[VERIFIED]</span></p>
-
-        <h3>Archive 5: Logic Creation Protocol (Bài 5)</h3>
-        <p>> Mục tiêu: AI tạo sinh hỗ trợ sáng tạo nội dung.<br>
-           > Dự án tiêu biểu: Phân tích kiến trúc <strong>The Midnight Hour: Last Order</strong> và khôi phục chuỗi mật mã 8 ký tự cho Lễ hội Giao thời 2026.<br>
-           > Minh chứng: [CHÈN LINK SẢN PHẨM HOÀN THIỆN TẠI ĐÂY]</p>
-
-        <h3>Archive 6: Lex Mechanicus Compliance (Bài 6)</h3>
-        <p>> Mục tiêu: Sử dụng AI có trách nhiệm trong học tập.<br>
-           > Bộ Nguyên tắc: Tuyệt đối tuân thủ liêm chính học thuật. Cấm sao chép dữ liệu cấm. Mọi thuật toán AI đều phải qua bộ lọc kiểm chứng nguồn cấp dữ liệu gốc.<br>
-           > Minh chứng: [CHÈN LINK HOẶC ẢNH CHỤP BẢN TUYÊN NGÔN CỦA BẠN]</p>
+    <!-- Màn hình giải mã giả lập -->
+    <div id="loading-screen">
+        <p>> DECRYPTING SIGNAL...</p>
+        <p id="loading-bar">||||||||||||||||||||</p>
     </div>
 
-    <div id="conclusion" class="section">
-        <h2>Final Logs: Reflection Matrix</h2>
-        <p>> <strong>1. System Diagnosis (Trải nghiệm):</strong> Quá trình tích hợp dữ liệu vào Cogitator Portfolio này là một bài kiểm tra nghiêm ngặt về khả năng tổ chức hệ thống và tư duy thiết kế web.</p>
-        <p>> <strong>2. Uploaded Protocols (Kỹ năng đã học):</strong>
-           <br> &nbsp;&nbsp; - Kỹ thuật làm chủ và điều hướng hệ thống dữ liệu đám mây.
-           <br> &nbsp;&nbsp; - Làm chủ cách thức giao tiếp và khai thác sức mạnh của các mô hình ngôn ngữ lớn (AI) phục vụ mục đích kỹ thuật.
-        </p>
-        <p>> <strong>3. Error/Debug (Thách thức & Khắc phục):</strong>
-           <br> &nbsp;&nbsp; - <span class="term">Cảnh báo:</span> Ban đầu, việc đóng gói 6 tệp lưu trữ riêng biệt gây ra hiện tượng phân mảnh dữ liệu.
-           <br> &nbsp;&nbsp; - <span class="success">Giải pháp:</span> Chuyển đổi định dạng thành các Archive tích hợp trên một Terminal duy nhất, đảm bảo tính liên kết và truyền đạt mạch lạc.
-        </p>
+    <!-- THƯ MỤC 1: GIỚI THIỆU -->
+    <div id="win-dossier" class="window">
+        <div class="window-header">
+            <span>> VIEWING: PROFILE_DOSSIER.EXE</span>
+            <button class="close-btn" onclick="closeAll()">[ X ]</button>
+        </div>
+        <div class="window-content">
+            <p>> TÊN ĐỊNH DANH: <strong>[ĐIỀN TÊN BẠN]</strong></p>
+            <p>> ĐƠN VỊ: UET Cohort K70</p>
+            <p>> CHỈ SỐ MỤC TIÊU (GPA TARGET): <span class="orange-text">3.2 / 135 Tín chỉ</span></p>
+            <p>> MÃ HÓA NGÔN NGỮ: Mức IELTS Band 6.5</p>
+            <div class="tno-event">
+                <div class="tno-event-title">SỞ THÍCH & ĐỊNH HƯỚNG</div>
+                <p>Khả năng khai thác thuật toán Python, xử lý ma trận Y-bus qua MATLAB và tư duy chiến lược mô phỏng. Đam mê thiết kế các nhánh lịch sử dị bản và hệ thống logic giả lập.</p>
+                <p style="text-align: center; color: gray;"><i>- There is only hope under the digital sun. -</i></p>
+            </div>
+        </div>
     </div>
 
-    <p style="text-align: center; color: #555; margin-top: 50px; font-style: italic;">
-        > "KNOWLEDGE IS POWER, GUARD IT WELL." <br>
-        > <span class="term">CONNECTION TERMINATED.</span>
-    </p>
-</div>
+    <!-- THƯ MỤC 2: DỰ ÁN (6 BÀI TẬP) -->
+    <div id="win-operations" class="window">
+        <div class="window-header">
+            <span>> VIEWING: PROJECT_ARCHIVES.DIR</span>
+            <button class="close-btn" onclick="closeAll()">[ X ]</button>
+        </div>
+        <div class="window-content">
+            <h2 class="orange-text">/ ROOT / KỸ_NĂNG_SỐ_AI /</h2>
+            
+            <p><strong>[ OPERATION: DATABANK ] (Bài 1)</strong><br>
+            > Phân loại hệ thống tệp tin và thiết lập cấu trúc lưu trữ bảo mật.<br>
+            > <a href="#" style="color:var(--tno-cyan);">[TRUY CẬP ẢNH MINH CHỨNG]</a></p>
 
-<script>
-    const textArray = [
-        "> INITIALIZING COGITATOR TERMINAL...",
-        "> SCANNING BIOMETRICS...",
-        "> ACCESS GRANTED.",
-        "> WELCOME, TECH-ACOLYTE."
-    ];
-    let textIndex = 0;
-    let charIndex = 0;
-    const typingSpeed = 50;
-    const lineDelay = 500;
-    
-    function typeWriter() {
-        if (textIndex < textArray.length) {
-            if (charIndex < textArray[textIndex].length) {
-                document.getElementById("boot-text").innerHTML += textArray[textIndex].charAt(charIndex);
-                charIndex++;
-                setTimeout(typeWriter, typingSpeed);
-            } else {
-                document.getElementById("boot-text").innerHTML += "<br>";
-                charIndex = 0;
-                textIndex++;
-                setTimeout(typeWriter, lineDelay);
-            }
-        } else {
-            document.getElementById("boot-text").innerHTML += '<span class="cursor"></span>';
+            <p><strong>[ OPERATION: AUSPEX ] (Bài 2)</strong><br>
+            > Quét nguồn dữ liệu học thuật bằng toán tử nâng cao.<br>
+            > <a href="#" style="color:var(--tno-cyan);">[TRUY CẬP BẢNG ĐÁNH GIÁ NGUỒN TIN]</a></p>
+
+            <p><strong>[ OPERATION: ENIGMA ] (Bài 3)</strong><br>
+            > Tối ưu hóa chuỗi lệnh (Prompt) nhập vào AI để tăng cường độ chính xác.<br>
+            > <a href="#" style="color:var(--tno-cyan);">[TRUY CẬP SO SÁNH PROMPT]</a></p>
+
+            <div class="tno-event">
+                <div class="tno-event-title">SỰ KIỆN: LIÊN MINH SKITARII ĐƯỢC THÀNH LẬP (Bài 4)</div>
+                <p>Hệ thống ghi nhận sự phối hợp trực tuyến qua mạng lưới. Dự án "AI trong Khoa học & Kỹ thuật" được khởi động cùng các đặc vụ: Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.</p>
+                <p style="text-align: center; font-style: italic;">"Cỗ máy bắt đầu vận hành..."</p>
+            </div>
+
+            <p><strong>[ OPERATION: LAST ORDER ] (Bài 5)</strong><br>
+            > Ứng dụng AI tạo sinh vào sáng tạo nội dung số (ví dụ: Code game logic, kịch bản, hoặc chuỗi mật mã 8 ký tự cho chiến dịch Tết 2026).<br>
+            > <a href="#" style="color:var(--tno-cyan);">[TRUY CẬP SẢN PHẨM SỐ]</a></p>
+
+            <p><strong>[ DIRECTIVE: OVERLORD ] (Bài 6)</strong><br>
+            > Nguyên tắc bất di bất dịch về AI có trách nhiệm. Chống lại các dị thường về liêm chính học thuật.<br>
+            > <a href="#" style="color:var(--tno-cyan);">[TRUY CẬP BỘ NGUYÊN TẮC]</a></p>
+        </div>
+    </div>
+
+    <!-- THƯ MỤC 3: TỔNG KẾT -->
+    <div id="win-reflection" class="window">
+        <div class="window-header">
+            <span>> VIEWING: AFTER_ACTION_REPORT.TXT</span>
+            <button class="close-btn" onclick="closeAll()">[ X ]</button>
+        </div>
+        <div class="window-content">
+            <h2 class="red-text">CLASSIFIED LOGS</h2>
+            <p>> <strong>KẾT QUẢ CHIẾN DỊCH:</strong> Xây dựng thành công hệ thống dữ liệu số. Làm chủ các công cụ hỗ trợ và AI tạo sinh.</p>
+            <p>> <strong>BÁO CÁO NHỮNG ĐIỂM SÁNG:</strong> Khả năng ứng dụng logic từ toán học và Python giúp việc điều hướng các Prompt AI trở nên có cấu trúc và hiệu quả hơn hẳn.</p>
+            <p>> <strong>GIẢI QUYẾT KHỦNG HOẢNG:</strong> Vượt qua rào cản thao tác với mã nguồn GitHub. Chuyển đổi thành công kiến trúc từ một trang văn bản tĩnh sang một hệ thống Terminal TNO mô phỏng toàn diện.</p>
+            <br>
+            <p style="text-align:center;">> QUYỀN TRUY CẬP SẼ BỊ ĐÓNG LẠI SAU KHI THOÁT. <br> GLORY TO THE SYSTEM.</p>
+        </div>
+    </div>
+
+    <script>
+        // Hiệu ứng đồng hồ hệ thống
+        function updateClock() {
+            const now = new Date();
+            document.getElementById('clock').innerText = now.toISOString().replace('T', ' ').substring(0, 19);
         }
-    }
-    
-    window.onload = typeWriter;
-</script>
+        setInterval(updateClock, 1000);
+        updateClock();
 
+        // Logic Hệ điều hành ảo: Mở/Đóng thư mục kèm hiệu ứng
+        function openDir(id) {
+            closeAll(); // Đóng các cửa sổ cũ
+            const loading = document.getElementById('loading-screen');
+            const targetWin = document.getElementById('win-' + id);
+            
+            loading.style.display = 'block';
+            
+            // Giả lập thời gian giải mã (Decryption effect)
+            let bar = "||||";
+            let cycles = 0;
+            const loader = setInterval(() => {
+                document.getElementById('loading-bar').innerText = bar;
+                bar += "||||";
+                cycles++;
+                if (cycles > 4) {
+                    clearInterval(loader);
+                    loading.style.display = 'none';
+                    targetWin.style.display = 'block';
+                }
+            }, 150);
+        }
+
+        function closeAll() {
+            const windows = document.querySelectorAll('.window');
+            windows.forEach(win => win.style.display = 'none');
+        }
+    </script>
 </body>
 </html>
