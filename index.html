@@ -270,10 +270,7 @@
             font-size: 26px; font-weight: bold; border-bottom: 2px solid var(--theme-dim); cursor: grab; text-transform: uppercase; text-shadow: 2px 2px #000;
         }
         .win-header:active { cursor: grabbing; }
-        
-        /* Đặt ID cho Tiêu đề cửa sổ để Đổi tên động khi bấm vào bài khác */
         .win-title { pointer-events: none; letter-spacing: 2px; background: rgba(0,0,0,0.8); padding: 0 10px; border: 1px solid var(--theme-main); }
-        
         .win-controls { display: flex; gap: 10px; background: rgba(0,0,0,0.8); padding: 2px; }
         .win-btn { background: transparent; border: 1px solid var(--theme-main); color: var(--theme-main); width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'VT323'; font-size: 24px; transition: 0.2s; }
         .win-btn:hover { background: var(--theme-main); color: #000; }
@@ -387,9 +384,6 @@
         .tag-warn { color: var(--tno-red); font-weight: bold; background: rgba(255, 51, 51, 0.1); padding: 2px 10px; border: 1px solid var(--tno-red); display: inline-block; margin-bottom: 5px; }
         .tag-info { color: var(--tno-yellow); font-weight: bold; background: rgba(244, 211, 94, 0.1); padding: 2px 10px; border: 1px solid var(--tno-yellow); display: inline-block; margin-bottom: 5px; }
 
-        /* MÀN HÌNH NHIỄU GIẢ LẬP KHI CHUYỂN BÀI */
-        .dec-scramble { font-family: monospace; letter-spacing: 3px; color: var(--tno-yellow); word-break: break-all; opacity: 0.9; font-size: 22px; line-height: 1.3; text-shadow: 0 0 5px var(--tno-yellow); }
-
         /* ==========================================================================
            [9] ỨNG DỤNG KHÁC: TERMINAL, GHI_CHU, CAI_DAT
            ========================================================================== */
@@ -446,7 +440,6 @@
 </head>
 <body>
     <!-- NATIVE AUDIO PLAYER -->
-    <!-- Dòng dưới đây yêu cầu bạn tải file our_final_war.mp3 lên chung thư mục với index.html -->
     <audio id="os-bgm" loop preload="auto">
         <source src="our_final_war.mp3" type="audio/mpeg">
     </audio>
@@ -456,7 +449,7 @@
     <div class="scanlines"></div>
     <div class="scanline-bar"></div>
 
-    <!-- MÀN HÌNH CHỜ (KÍCH HOẠT HỆ THỐNG VÀ AUDIO) -->
+    <!-- MÀN HÌNH CHỜ -->
     <div id="pre-boot">
         <div style="text-align: center; margin-bottom: 30px; font-size: 32px; color: var(--tno-cyan);">> MÃ ĐỊNH DANH 25022175 ĐANG TRONG TRẠNG THÁI CHỜ...</div>
         <button class="power-btn" onclick="startSystem()">KHỞI ĐỘNG HỆ ĐIỀU HÀNH VÀ ÂM THANH</button>
@@ -601,7 +594,6 @@
                                 <div class="d-block-title" style="color: var(--tno-orange);">KÊNH LIÊN LẠC BẢO MẬT</div>
                                 <p>> <strong>Đường dây nóng (Tel):</strong> <span class="d-hl" style="font-size: 32px;">0902.069.838</span></p>
                                 <p>> <strong>Hộp thư điện tín (Email):</strong> <span class="d-hl" style="font-size: 26px;">thetrueoutsidervn@gmail.com</span></p>
-                                <p style="color: #888; font-size: 20px; margin-top: 15px;">* Giao thức liên lạc mã hóa đầu cuối đã được kích hoạt. Sẵn sàng tiếp nhận chỉ thị 24/7.</p>
                             </div>
                         </div>
 
@@ -774,9 +766,10 @@
             </div>
         </div>
 
-        <!-- WIN 4: GIAI_MA.exe (DECRYPTOR - TÍCH HỢP TẢI FILE MINH CHỨNG & REPLACE WINDOW) -->
+        <!-- WIN 4: GIAI_MA.exe (DECRYPTOR - TÍCH HỢP TẢI FILE MINH CHỨNG & ĐỔI TÊN ĐỘNG) -->
         <div class="os-window" id="win-decrypt">
             <div class="win-header" onmousedown="dragWindow(event, 'win-decrypt')">
+                <!-- ID để JS có thể tìm và đổi tên File thực thi trên header -->
                 <span class="win-title" id="decrypt-win-title">[🔓] C:\TOOLS\GIAI_MA_HO_SO.exe</span>
                 <div class="win-controls">
                     <button class="win-btn win-btn-close" onclick="closeWindow('win-decrypt')">X</button>
@@ -790,7 +783,7 @@
                         <button class="dec-btn" onclick="switchDecTab(2)">TÀI LIỆU MINH CHỨNG</button>
                     </div>
                     <div class="dec-content-area" id="dec-area">
-                        <!-- Nội dung sẽ được nạp bằng JavaScript -->
+                        <!-- Nội dung hiển thị ngay lập tức, bỏ qua nhiễu chữ -->
                         <h2 style="color: var(--theme-main); text-align: center; margin-top: 60px; font-size: 30px;">ĐANG CHỜ NHẬN LỆNH TỪ BẢN ĐỒ CHIẾN LƯỢC...</h2>
                     </div>
                 </div>
@@ -808,7 +801,7 @@
             <div class="win-content">
                 <div class="term-layout">
                     <div class="term-output" id="term-output">
-                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V25.0 ĐÃ SẴN SÀNG.</div>
+                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V26.0 ĐÃ SẴN SÀNG.</div>
                         <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách lệnh.</div>
                     </div>
                     <div class="term-input-row">
@@ -828,7 +821,7 @@
                 </div>
             </div>
             <div class="win-content">
-                <textarea class="notes-textarea" id="notepad" placeholder="Nhập ghi chú tuyệt mật vào đây. Dữ liệu sẽ tự động được lưu vào bộ nhớ cục bộ..."></textarea>
+                <textarea class="notes-textarea" id="notepad" placeholder="Nhập ghi chú tuyệt mật vào đây. Dữ liệu sẽ tự động được lưu vào bộ nhớ trình duyệt..."></textarea>
             </div>
         </div>
 
@@ -858,7 +851,7 @@
     </div> <!-- Kết thúc Desktop -->
 
     <!-- ==========================================================================
-         [4] CÁC HỘP THOẠI MODAL (CẬP NHẬT ẢNH & SỰ KIỆN TỔNG KẾT)
+         [4] CÁC HỘP THOẠI MODAL
          ========================================================================== */ -->
     
     <div class="modal-overlay" id="avatar-modal">
@@ -873,7 +866,7 @@
         </div>
     </div>
 
-    <!-- Super Event Modal -->
+    <!-- Super Event Modal (Sự kiện Kết thúc Chiến dịch) -->
     <div class="modal-overlay" id="super-event-modal">
         <div class="se-box">
             <div class="se-title">THE MIDNIGHT HOUR STRIKES</div>
@@ -883,7 +876,7 @@
             <div class="se-content-wrapper">
                 <div class="se-content">
                     <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT CHIẾN DỊCH TỐI HẬU ]</strong><br><br>
-                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học thông thường. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao.<br><br>
+                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học thông thường. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao (tích hợp Bản đồ Pan & Zoom đa lớp, Hệ thống Quản lý Cửa sổ Window Manager Z-Index, và Nhúng Audio Player TNO Custom).<br><br>
                     Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao (như Chain-of-Thought) để ép AI phục tùng logic của mình. 
                     <br><br>
                     Khái niệm <strong>'Human-in-the-loop' (Con người nằm trong vòng lặp)</strong> được khắc sâu: <i>Máy móc dù có siêu việt đến đâu cũng chỉ là công cụ tính toán. Trách nhiệm kiểm chứng, đạo đức liêm chính và Tư duy logic của con người mới là kim chỉ nam quyết định giới hạn của sự sáng tạo.</i>
@@ -895,12 +888,12 @@
     </div>
 
     <!-- ==========================================================================
-         [5] JAVASCRIPT LOGIC & CƠ SỞ DỮ LIỆU
+         [5] JAVASCRIPT LOGIC & CƠ SỞ DỮ LIỆU ĐÃ SỬA LỖI
          ========================================================================== */ -->
     <script>
         /* --- 1. LUỒNG SỰ KIỆN KHỞI ĐỘNG VÀ AUDIO NATIVE --- */
         const bootLines = [
-            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.25",
+            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.26",
             "CPU: K70 Neural-Link Processor (Hanoi Central Command)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Radar Scanners... [OK]",
@@ -1158,7 +1151,7 @@
             e.stopPropagation(); 
         }
 
-        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) - TẠO HIỆU ỨNG TẮT MỞ --- */
+        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) - TẠO HIỆU ỨNG TẮT MỞ BẰNG EVENT CHÍNH XÁC --- */
         let currentFocusId = null;
 
         function moHoSo(id, el, e) {
@@ -1176,7 +1169,7 @@
             const decryptWin = document.getElementById('win-decrypt');
             decryptWin.style.display = 'none';
 
-            // Dùng setTimeout để hoãn việc mở lại cửa sổ trong 150ms
+            // Dùng setTimeout để hoãn việc mở lại cửa sổ trong 100ms
             setTimeout(() => {
                 currentFocusId = parseInt(id); 
                 
@@ -1192,20 +1185,18 @@
                 
                 termPrint(`Đang thực thi lệnh đọc Hồ sơ Bài ${id}...`, 'term-sys');
                 
-                // Cập nhật tiêu đề bài
-                const header = document.querySelector('.dec-header');
-                header.innerHTML = database[id].title;
-                
-                // LUÔN LUÔN TRỞ VỀ TAB 0 (NỘI DUNG CHI TIẾT)
+                // LUÔN LUÔN TRỞ VỀ TAB 0 (NỘI DUNG CHI TIẾT) MỖI KHI BẤM NÚT MỚI
                 switchDecTab(0);
                 
-            }, 150); // Độ trễ 150ms
+            }, 100); // Độ trễ 100ms
         }
 
         function switchDecTab(tabIndex) {
+            // Thay đổi màu nút bấm
             document.querySelectorAll('.dec-btn').forEach((btn, idx) => {
                 btn.classList.toggle('active', idx === tabIndex);
             });
+            // Hiển thị nội dung
             if(currentFocusId) {
                 renderDecContent(currentFocusId, tabIndex);
             }
@@ -1218,23 +1209,25 @@
             display.style.fontFamily = "'VT323', monospace";
             display.classList.remove('dec-scramble');
             
-            let contentHTML = '';
+            // Xây dựng thẻ Header nội bộ
+            let contentHTML = `<h2 class="dec-header">${data.title}</h2>`;
+            
             if(tabIndex === 0) {
-                contentHTML = `
+                contentHTML += `
                 <div class="dec-block">
                     <div class="dec-block-title">I. NỘI DUNG TÁC CHIẾN CƠ BẢN</div>
                     <div class="dec-text">${data.tab1}</div>
                 </div>`;
             }
             else if(tabIndex === 1) {
-                contentHTML = `
+                contentHTML += `
                 <div class="dec-block" style="border-color: var(--tno-orange);">
                     <div class="dec-block-title" style="background: var(--tno-orange); color: #000; border-color: #fff;">II. PHÂN TÍCH TÌNH BÁO / PHẢN ÁNH CÁ NHÂN</div>
                     <div class="dec-text">${data.tab2}</div>
                 </div>`;
             }
             else if(tabIndex === 2) {
-                contentHTML = data.tab3;
+                contentHTML += data.tab3;
             }
             
             display.innerHTML = contentHTML;
@@ -1289,18 +1282,18 @@
 
         /* --- 9. LOCAL STORAGE: NOTEPAD, AVATAR, THEME --- */
         const notepad = document.getElementById('notepad');
-        if(localStorage.getItem('tno_notes_v25')) {
-            notepad.value = localStorage.getItem('tno_notes_v25');
+        if(localStorage.getItem('tno_notes_v26')) {
+            notepad.value = localStorage.getItem('tno_notes_v26');
         }
         notepad.addEventListener('input', () => { 
-            localStorage.setItem('tno_notes_v25', notepad.value); 
+            localStorage.setItem('tno_notes_v26', notepad.value); 
         });
 
         const avatarImg = document.getElementById('dossier-img');
         const deskAvatarImg = document.getElementById('leader-portrait');
-        if(localStorage.getItem('tno_avatar_v25')) {
-            avatarImg.src = localStorage.getItem('tno_avatar_v25');
-            deskAvatarImg.src = localStorage.getItem('tno_avatar_v25');
+        if(localStorage.getItem('tno_avatar_v26')) {
+            avatarImg.src = localStorage.getItem('tno_avatar_v26');
+            deskAvatarImg.src = localStorage.getItem('tno_avatar_v26');
         }
 
         function openAvatarModal() { document.getElementById('avatar-modal').style.display = 'flex'; }
@@ -1310,7 +1303,7 @@
             const url = document.getElementById('avatar-url-input').value.trim();
             if(url) {
                 avatarImg.src = url; deskAvatarImg.src = url;
-                localStorage.setItem('tno_avatar_v25', url); 
+                localStorage.setItem('tno_avatar_v26', url); 
                 termPrint("> Giao thức Cập nhật Ảnh đã lưu vào bộ nhớ.", 'term-sys');
             }
             closeAvatarModal();
