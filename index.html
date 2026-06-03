@@ -294,6 +294,7 @@
         #win-dossier { top: 50px; left: 260px; width: 1050px; height: 750px; }
         .dossier-layout { display: flex; width: 100%; height: 100%; }
         
+        /* Cột trái Hồ sơ */
         .dossier-sidebar { width: 380px; background: rgba(0,0,0,0.6); border-right: 2px solid var(--theme-dim); display: flex; flex-direction: column; }
         .dossier-portrait { height: 380px; background: #000; position: relative; border-bottom: 2px solid var(--theme-dim); }
         .dossier-portrait img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) sepia(0.3) hue-rotate(150deg); opacity: 0.9; }
@@ -306,10 +307,10 @@
         .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
         .d-nav-btn:hover, .d-nav-btn.active { background: var(--theme-dim); border: 2px solid var(--theme-main); color: #fff; font-weight: bold; padding-left: 25px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
 
+        /* Cột phải Hồ sơ */
         .dossier-main { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 26px; line-height: 1.6; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 100%); }
         .d-tab { display: none; animation: fadeIn 0.3s; }
         .d-tab.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
         .d-header { color: var(--tno-orange); font-size: 40px; border-bottom: 3px dashed var(--tno-orange); padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-weight: bold; }
         .d-block { background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 25px; margin-bottom: 25px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
@@ -320,6 +321,7 @@
            [6] ỨNG DỤNG 2: BAN_DO.dir (MAP & KÉO THẢ)
            ========================================================================== */
         #win-map { top: 30px; left: 300px; width: 1200px; height: 800px; }
+        
         .map-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100px 100px; }
         .map-viewport:active { cursor: grabbing; }
         .map-canvas { position: absolute; top: 0; left: 0; width: 3000px; height: 3000px; transform-origin: 0 0; }
@@ -358,7 +360,7 @@
         @keyframes ping-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.7); } 70% { box-shadow: 0 0 0 60px rgba(255, 42, 42, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0); } }
 
         /* ==========================================================================
-           [8] ỨNG DỤNG 4: GIAI_MA.exe (DECRYPTOR / HIỂN THỊ NỘI DUNG)
+           [8] ỨNG DỤNG 4: GIAI_MA.exe (DECRYPTOR)
            ========================================================================== */
         #win-decrypt { top: 120px; left: 400px; width: 1050px; height: 850px; }
         .decrypt-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
@@ -398,11 +400,11 @@
         .term-prompt { color: var(--tno-yellow); font-size: 26px; font-weight: bold; margin-right: 15px; }
         .term-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 28px; outline: none; }
 
-        /* Ghi Chú */
+        /* Ghi Chú (Notepad) */
         #win-notes { top: 200px; left: 1100px; width: 500px; height: 600px; }
         .notes-textarea { width: 100%; height: 100%; background: #0a0a0a; color: var(--tno-yellow); font-family: 'VT323'; font-size: 26px; border: none; padding: 25px; outline: none; resize: none; line-height: 1.5; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
 
-        /* Cài Đặt */
+        /* Cài Đặt (Settings) */
         #win-settings { top: 350px; left: 500px; width: 600px; height: auto; }
         .settings-content { padding: 35px; font-size: 26px; background: rgba(0,0,0,0.8); }
         .color-btn { display: inline-block; width: 50px; height: 50px; margin-right: 20px; cursor: pointer; border: 3px solid #fff; transition: 0.2s; }
@@ -509,7 +511,7 @@
                 <div class="sys-stat-row"><span>LỚP TRỰC THUỘC:</span> <span style="color:var(--tno-yellow);">K70E-EC1</span></div>
                 <div class="sys-stat-row"><span>MÃ BẢO MẬT:</span> <span style="color:var(--tno-red);">ĐÃ MÃ HÓA</span></div>
                 <div style="font-size: 18px; color: #aaa; margin-top: 15px; border-top: 1px dashed var(--theme-dim); padding-top: 10px; line-height: 1.4;">
-                    * NHẤP ĐÚP CHUỘT (Double-click) VÀO BIỂU TƯỢNG BÊN TRÁI ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
+                    * NHẤP ĐÚP CHUỘT VÀO BIỂU TƯỢNG BÊN TRÁI ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
                 </div>
             </div>
 
@@ -700,7 +702,7 @@
 
                         <div class="focus-node completed" style="top: 950px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(5, this, event)">
                             <div class="focus-icon">⚙️</div>
-                            <div class="focus-title">[05] AI TẠO SINH SÁNG TẠO NỘI DUNG</div>
+                            <div class="focus-title">[05] SỬ DỤNG AI TẠO SINH SÁNG TẠO NỘI DUNG</div>
                             <div class="focus-time">Giai đoạn 5.4</div>
                         </div>
 
@@ -778,7 +780,7 @@
             <div class="win-content">
                 <div class="term-layout">
                     <div class="term-output" id="term-output">
-                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V23.0 ĐÃ SẴN SÀNG.</div>
+                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V24.0 ĐÃ SẴN SÀNG.</div>
                         <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách lệnh.</div>
                     </div>
                     <div class="term-input-row">
@@ -844,7 +846,7 @@
             <div class="se-content-wrapper">
                 <div class="se-content">
                     <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT CHIẾN DỊCH TỐI HẬU ]</strong><br><br>
-                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học thông thường. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao.<br><br>
+                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học thông thường. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao (tích hợp Bản đồ Pan & Zoom đa lớp, Hệ thống Quản lý Cửa sổ Window Manager Z-Index, và Nhúng Audio Player TNO Custom).<br><br>
                     Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao (như Chain-of-Thought) để ép AI phục tùng logic của mình. 
                     <br><br>
                     Khái niệm <strong>'Human-in-the-loop' (Con người nằm trong vòng lặp)</strong> được khắc sâu: <i>Máy móc dù có siêu việt đến đâu cũng chỉ là công cụ tính toán. Trách nhiệm kiểm chứng, đạo đức liêm chính và Tư duy logic của con người mới là kim chỉ nam quyết định giới hạn của sự sáng tạo.</i>
@@ -858,7 +860,7 @@
     <script>
         /* --- 1. LUỒNG SỰ KIỆN KHỞI ĐỘNG VÀ AUDIO NATIVE --- */
         const bootLines = [
-            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.23",
+            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.24",
             "CPU: K70 Neural-Link Processor (Hanoi Central Command)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Radar Scanners... [OK]",
@@ -875,6 +877,7 @@
         if (audioPlayer) audioPlayer.volume = 0.5;
 
         function startSystem() {
+            // Tắt nút bấm
             document.getElementById('pre-boot').style.display = 'none';
             document.getElementById('boot-screen').style.display = 'flex';
             if(audioPlayer) {
@@ -911,14 +914,14 @@
                 p.innerText = "> " + bootLines[bootLineIndex];
                 bootTextDiv.appendChild(p);
                 bootLineIndex++;
-                setTimeout(runBoot, Math.random() * 150 + 50);
+                setTimeout(runBoot, Math.random() * 100 + 50);
             } else {
                 setTimeout(() => {
                     document.getElementById('boot-screen').style.display = 'none';
                     document.getElementById('desktop').style.display = 'block';
                     initPanZoom('viewport', 'canvas'); 
                     initPanZoom('w-viewport', 'w-canvas'); 
-                }, 800);
+                }, 500);
             }
         }
 
@@ -1031,7 +1034,7 @@
             },
             7: { 
                 title: "BÀI 7: PHÂN TÍCH TÀI LIỆU VỚI TRỢ LÝ NGHIÊN CỨU AI", 
-                tab1: "Sử dụng các công cụ Trợ lý Nghiên cứu AI (AI Research Assistants) để phân tích, tóm tắt và bóc tách dữ liệu từ các tài liệu học thuật chuyên sâu có độ dài lớn (các file PDF hàng chục trang).<br><br><strong>Quy trình thực thi:</strong><br>- Tải các bài báo khoa học, tài liệu kỹ thuật lên nền tảng AI (như NotebookLM, ChatPDF).<br>- Thiết lập Prompt yêu cầu AI trích xuất các luận điểm chính, phương pháp nghiên cứu và kết quả cốt lõi của tài liệu.<br>- <strong>Vấn đề Bảo mật:</strong> Áp dụng nghiêm ngặt giao thức ẩn danh hóa dữ liệu (Data Anonymization). Tuyệt đối không tải các thông tin nhạy cảm, mã nguồn riêng hoặc dữ liệu cá nhân chưa được mã hóa lên các nền tảng AI đám mây cộng đồng để tránh rò rỉ.",
+                tab1: "Sử dụng các công cụ Trợ lý Nghiên cứu AI (AI Research Assistants) để phân tích, tóm tắt và bóc tách dữ liệu từ các tài liệu học thuật khoa học chuyên sâu có độ dài lớn (các file PDF hàng chục trang).<br><br><strong>Quy trình thực thi:</strong><br>- Tải các bài báo khoa học, tài liệu kỹ thuật lên nền tảng AI (như NotebookLM, ChatPDF).<br>- Thiết lập Prompt yêu cầu AI trích xuất các luận điểm chính, phương pháp nghiên cứu và kết quả cốt lõi của tài liệu.<br>- <strong>Vấn đề Bảo mật:</strong> Áp dụng nghiêm ngặt giao thức ẩn danh hóa dữ liệu (Data Anonymization). Tuyệt đối không tải các thông tin nhạy cảm, mã nguồn riêng hoặc dữ liệu cá nhân chưa được mã hóa lên các nền tảng AI đám mây cộng đồng để tránh rò rỉ.",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Làm chủ kỹ năng 'Đọc lướt có định hướng'. AI giúp tôi tổng hợp khối lượng tri thức khổng lồ từ các bài báo IEEE quốc tế nhanh gấp 5 lần, biến một tài liệu 50 trang thành một bản tóm tắt 2 trang cực kỳ súc tích và đúng trọng tâm.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Khó khăn lớn nhất là rào cản ngôn ngữ chuyên ngành. Khi yêu cầu AI tóm tắt các tài liệu kỹ thuật phức tạp (như cơ điện tử hoặc thuật toán cao cấp), AI thường dịch các thuật ngữ tiếng Anh sang tiếng Việt một cách rất gượng gạo và sai lệch ý nghĩa chuyên môn, buộc tôi phải tự đối chiếu lại với bản gốc.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Kỹ năng này đã trở thành công cụ đắc lực để tôi tiến hành Tổng quan Tài liệu (Literature Review) phục vụ cho việc viết các báo cáo tổng luận đồ án chuyên ngành tại UET, giúp duy trì quỹ đạo GPA ổn định.</li></ul>",
                 tab3: "<a href='bai7.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Truy cập minh chứng phân tích...\", \"term-sys\")'>[ MỞ TÀI LIỆU MINH CHỨNG PHÂN TÍCH AI (BÀI 7) ]</a>"
             }
@@ -1052,7 +1055,9 @@
             setTransform(); 
             
             viewport.onmousedown = function (e) {
+                // Sửa lỗi: Nếu bấm trúng một .focus-node, bỏ qua việc kéo bản đồ để click hoạt động
                 if (e.target.closest('.focus-node')) return;
+                
                 e.preventDefault(); 
                 state.start = { x: e.clientX - state.pointX, y: e.clientY - state.pointY };
                 state.panning = true; viewport.style.cursor = 'grabbing';
@@ -1080,32 +1085,41 @@
             e.stopPropagation(); 
         }
 
-        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) --- */
+        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) CÓ RESET TAB THÔNG MINH --- */
         let currentFocusId = null;
 
         function moHoSo(id, el, e) {
             if(e) e.stopPropagation();
-            currentFocusId = id;
             
+            // Cập nhật ID bài tập đang chọn
+            currentFocusId = id; 
+            
+            // Xử lý hiệu ứng sáng nút trên bản đồ
             document.querySelectorAll('.focus-node').forEach(n => n.style.boxShadow = "inset 0 0 30px rgba(0,0,0,1), 10px 10px 25px rgba(0,0,0,0.8)");
             if(el) el.style.boxShadow = "0 0 50px var(--theme-main), inset 0 0 20px rgba(255,255,255,0.2)";
 
+            // Mở cửa sổ Giải mã
             openWindow('win-decrypt');
             bringToFront('win-decrypt'); 
             termPrint(`Đang thực thi lệnh đọc Hồ sơ ID: ${id}...`, 'term-sys');
             
+            // Render Tiêu đề
             const header = document.querySelector('.dec-header');
             header.innerHTML = database[id].title;
             
-            const activeTabIdx = Array.from(document.querySelectorAll('.dec-btn')).findIndex(btn => btn.classList.contains('active'));
-            renderDecContent(id, activeTabIdx !== -1 ? activeTabIdx : 0);
+            // FIX LỖI TAB CŨ BỊ GIỮ LẠI BẰNG CÁCH ÉP HỆ THỐNG LUÔN TRỞ VỀ TAB 0
+            switchDecTab(0);
         }
 
         function switchDecTab(tabIndex) {
+            // Thay đổi màu nút bấm
             document.querySelectorAll('.dec-btn').forEach((btn, idx) => {
                 btn.classList.toggle('active', idx === tabIndex);
             });
-            if(currentFocusId) renderDecContent(currentFocusId, tabIndex);
+            // Hiển thị nội dung nếu đã chọn ID
+            if(currentFocusId) {
+                renderDecContent(currentFocusId, tabIndex);
+            }
         }
 
         function renderDecContent(id, tabIndex) {
@@ -1180,14 +1194,14 @@
 
         /* --- 9. LOCAL STORAGE: NOTEPAD, AVATAR, THEME --- */
         const notepad = document.getElementById('notepad');
-        if(localStorage.getItem('tno_notes_v23')) notepad.value = localStorage.getItem('tno_notes_v23');
-        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v23', notepad.value); });
+        if(localStorage.getItem('tno_notes_v24')) notepad.value = localStorage.getItem('tno_notes_v24');
+        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v24', notepad.value); });
 
         const avatarImg = document.getElementById('dossier-img');
         const deskAvatarImg = document.getElementById('leader-portrait');
-        if(localStorage.getItem('tno_avatar_v23')) {
-            avatarImg.src = localStorage.getItem('tno_avatar_v23');
-            deskAvatarImg.src = localStorage.getItem('tno_avatar_v23');
+        if(localStorage.getItem('tno_avatar_v24')) {
+            avatarImg.src = localStorage.getItem('tno_avatar_v24');
+            deskAvatarImg.src = localStorage.getItem('tno_avatar_v24');
         }
 
         function openAvatarModal() { document.getElementById('avatar-modal').style.display = 'flex'; }
@@ -1196,7 +1210,7 @@
             const url = document.getElementById('avatar-url-input').value.trim();
             if(url) {
                 avatarImg.src = url; deskAvatarImg.src = url;
-                localStorage.setItem('tno_avatar_v23', url); 
+                localStorage.setItem('tno_avatar_v24', url); 
                 termPrint("> Giao thức Cập nhật Ảnh đã lưu vào bộ nhớ.", 'term-sys');
             }
             closeAvatarModal();
