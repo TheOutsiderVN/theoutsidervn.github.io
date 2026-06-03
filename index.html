@@ -3,55 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNO // HỆ ĐIỀU HÀNH K70E-EC1</title>
+    <title>TNO // K70 GRAND CAMPAIGN OS</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           [0] BIẾN HỆ THỐNG (MÀU SẮC ĐỘNG BỞI JAVASCRIPT)
+           [0] CORE TNO VARIABLES (DEFCON DYNAMIC)
            ========================================================================== */
         :root {
-            /* Các màu cốt lõi không đổi */
-            --tno-bg: #010404;
-            --tno-panel: rgba(5, 12, 11, 0.95);
+            /* Palette gốc */
+            --tno-cyan: #3df2db;
+            --tno-cyan-dim: #134d45;
+            --tno-cyan-dark: #071f1c;
+            --tno-bg: #010303;
+            --tno-panel: rgba(3, 10, 9, 0.95);
             --tno-red: #ff2a2a;
+            --tno-red-dim: #6b1414;
             --tno-orange: #ff9900;
             --tno-yellow: #f4d35e;
             --tno-text: #e0fcf9;
             --tno-hcm-red: #da251d; 
             --tno-hcm-gold: #ffff00;
             
-            /* Theme mặc định (Cyan TNO) - Sẽ bị ghi đè bởi JS nếu đổi màu */
-            --theme-main: #42f5e3;
-            --theme-dim: #165952;
-            --theme-dark: #071f1c;
+            /* Theme linh hoạt */
+            --theme-main: var(--tno-cyan);
+            --theme-dim: var(--tno-cyan-dim);
+            --theme-dark: var(--tno-cyan-dark);
             --theme-bg: var(--tno-bg);
+            --window-bg: #020808;
             
-            --window-bg: #020a0a;
+            /* Box Styling TNO HOI4 */
             --border-main: 2px solid var(--theme-main);
+            --border-sub: 1px solid var(--theme-dim);
             --shadow-glow: 0 0 15px var(--theme-main);
+            --shadow-inset: inset 0 0 40px rgba(0,0,0,0.9);
         }
 
-        /* Chế độ Báo động (DEFCON 1) */
+        /* DEFCON 1 OVERRIDE */
         body.defcon-1 {
             --theme-main: #ff2a2a;
             --theme-dim: #6b1414;
             --theme-dark: #2a0505;
             --theme-bg: #140000;
             --window-bg: #1a0505;
-            animation: red-alert-flash 2s infinite;
+            animation: red-alert-flash 3s infinite;
         }
-        @keyframes red-alert-flash { 0% { box-shadow: inset 0 0 0px var(--theme-main); } 50% { box-shadow: inset 0 0 80px var(--theme-dim); } 100% { box-shadow: inset 0 0 0px var(--theme-main); } }
+        @keyframes red-alert-flash { 
+            0% { box-shadow: inset 0 0 0px var(--theme-main); } 
+            50% { box-shadow: inset 0 0 150px var(--theme-dim); } 
+            100% { box-shadow: inset 0 0 0px var(--theme-main); } 
+        }
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         
         body {
             background-color: var(--theme-bg); color: var(--tno-text);
             font-family: 'VT323', monospace; height: 100vh; width: 100vw;
-            overflow: hidden; transition: background-color 0.5s;
+            overflow: hidden; transition: background-color 1s;
         }
 
         /* ==========================================================================
-           [1] HIỆU ỨNG THỊ GIÁC (CRT, SCANLINES)
+           [1] VISUAL EFFECTS (CRT, SCANLINES, NOISE)
            ========================================================================== */
         .crt-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -64,10 +75,11 @@
             pointer-events: none; z-index: 9999;
         }
         .scanline-bar {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 15px; background: rgba(255,255,255,0.05);
-            box-shadow: 0 0 30px var(--theme-main); animation: scanline-move 8s linear infinite; pointer-events: none; z-index: 9997;
+            position: fixed; top: 0; left: 0; width: 100vw; height: 20px;
+            background: rgba(255,255,255,0.05); box-shadow: 0 0 40px var(--theme-main);
+            animation: scanline-move 8s linear infinite; pointer-events: none; z-index: 9997; opacity: 0.6;
         }
-        @keyframes scanline-move { 0% { top: -15px; } 100% { top: 100vh; } }
+        @keyframes scanline-move { 0% { top: -20px; } 100% { top: 100vh; } }
 
         ::-webkit-scrollbar { width: 10px; height: 10px; }
         ::-webkit-scrollbar-track { background: var(--theme-dark); border-left: 1px solid var(--theme-dim); }
@@ -75,208 +87,240 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--theme-main); }
 
         /* ==========================================================================
-           [2] KHỞI ĐỘNG HỆ THỐNG (BOOT SEQUENCE)
+           [2] POWER ON & BOOT SEQUENCE
            ========================================================================== */
+        #pre-boot {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 10001; display: flex; justify-content: center; align-items: center;
+        }
+        .power-btn {
+            background: transparent; border: 3px solid var(--tno-cyan); color: var(--tno-cyan);
+            font-family: 'VT323'; font-size: 40px; padding: 20px 40px; cursor: pointer;
+            text-transform: uppercase; transition: 0.3s; text-shadow: 0 0 10px var(--tno-cyan); box-shadow: 0 0 20px rgba(66, 245, 227, 0.2);
+        }
+        .power-btn:hover { background: var(--tno-cyan); color: #000; box-shadow: 0 0 40px var(--tno-cyan); transform: scale(1.05); }
+
         #boot-screen {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000;
-            z-index: 10000; padding: 40px; display: flex; flex-direction: column; justify-content: flex-end;
-            font-size: 24px; color: var(--theme-main); text-shadow: 0 0 8px var(--theme-main);
+            display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #000; z-index: 10000; padding: 40px; flex-direction: column; justify-content: flex-end;
+            font-size: 26px; color: var(--theme-main); text-shadow: 0 0 10px var(--theme-main);
         }
         .boot-line { margin-bottom: 5px; }
         .blink-cursor { animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
 
         /* ==========================================================================
-           [3] MÀN HÌNH CHÍNH (DESKTOP)
+           [3] DESKTOP ENVIRONMENT
            ========================================================================== */
         #desktop {
             display: none; height: 100%; width: 100%; position: relative;
             background-image: 
-                radial-gradient(circle at center, rgba(255,255,255, 0.05) 0%, transparent 70%),
-                linear-gradient(rgba(255,255,255, 0.05) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255, 0.05) 1px, transparent 1px);
-            background-size: 100% 100%, 80px 80px, 80px 80px;
+                radial-gradient(circle at center, rgba(255,255,255, 0.05) 0%, transparent 80%),
+                linear-gradient(rgba(255,255,255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255, 0.03) 1px, transparent 1px);
+            background-size: 100% 100%, 100px 100px, 100px 100px;
         }
 
-        /* Thanh Taskbar (Cạnh trên) */
+        /* Top Taskbar (TNO Economy & Stats) */
         .taskbar {
-            position: absolute; top: 0; left: 0; width: 100%; height: 45px;
+            position: absolute; top: 0; left: 0; width: 100%; height: 50px;
             background: var(--theme-dark); border-bottom: var(--border-main);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 20px; font-size: 24px; font-weight: bold; z-index: 100;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.8);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.9);
         }
-        .sys-logo { color: var(--theme-main); text-shadow: 0 0 10px var(--theme-main); letter-spacing: 2px; }
-        .defcon-indicator { background: var(--tno-red-dim); color: white; padding: 2px 15px; border: 1px solid var(--tno-red); cursor: pointer; transition: 0.3s; }
-        .defcon-indicator:hover { background: var(--tno-red); box-shadow: 0 0 15px var(--tno-red); }
+        .tb-left { display: flex; gap: 30px; align-items: center; }
+        .sys-logo { color: var(--theme-main); text-shadow: 0 0 10px var(--theme-main); letter-spacing: 2px; font-size: 28px; }
+        .tb-stats { display: flex; gap: 20px; color: #aaa; font-size: 20px; border-left: 2px dashed var(--theme-dim); padding-left: 20px; }
+        .tb-stats span { color: var(--tno-yellow); }
+        
+        .tb-right { display: flex; gap: 30px; align-items: center; }
+        .defcon-indicator { background: var(--tno-red-dim); color: white; padding: 5px 20px; border: 2px solid var(--tno-red); cursor: pointer; transition: 0.3s; font-size: 22px; }
+        .defcon-indicator:hover { background: var(--tno-red); box-shadow: 0 0 20px var(--tno-red); }
 
-        /* Biểu tượng Desktop (Icons) */
-        .icon-grid {
-            position: absolute; top: 70px; left: 20px;
-            display: flex; flex-direction: column; gap: 30px; z-index: 10;
-        }
-        .desktop-icon {
-            width: 120px; display: flex; flex-direction: column; align-items: center;
-            cursor: pointer; padding: 10px; border: 1px solid transparent; transition: 0.2s; text-align: center;
-        }
+        /* Desktop Icons */
+        .icon-grid { position: absolute; top: 80px; left: 30px; display: flex; flex-direction: column; gap: 35px; z-index: 10; }
+        .desktop-icon { width: 130px; display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 10px; border: 1px solid transparent; transition: 0.2s; text-align: center; }
         .desktop-icon:hover { background: rgba(255,255,255, 0.1); border: 1px dashed var(--theme-main); }
         .desktop-icon:active { background: rgba(255,255,255, 0.3); }
-        .icon-img { font-size: 55px; margin-bottom: 8px; color: var(--theme-main); filter: drop-shadow(0 0 10px var(--theme-main)); }
+        .icon-img { font-size: 60px; margin-bottom: 10px; color: var(--theme-main); filter: drop-shadow(0 0 15px var(--theme-main)); }
         .icon-text { font-size: 20px; font-weight: bold; background: rgba(0,0,0,0.8); padding: 2px 8px; border-radius: 3px; border: 1px solid var(--theme-dim); }
 
-        /* Các Tiện ích Desktop (Widgets) */
-        .widget-panel { position: absolute; top: 70px; right: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 10; width: 350px; }
-        .desktop-widget {
-            background: var(--tno-panel); border: 1px solid var(--theme-dim);
-            padding: 15px; box-shadow: var(--shadow-inset);
-        }
-        .widget-title { font-size: 22px; color: var(--tno-orange); border-bottom: 1px dashed var(--tno-orange); margin-bottom: 10px; text-transform: uppercase; }
-        .sys-stat-row { display: flex; justify-content: space-between; font-size: 18px; margin-bottom: 8px; }
+        /* Desktop Widgets (Right Side) */
+        .widget-panel { position: absolute; top: 80px; right: 30px; display: flex; flex-direction: column; gap: 25px; z-index: 10; width: 380px; }
+        .desktop-widget { background: var(--tno-panel); border: var(--border-main); padding: 20px; box-shadow: var(--shadow-inset); position: relative; }
+        /* TNO Corner Accents */
+        .desktop-widget::before { content:''; position:absolute; top:-2px; left:-2px; width:10px; height:10px; background:var(--theme-main); }
+        .desktop-widget::after { content:''; position:absolute; bottom:-2px; right:-2px; width:10px; height:10px; background:var(--theme-main); }
         
-        /* Trình phát thanh TNO */
-        .radio-track { font-size: 18px; color: var(--theme-main); margin-bottom: 5px; white-space: nowrap; overflow: hidden; }
-        .radio-scroll { display: inline-block; animation: scroll-left 10s linear infinite; }
+        .widget-title { font-size: 26px; color: var(--tno-orange); border-bottom: 2px dashed var(--tno-orange); margin-bottom: 15px; text-transform: uppercase; font-weight: bold; }
+        .sys-stat-row { display: flex; justify-content: space-between; font-size: 20px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
+
+        /* TNO Music Radio Player */
+        .radio-track { font-size: 20px; color: var(--theme-main); margin-bottom: 10px; white-space: nowrap; overflow: hidden; }
+        .radio-scroll { display: inline-block; animation: scroll-left 15s linear infinite; }
         @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-        .audio-bar { width: 100%; height: 5px; background: var(--theme-dim); margin-top: 10px; position: relative; }
-        .audio-fill { width: 65%; height: 100%; background: var(--theme-main); }
+        .audio-controls { display: flex; justify-content: space-between; margin-top: 15px; }
+        .audio-btn { background: var(--theme-dark); border: 1px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 20px; padding: 5px 15px; cursor: pointer; transition: 0.2s; }
+        .audio-btn:hover { background: var(--theme-main); color: #000; }
+
+        /* News Ticker (Bottom) */
+        .news-ticker {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 40px;
+            background: var(--theme-dark); border-top: var(--border-main);
+            display: flex; align-items: center; overflow: hidden; color: var(--theme-main); font-size: 24px; z-index: 100;
+        }
+        .ticker-label { background: var(--theme-main); color: #000; padding: 0 20px; font-weight: bold; margin-right: 20px; z-index: 2; height: 100%; display: flex; align-items: center; }
+        .ticker-text { white-space: nowrap; animation: ticker-scroll 35s linear infinite; font-weight: bold; text-shadow: 0 0 5px var(--theme-main); }
 
         /* ==========================================================================
-           [4] TRÌNH QUẢN LÝ CỬA SỔ (WINDOW MANAGER)
+           [4] WINDOW MANAGER (OS WINDOWS)
            ========================================================================== */
         .os-window {
             position: absolute; display: none; flex-direction: column;
-            background: var(--window-bg); border: 2px solid var(--theme-dim);
-            box-shadow: 10px 10px 30px rgba(0,0,0,0.9), inset 0 0 20px rgba(0,0,0,0.8);
+            background: var(--window-bg); border: 3px solid var(--theme-dim);
+            box-shadow: 15px 15px 40px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.9);
             z-index: 50; transition: border 0.2s;
         }
-        .os-window.active-win { border-color: var(--theme-main); box-shadow: 0 0 25px var(--theme-dim), 10px 10px 40px rgba(0,0,0,1); z-index: 100 !important; }
+        .os-window.active-win { border-color: var(--theme-main); box-shadow: 0 0 30px var(--theme-dim), 15px 15px 50px rgba(0,0,0,1); z-index: 100 !important; }
         
         .win-header {
-            background: var(--theme-dark); color: var(--theme-main); padding: 8px 15px;
-            display: flex; justify-content: space-between; align-items: center;
-            font-size: 24px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); cursor: grab; text-transform: uppercase;
+            background: repeating-linear-gradient(45deg, var(--theme-dark), var(--theme-dark) 10px, rgba(0,0,0,0.8) 10px, rgba(0,0,0,0.8) 20px);
+            color: var(--theme-main); padding: 8px 15px; display: flex; justify-content: space-between; align-items: center;
+            font-size: 26px; font-weight: bold; border-bottom: 2px solid var(--theme-dim); cursor: grab; text-transform: uppercase; text-shadow: 2px 2px #000;
         }
         .win-header:active { cursor: grabbing; }
-        .win-title { pointer-events: none; letter-spacing: 1px; }
-        .win-controls { display: flex; gap: 10px; }
-        .win-btn { background: transparent; border: 1px solid var(--theme-main); color: var(--theme-main); width: 30px; height: 30px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'VT323'; font-size: 22px; transition: 0.2s; }
+        .win-title { pointer-events: none; letter-spacing: 2px; background: rgba(0,0,0,0.8); padding: 0 10px; border: 1px solid var(--theme-main); }
+        .win-controls { display: flex; gap: 10px; background: rgba(0,0,0,0.8); padding: 2px; }
+        .win-btn { background: transparent; border: 1px solid var(--theme-main); color: var(--theme-main); width: 35px; height: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; font-family: 'VT323'; font-size: 24px; transition: 0.2s; }
         .win-btn:hover { background: var(--theme-main); color: #000; }
-        .win-btn-close:hover { background: var(--tno-red); color: white; border-color: var(--tno-red); box-shadow: 0 0 10px var(--tno-red); }
+        .win-btn-close:hover { background: var(--tno-red); color: white; border-color: var(--tno-red); box-shadow: 0 0 15px var(--tno-red); }
 
         .win-content { flex: 1; overflow: hidden; display: flex; position: relative; }
-
-        /* Nút chung cho hệ thống */
         .action-link-btn { display: block; width: 100%; background: var(--theme-dark); border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; cursor: pointer; transition: 0.2s; text-align: center; text-decoration: none; text-transform: uppercase; font-weight: bold; }
         .action-link-btn:hover { background: var(--theme-main); color: #000; box-shadow: 0 0 20px var(--theme-main); letter-spacing: 2px; }
 
         /* ==========================================================================
-           [5] ỨNG DỤNG 1: HO_SO.exe (HỒ SƠ CÁ NHÂN CHI TIẾT)
+           [5] ỨNG DỤNG 1: HO_SO.exe (HỒ SƠ CÁ NHÂN)
            ========================================================================== */
-        #win-dossier { top: 80px; left: 200px; width: 900px; height: 650px; }
-        
+        #win-dossier { top: 60px; left: 180px; width: 950px; height: 700px; }
         .dossier-layout { display: flex; width: 100%; height: 100%; }
         
-        /* Cột trái Hồ sơ */
-        .dossier-sidebar { width: 320px; background: rgba(0,0,0,0.6); border-right: 1px solid var(--theme-dim); display: flex; flex-direction: column; }
-        .dossier-portrait { height: 320px; background: #000; position: relative; border-bottom: 1px solid var(--theme-dim); }
+        /* Cột trái */
+        .dossier-sidebar { width: 340px; background: rgba(0,0,0,0.6); border-right: 2px solid var(--theme-dim); display: flex; flex-direction: column; }
+        .dossier-portrait { height: 340px; background: #000; position: relative; border-bottom: 2px solid var(--theme-dim); }
         .dossier-portrait img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) sepia(0.3) hue-rotate(150deg); opacity: 0.9; }
         body.defcon-1 .dossier-portrait img { filter: contrast(1.5) sepia(1) hue-rotate(330deg); }
-        .dossier-name { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); color: var(--theme-main); padding: 12px; font-size: 30px; font-weight: bold; text-align: center; border-top: 1px solid var(--theme-main); text-shadow: 2px 2px #000; }
-        .dossier-nav { padding: 10px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
-        .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 22px; padding: 12px; text-align: left; cursor: pointer; transition: 0.2s; }
-        .d-nav-btn:hover, .d-nav-btn.active { background: var(--theme-dim); border: 1px solid var(--theme-main); color: #fff; font-weight: bold; padding-left: 20px; }
+        .dossier-name { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); color: var(--theme-main); padding: 12px; font-size: 32px; font-weight: bold; text-align: center; border-top: 1px solid var(--theme-main); text-shadow: 2px 2px #000; }
+        
+        .dossier-nav { padding: 15px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+        .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 24px; padding: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
+        .d-nav-btn:hover, .d-nav-btn.active { background: var(--theme-dim); border: 2px solid var(--theme-main); color: #fff; font-weight: bold; padding-left: 25px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
 
-        /* Cột phải Hồ sơ */
-        .dossier-main { flex: 1; padding: 30px; overflow-y: auto; user-select: text; font-size: 24px; line-height: 1.5; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.05) 100%); }
+        /* Cột phải */
+        .dossier-main { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 24px; line-height: 1.5; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 100%); }
         .d-tab { display: none; animation: fadeIn 0.3s; }
         .d-tab.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .d-header { color: var(--tno-orange); font-size: 34px; border-bottom: 2px dashed var(--tno-orange); padding-bottom: 5px; margin-bottom: 20px; text-transform: uppercase; font-weight: bold; }
-        .d-block { background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 20px; margin-bottom: 20px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
-        .d-block-title { font-size: 26px; color: var(--theme-main); margin-bottom: 10px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); padding-bottom: 5px; }
+        .d-header { color: var(--tno-orange); font-size: 36px; border-bottom: 3px dashed var(--tno-orange); padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-weight: bold; }
+        .d-block { background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 25px; margin-bottom: 25px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
+        .d-block-title { font-size: 28px; color: var(--theme-main); margin-bottom: 15px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); padding-bottom: 5px; }
         .d-hl { color: var(--tno-yellow); font-weight: bold; }
 
         /* ==========================================================================
-           [6] ỨNG DỤNG 2: BAN_DO_CHIEN_LUOC.dir (BẢN ĐỒ KÉO & ZOOM)
+           [6] ỨNG DỤNG 2: BAN_DO_CHIEN_LUOC.dir (BẢN ĐỒ TIÊU ĐIỂM)
            ========================================================================== */
-        #win-map { top: 40px; left: 350px; width: 1100px; height: 750px; }
-        
+        #win-map { top: 30px; left: 320px; width: 1150px; height: 800px; }
         .map-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100px 100px; }
         .map-viewport:active { cursor: grabbing; }
         .map-canvas { position: absolute; top: 0; left: 0; width: 3000px; height: 3000px; transform-origin: 0 0; }
         
         .svg-lines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; pointer-events: none; }
-        .focus-line { stroke: var(--theme-dim); stroke-width: 12; fill: none; stroke-dasharray: 30, 15; animation: dash-flow 40s linear infinite; }
+        .focus-line { stroke: var(--theme-dim); stroke-width: 14; fill: none; stroke-dasharray: 30, 15; animation: dash-flow 40s linear infinite; }
 
         .focus-node {
-            position: absolute; z-index: 2; width: 320px;
-            background: var(--tno-panel); border: 3px solid var(--theme-dim);
+            position: absolute; z-index: 2; width: 340px;
+            background: var(--tno-panel); border: 4px solid var(--theme-dim);
             padding: 20px; text-align: center; transition: all 0.2s;
-            box-shadow: inset 0 0 30px rgba(0,0,0,1), 10px 10px 20px rgba(0,0,0,0.8);
+            box-shadow: inset 0 0 30px rgba(0,0,0,1), 10px 10px 25px rgba(0,0,0,0.8);
         }
-        .focus-node:hover { border-color: var(--theme-main); transform: scale(1.08); box-shadow: 0 0 40px var(--theme-main); z-index: 10; cursor: pointer; }
+        .focus-node:hover { border-color: var(--theme-main); transform: scale(1.08); box-shadow: 0 0 50px var(--theme-main); z-index: 10; cursor: pointer; }
         .focus-node.completed { border-color: var(--theme-main); }
-        .focus-node.completed::before { content: "CÓ SẴN DỮ LIỆU"; position: absolute; top: -16px; left: -3px; background: var(--theme-main); color: #000; font-size: 18px; padding: 2px 10px; font-weight: bold; border-top-right-radius: 10px; }
+        .focus-node.completed::before { content: "DỮ LIỆU ĐÃ MỞ KHÓA"; position: absolute; top: -18px; left: -4px; background: var(--theme-main); color: #000; font-size: 20px; padding: 2px 12px; font-weight: bold; border-top-right-radius: 10px; }
         
-        .focus-icon { font-size: 65px; margin-bottom: 10px; color: var(--theme-main); filter: drop-shadow(0 0 15px var(--theme-main)); }
-        .focus-title { font-size: 28px; font-weight: bold; color: #fff; border-bottom: 2px solid var(--theme-dim); padding-bottom: 5px; margin-bottom: 10px; }
+        .focus-icon { font-size: 70px; margin-bottom: 10px; color: var(--theme-main); filter: drop-shadow(0 0 15px var(--theme-main)); }
+        .focus-title { font-size: 30px; font-weight: bold; color: #fff; border-bottom: 2px solid var(--theme-dim); padding-bottom: 10px; margin-bottom: 10px; }
         .focus-time { font-size: 22px; color: var(--tno-orange); }
 
+        .map-instruction { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 22px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none; }
+
         /* ==========================================================================
-           [7] ỨNG DỤNG 3: GIAI_MA.exe (TRÌNH ĐỌC DỮ LIỆU CHI TIẾT)
+           [7] ỨNG DỤNG 3: THE_GIOI.exe (BẢN ĐỒ THẾ GIỚI TNO)
            ========================================================================== */
-        #win-decrypt { top: 120px; left: 450px; width: 950px; height: 750px; }
+        #win-worldmap { top: 100px; left: 250px; width: 1200px; height: 750px; }
+        .world-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background: #000; }
+        .world-viewport:active { cursor: grabbing; }
+        .world-canvas { position: absolute; top: 0; left: 0; width: 4000px; height: 2500px; transform-origin: 0 0; background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/World_map_blank_with_blue_sea.svg/4000px-World_map_blank_with_blue_sea.svg.png'); background-size: cover; background-position: center; filter: invert(1) hue-rotate(160deg) contrast(1.5) sepia(0.5); /* Tạo filter màu xanh cyan radar */ opacity: 0.8; }
         
+        /* Chấm radar giả lập trên bản đồ thế giới */
+        .radar-ping { position: absolute; width: 30px; height: 30px; background: var(--tno-red); border-radius: 50%; top: 45%; left: 78%; /* Tọa độ VN */ transform: translate(-50%, -50%); box-shadow: 0 0 20px var(--tno-red); animation: ping-pulse 2s infinite; }
+        .radar-ping::after { content: "UET K70 (HANOI)"; position: absolute; top: 35px; left: -50px; width: 150px; color: #fff; font-size: 24px; font-weight: bold; text-shadow: 2px 2px #000, 0 0 5px var(--tno-red); background: rgba(0,0,0,0.8); padding: 2px 5px; text-align: center; border: 1px solid var(--tno-red); }
+        @keyframes ping-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.7); } 70% { box-shadow: 0 0 0 50px rgba(255, 42, 42, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0); } }
+
+        /* ==========================================================================
+           [8] ỨNG DỤNG 4: GIAI_MA.exe (ĐỌC HỒ SƠ CHI TIẾT)
+           ========================================================================== */
+        #win-decrypt { top: 150px; left: 450px; width: 1000px; height: 800px; }
         .decrypt-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
         
         .dec-nav { display: flex; border-bottom: var(--border-main); background: var(--theme-dark); flex-shrink: 0; }
-        .dec-btn { flex: 1; background: transparent; border: none; border-right: 1px solid var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 24px; padding: 15px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        .dec-btn { flex: 1; background: transparent; border: none; border-right: 1px solid var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; cursor: pointer; transition: 0.2s; font-weight: bold; }
         .dec-btn:hover { background: var(--theme-dim); }
         .dec-btn.active { background: var(--theme-main); color: #000; }
 
-        .dec-content-area { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 24px; background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%); }
-        .dec-scramble { font-family: monospace; letter-spacing: 2px; color: var(--tno-yellow); word-break: break-all; opacity: 0.8; font-size: 20px; line-height: 1.2; }
+        .dec-content-area { flex: 1; padding: 40px; overflow-y: auto; user-select: text; font-size: 26px; background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%); }
+        .dec-scramble { font-family: monospace; letter-spacing: 3px; color: var(--tno-yellow); word-break: break-all; opacity: 0.9; font-size: 22px; line-height: 1.3; text-shadow: 0 0 5px var(--tno-yellow); }
         
-        .dec-header { color: var(--theme-main); margin-bottom: 30px; font-size: 40px; text-transform: uppercase; border-bottom: 3px double var(--theme-main); padding-bottom: 10px; font-weight: bold; text-shadow: 0 0 10px var(--theme-main); }
-        .dec-block { background: rgba(0,0,0,0.7); border: 1px solid var(--theme-dim); padding: 30px; margin-bottom: 30px; box-shadow: inset 0 0 15px rgba(0,0,0,0.9); }
-        .dec-block-title { background: var(--theme-main); color: #000; padding: 5px 15px; font-size: 28px; font-weight: bold; display: inline-block; margin-bottom: 15px; position: relative; top: -45px; border: 1px solid #fff; }
+        .dec-header { color: var(--theme-main); margin-bottom: 35px; font-size: 45px; text-transform: uppercase; border-bottom: 4px double var(--theme-main); padding-bottom: 10px; font-weight: bold; text-shadow: 0 0 15px var(--theme-main); }
+        .dec-block { background: rgba(0,0,0,0.8); border: 1px solid var(--theme-dim); padding: 35px; margin-bottom: 35px; box-shadow: inset 0 0 20px rgba(0,0,0,0.9); }
+        .dec-block-title { background: var(--theme-main); color: #000; padding: 5px 20px; font-size: 30px; font-weight: bold; display: inline-block; margin-bottom: 20px; position: relative; top: -50px; border: 2px solid #fff; }
         .dec-text { color: #e0e0e0; line-height: 1.6; text-align: justify; }
-        .dec-text ul { padding-left: 25px; margin-top: 15px; }
+        .dec-text ul { padding-left: 30px; margin-top: 20px; }
         .dec-text li { margin-bottom: 15px; }
         
-        .tag-good { color: var(--tno-cyan); font-weight: bold; background: rgba(66, 245, 227, 0.1); padding: 2px 8px; border: 1px solid var(--tno-cyan); display: inline-block; margin-bottom: 5px; }
-        .tag-warn { color: var(--tno-red); font-weight: bold; background: rgba(255, 51, 51, 0.1); padding: 2px 8px; border: 1px solid var(--tno-red); display: inline-block; margin-bottom: 5px; }
-        .tag-info { color: var(--tno-yellow); font-weight: bold; background: rgba(244, 211, 94, 0.1); padding: 2px 8px; border: 1px solid var(--tno-yellow); display: inline-block; margin-bottom: 5px; }
+        .tag-good { color: var(--tno-cyan); font-weight: bold; background: rgba(66, 245, 227, 0.1); padding: 2px 10px; border: 1px solid var(--tno-cyan); display: inline-block; margin-bottom: 5px; }
+        .tag-warn { color: var(--tno-red); font-weight: bold; background: rgba(255, 51, 51, 0.1); padding: 2px 10px; border: 1px solid var(--tno-red); display: inline-block; margin-bottom: 5px; }
+        .tag-info { color: var(--tno-yellow); font-weight: bold; background: rgba(244, 211, 94, 0.1); padding: 2px 10px; border: 1px solid var(--tno-yellow); display: inline-block; margin-bottom: 5px; }
 
         /* ==========================================================================
-           [8] ỨNG DỤNG 4, 5, 6: DONG_LENH, GHI_CHU, CAI_DAT
+           [9] ỨNG DỤNG 5, 6, 7: DONG_LENH, GHI_CHU, CAI_DAT
            ========================================================================== */
         /* Terminal */
-        #win-terminal { top: 450px; left: 50px; width: 650px; height: 450px; }
-        .term-layout { display: flex; flex-direction: column; width: 100%; height: 100%; background: #000; padding: 15px; }
-        .term-output { flex: 1; overflow-y: auto; color: #aaa; font-size: 22px; line-height: 1.4; padding-right: 10px; margin-bottom: 10px; }
+        #win-terminal { top: 500px; left: 50px; width: 700px; height: 450px; }
+        .term-layout { display: flex; flex-direction: column; width: 100%; height: 100%; background: #000; padding: 20px; }
+        .term-output { flex: 1; overflow-y: auto; color: #aaa; font-size: 24px; line-height: 1.4; padding-right: 10px; margin-bottom: 10px; }
         .term-entry { margin-bottom: 5px; }
         .term-user { color: var(--tno-yellow); }
         .term-sys { color: var(--theme-main); text-shadow: 0 0 5px var(--theme-main); }
         .term-err { color: var(--tno-red); font-weight: bold; }
         
-        .term-input-row { display: flex; align-items: center; border-top: 1px dashed #555; padding-top: 10px; }
-        .term-prompt { color: var(--tno-yellow); font-size: 24px; font-weight: bold; margin-right: 10px; }
-        .term-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 26px; outline: none; }
+        .term-input-row { display: flex; align-items: center; border-top: 1px dashed #555; padding-top: 15px; }
+        .term-prompt { color: var(--tno-yellow); font-size: 26px; font-weight: bold; margin-right: 15px; }
+        .term-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 28px; outline: none; }
 
         /* Ghi Chú (Notepad) */
-        #win-notes { top: 200px; left: 800px; width: 500px; height: 600px; }
-        .notes-textarea { width: 100%; height: 100%; background: #111; color: var(--tno-yellow); font-family: 'VT323'; font-size: 24px; border: none; padding: 20px; outline: none; resize: none; line-height: 1.5; }
+        #win-notes { top: 200px; left: 900px; width: 550px; height: 650px; }
+        .notes-textarea { width: 100%; height: 100%; background: #0a0a0a; color: var(--tno-yellow); font-family: 'VT323'; font-size: 26px; border: none; padding: 25px; outline: none; resize: none; line-height: 1.5; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
 
-        /* Cài Đặt Hệ Thống (Settings) */
-        #win-settings { top: 300px; left: 400px; width: 550px; height: auto; }
-        .settings-content { padding: 30px; font-size: 24px; background: rgba(0,0,0,0.8); }
-        .color-btn { display: inline-block; width: 40px; height: 40px; margin-right: 15px; cursor: pointer; border: 2px solid #fff; transition: 0.2s; }
-        .color-btn:hover { transform: scale(1.2); }
+        /* Cài Đặt (Settings) */
+        #win-settings { top: 350px; left: 500px; width: 600px; height: auto; }
+        .settings-content { padding: 35px; font-size: 26px; background: rgba(0,0,0,0.8); }
+        .color-btn { display: inline-block; width: 50px; height: 50px; margin-right: 20px; cursor: pointer; border: 3px solid #fff; transition: 0.2s; }
+        .color-btn:hover { transform: scale(1.2); box-shadow: 0 0 15px #fff; }
 
         /* ==========================================================================
-           [9] SỰ KIỆN TỐI HẬU (SUPER EVENT MODAL)
+           [10] SỰ KIỆN TỐI HẬU & MODALS
            ========================================================================== */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -284,25 +328,36 @@
             overflow-y: auto; padding: 40px 10px;
         }
         
-        .se-box { width: 1000px; max-height: none; display: flex; flex-direction: column; margin: auto; background: #111; border: 6px solid #fff; box-shadow: 0 0 100px rgba(255,255,255,0.4); animation: se-drop 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
+        .settings-box-modal { background: var(--tno-panel); border: var(--border-main); width: 700px; padding: 40px; margin: auto; box-shadow: 0 0 80px var(--theme-dim); }
+        .settings-input { width: 100%; background: #000; border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 20px; margin: 25px 0; outline: none; }
+        
+        .se-box { width: 1100px; max-height: none; display: flex; flex-direction: column; margin: auto; background: #111; border: 6px solid #fff; box-shadow: 0 0 150px rgba(255,255,255,0.4); animation: se-drop 0.6s cubic-bezier(0.25, 1, 0.5, 1); }
         @keyframes se-drop { 0% { transform: translateY(-200px) scale(0.8); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
         
-        .se-title { text-align: center; font-size: 55px; color: #fff; padding: 20px; border-bottom: 4px solid #fff; background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px); text-shadow: 4px 4px #000; font-weight: bold; letter-spacing: 2px; }
-        .se-img-placeholder { height: 300px; background: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Static_television_screen.jpg') center/cover; border-bottom: 4px solid #fff; position: relative; }
-        .se-img-text { position: absolute; bottom: 20px; right: 20px; color: #fff; font-size: 32px; background: rgba(0,0,0,0.9); padding: 10px 20px; border: 2px solid #fff; }
+        .se-title { text-align: center; font-size: 60px; color: #fff; padding: 25px; border-bottom: 5px solid #fff; background: repeating-linear-gradient(45deg, #222, #222 10px, #333 10px, #333 20px); text-shadow: 4px 4px #000; font-weight: bold; letter-spacing: 3px; }
+        .se-img-placeholder { height: 350px; background: url('https://upload.wikimedia.org/wikipedia/commons/3/30/Static_television_screen.jpg') center/cover; border-bottom: 5px solid #fff; position: relative; filter: sepia(0.3) hue-rotate(180deg); }
+        .se-img-text { position: absolute; bottom: 25px; right: 25px; color: #fff; font-size: 36px; background: rgba(0,0,0,0.9); padding: 10px 25px; border: 3px solid #fff; }
         
-        .se-content-wrapper { padding: 40px; background: #111; }
-        .se-content { color: #fff; font-size: 26px; line-height: 1.6; text-align: justify; margin-bottom: 30px; }
-        .se-quote { font-style: italic; color: #bbb; text-align: right; padding: 0 10px 30px; font-size: 26px; }
-        .se-btn { display: block; width: 100%; padding: 20px; background: #fff; color: #000; text-align: center; font-size: 34px; font-weight: bold; cursor: pointer; border: 4px solid #555; transition: 0.3s; text-transform: uppercase; }
-        .se-btn:hover { background: #aaa; letter-spacing: 2px; }
+        .se-content-wrapper { padding: 50px; background: #111; }
+        .se-content { color: #fff; font-size: 28px; line-height: 1.6; text-align: justify; margin-bottom: 40px; }
+        .se-quote { font-style: italic; color: #bbb; text-align: right; padding: 0 10px 40px; font-size: 28px; }
+        .se-btn { display: block; width: 100%; padding: 25px; background: #fff; color: #000; text-align: center; font-size: 38px; font-weight: bold; cursor: pointer; border: 5px solid #555; transition: 0.3s; text-transform: uppercase; }
+        .se-btn:hover { background: #aaa; letter-spacing: 3px; }
 
     </style>
 </head>
 <body>
+    <audio id="tno-bgm" loop>
+        <source src="https://ia800801.us.archive.org/21/items/HolstThePlanets_862/01MarsTheBringerOfWar.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="crt-overlay"></div>
     <div class="scanlines"></div>
     <div class="scanline-bar"></div>
+
+    <div id="pre-boot">
+        <button class="power-btn" onclick="startSystem()">KHỞI ĐỘNG HỆ THỐNG UET_OS<br><span style="font-size: 20px; color:#aaa;">(Click để kích hoạt Âm thanh & Dữ liệu)</span></button>
+    </div>
 
     <div id="boot-screen">
         <div id="boot-text"></div>
@@ -311,11 +366,16 @@
 
     <div id="desktop">
         <div class="taskbar">
-            <div style="display: flex; gap: 20px; align-items: center;">
-                <span class="sys-logo">UET_OS // GRAND ARCHITECT</span>
-                <span style="color: var(--tno-yellow); font-size: 22px;">BẢN DỊCH V13.0</span>
+            <div class="tb-left">
+                <span class="sys-logo">UET_OS // GRAND CAMPAIGN</span>
+                <span style="color: var(--tno-yellow); font-size: 24px;">BẢN TỐI HẬU V14.0</span>
+                <div class="tb-stats">
+                    <div>GDP: <span>$135B</span></div>
+                    <div>DEFICIT: <span>-3.2%</span></div>
+                    <div>LIQUID RES: <span>$8.4B</span></div>
+                </div>
             </div>
-            <div style="display: flex; gap: 30px; align-items: center;">
+            <div class="tb-right">
                 <div class="defcon-indicator" onclick="toggleDefcon()">MỨC BÁO ĐỘNG 5 (DEFCON)</div>
                 <div id="clock">00:00:00</div>
             </div>
@@ -329,6 +389,10 @@
             <div class="desktop-icon" ondblclick="openWindow('win-map')">
                 <div class="icon-img">🗺️</div>
                 <div class="icon-text">BAN_DO.dir</div>
+            </div>
+            <div class="desktop-icon" ondblclick="openWindow('win-worldmap')">
+                <div class="icon-img">🌍</div>
+                <div class="icon-text">THE_GIOI.exe</div>
             </div>
             <div class="desktop-icon" ondblclick="openWindow('win-terminal')">
                 <div class="icon-img">⌨️</div>
@@ -350,24 +414,32 @@
 
         <div class="widget-panel">
             <div class="desktop-widget">
-                <div class="widget-title">GIÁM SÁT HỆ THỐNG</div>
+                <div class="widget-title">GIÁM SÁT KỸ THUẬT (SYSTEM)</div>
                 <div class="sys-stat-row"><span>TẢI BỘ VI XỬ LÝ:</span> <span id="w-cpu" style="color:var(--theme-main);">12%</span></div>
                 <div class="sys-stat-row"><span>KẾT NỐI VỆ TINH:</span> <span style="color:var(--theme-main);">ỔN ĐỊNH</span></div>
-                <div class="sys-stat-row"><span>ĐẶC VỤ:</span> <span style="color:var(--tno-yellow);">K70E-EC1</span></div>
-                <div class="sys-stat-row"><span>MÃ HÓA DỮ LIỆU:</span> <span style="color:var(--tno-red);">KÍCH HOẠT</span></div>
-                <hr style="border: 1px dashed var(--theme-dim); margin: 10px 0;">
-                <div style="font-size: 18px; color: #aaa; line-height: 1.4; text-align: justify;">
-                    "Yêu cầu nhấp đúp (Double-click) vào biểu tượng bên trái để khởi chạy. Cửa sổ có thể được kéo thả tự do."
+                <div class="sys-stat-row"><span>MÃ BẢO MẬT:</span> <span style="color:var(--tno-red);">ĐÃ MÃ HÓA</span></div>
+                <div style="font-size: 18px; color: #aaa; margin-top: 15px; border-top: 1px dashed var(--theme-dim); padding-top: 10px;">
+                    * NHẤP ĐÚP CHUỘT (Double-click) VÀO BIỂU TƯỢNG ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
                 </div>
             </div>
 
             <div class="desktop-widget">
-                <div class="widget-title">ĐÀI PHÁT THANH K70</div>
+                <div class="widget-title">ĐÀI PHÁT THANH K70 (RADIO)</div>
                 <div style="overflow: hidden; white-space: nowrap; margin-bottom: 10px; background: #000; padding: 5px; border: 1px solid var(--theme-dim);">
-                    <div class="radio-scroll radio-track">▶ Đang phát: Bản giao hưởng The Midnight Hour - Lệnh Hồ Chí Minh...</div>
+                    <div class="radio-scroll radio-track">▶ Đang phát: Hành khúc The Midnight Hour - Tín hiệu được mã hóa...</div>
                 </div>
-                <div style="display: flex; justify-content: space-between; font-size: 16px;"><span>01:24</span><span>-03:45</span></div>
-                <div class="audio-bar"><div class="audio-fill"></div></div>
+                <div class="audio-controls">
+                    <button class="audio-btn" onclick="toggleAudio()" id="btn-audio">⏸ TẠM DỪNG</button>
+                    <button class="audio-btn" onclick="volAudio(0.1)">🔊 TĂNG ÂM</button>
+                    <button class="audio-btn" onclick="volAudio(-0.1)">🔉 GIẢM ÂM</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="news-ticker">
+            <div class="ticker-label">UET GLOBAL NEWS TAPE</div>
+            <div class="ticker-text">
+                +++ COHORT K70 SUCCESSFULLY DEPLOYS NEW GENERATIVE AI PROTOCOLS +++ MỤC TIÊU GPA 3.2 ĐANG ĐI ĐÚNG QUỸ ĐẠO KỲ VỌNG +++ HỆ THỐNG MÃ HÓA 8 KÝ TỰ TET 2026 ĐÃ SẴN SÀNG +++ THE MIDNIGHT HOUR LORE EXPANDED +++ MATLAB Y-BUS CALCULATIONS RUNNING AT 100% EFFICIENCY +++ PYTHON FLAPPY BIRD CLONE DEPLOYED +++
             </div>
         </div>
 
@@ -386,11 +458,12 @@
                             <div class="dossier-name">NGUYỄN VŨ ĐÔNG</div>
                         </div>
                         <div class="dossier-nav">
-                            <button class="d-nav-btn active" onclick="switchDossierTab(0)">[01] CĂN CƯỚC ĐỊNH DANH</button>
+                            <button class="d-nav-btn active" onclick="switchDossierTab(0)">[01] CĂN CƯỚC TÌNH BÁO</button>
                             <button class="d-nav-btn" onclick="switchDossierTab(1)">[02] HỒ SƠ HỌC THUẬT</button>
                             <button class="d-nav-btn" onclick="switchDossierTab(2)">[03] HỆ TƯ TƯỞNG & LORE</button>
                             <button class="d-nav-btn" onclick="switchDossierTab(3)">[04] MA TRẬN KHÍ TÀI</button>
                         </div>
+                        <button class="action-link-btn" style="margin: 15px; font-size: 20px; padding: 10px;" onclick="openAvatarModal()">ĐỔI ẢNH ĐẠI DIỆN</button>
                     </div>
                     
                     <div class="dossier-main">
@@ -405,9 +478,9 @@
                             </div>
                             <div class="d-block" style="border-color: var(--tno-orange);">
                                 <div class="d-block-title" style="color: var(--tno-orange);">KÊNH LIÊN LẠC BẢO MẬT</div>
-                                <p>> <strong>Đường dây nóng (Tel):</strong> <span class="d-hl" style="font-size: 28px;">0902.069.838</span></p>
+                                <p>> <strong>Đường dây nóng (Tel):</strong> <span class="d-hl" style="font-size: 30px;">0902.069.838</span></p>
                                 <p>> <strong>Hộp thư điện tín (Email):</strong> <span class="d-hl">thetrueoutsidervn@gmail.com</span></p>
-                                <p style="color: #888; font-size: 20px; margin-top: 15px;">* Giao thức liên lạc mã hóa đầu cuối đã được kích hoạt. Sẵn sàng tiếp nhận chỉ thị từ cấp trên 24/7.</p>
+                                <p style="color: #888; font-size: 20px; margin-top: 15px;">* Giao thức liên lạc mã hóa đầu cuối đã được kích hoạt. Sẵn sàng tiếp nhận chỉ thị 24/7.</p>
                             </div>
                         </div>
 
@@ -416,35 +489,35 @@
                             <div class="d-block">
                                 <div class="d-block-title">CHỈ THỊ NHIỆM VỤ CỐT LÕI</div>
                                 <p>Đang trong quá trình giải quyết lộ trình <span class="d-hl">135 Tín chỉ</span> đào tạo kỹ sư. Mục tiêu chiến lược là tối ưu hóa luồng điểm số để đạt chuẩn đầu ra với <span class="d-hl">GPA 3.2 / 4.0</span>.</p>
-                                <p>Đồng thời, hệ thống đang xử lý Giao thức Ngôn ngữ Quốc tế, định hướng vượt qua bộ lọc <span class="d-hl">IELTS Band 5.0 - 6.5</span> nhằm phục vụ cho các chiến dịch nghiên cứu tài liệu ngoại quốc.</p>
+                                <p>Hệ thống đang xử lý Giao thức Ngôn ngữ Quốc tế, định hướng vượt qua bộ lọc <span class="d-hl">IELTS Band 5.0 - 6.5</span> nhằm phục vụ cho các chiến dịch tài liệu ngoại quốc.</p>
                             </div>
                             <div class="d-block">
                                 <div class="d-block-title">MÔN HỌC MŨI NHỌN (FOCUS AREAS)</div>
                                 <ul style="margin-left: 25px;">
-                                    <li>Đại số Tuyến tính & Giải tích: Nền tảng tư duy logic toán học.</li>
-                                    <li>Tín hiệu & Hệ thống: Xử lý chuỗi thông tin phức hợp.</li>
-                                    <li>Nhập môn Công nghệ số & Ứng dụng AI: Cơ sở hình thành Portfolio OS này.</li>
+                                    <li><strong>Đại số Tuyến tính & Giải tích:</strong> Nền tảng tư duy logic toán học bậc cao.</li>
+                                    <li><strong>Tín hiệu & Hệ thống:</strong> Xử lý chuỗi thông tin phức hợp trong môi trường kỹ thuật.</li>
+                                    <li><strong>Nhập môn Công nghệ số & Ứng dụng AI:</strong> Cơ sở hình thành Portfolio OS này.</li>
                                 </ul>
                             </div>
                         </div>
 
                         <div class="d-tab" id="d-tab-2">
                             <div class="d-header">HỆ TƯ TƯỞNG (IDEOLOGY) & LORE</div>
-                            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 25px;">
-                                <div style="width: 120px; height: 120px; border-radius: 50%; background: conic-gradient(var(--tno-hcm-gold) 0% 15%, var(--tno-hcm-red) 15% 100%); border: 3px solid var(--tno-hcm-gold); box-shadow: 0 0 30px rgba(218, 37, 29, 0.8); display: flex; justify-content: center; align-items: center;">
-                                    <span style="font-size: 50px; color: var(--tno-hcm-gold); text-shadow: 0 0 10px #000;">★</span>
+                            <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 25px;">
+                                <div style="width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(var(--tno-hcm-gold) 0% 15%, var(--tno-hcm-red) 15% 100%); border: 3px solid var(--tno-hcm-gold); box-shadow: 0 0 30px rgba(218, 37, 29, 0.8); display: flex; justify-content: center; align-items: center;">
+                                    <span style="font-size: 60px; color: var(--tno-hcm-gold); text-shadow: 0 0 10px #000;">★</span>
                                 </div>
                                 <div>
-                                    <div style="font-size: 34px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold);">HO CHI MINH THOUGHT</div>
-                                    <div style="font-size: 22px; color: #ccc;">Tư tưởng Hồ Chí Minh</div>
+                                    <div style="font-size: 38px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold);">HO CHI MINH THOUGHT</div>
+                                    <div style="font-size: 24px; color: #ccc;">Tư tưởng Hồ Chí Minh</div>
                                 </div>
                             </div>
                             <div class="d-block">
-                                <p>Áp dụng tư duy biện chứng Mác-Lênin vào quản lý kỹ thuật. Đề cao tính tập thể (Team-work), tính thực tiễn (áp dụng lý thuyết vào giải quyết vấn đề thực tế) và sự cải tiến công nghệ không ngừng vì lợi ích chung của xã hội.</p>
+                                <p>Áp dụng tư duy biện chứng Mác-Lênin vào quản lý kỹ thuật. Đề cao tính tập thể (Team-work), tính thực tiễn (áp dụng lý thuyết vào giải quyết vấn đề thực tế) và sự cải tiến công nghệ không ngừng vì lợi ích chung.</p>
                             </div>
                             <div class="d-block" style="border-color: #888;">
                                 <div class="d-block-title" style="color: #fff;">SỞ THÍCH LORE CÁ NHÂN (CLASSIFIED)</div>
-                                <p>Đam mê sâu sắc với việc kiến tạo vũ trụ lịch sử dị bản (Alternate History). Là 'kiến trúc sư' đứng sau dự án <strong>The Midnight Hour: Last Order</strong>. Thường xuyên đắm chìm trong các kịch bản đại chiến lược của Hearts of Iron IV (TNO, Red Dusk) để mài giũa nhãn quan chiến thuật.</p>
+                                <p>Đam mê sâu sắc với việc kiến tạo vũ trụ lịch sử dị bản (Alternate History). Là 'kiến trúc sư' đứng sau dự án <strong>The Midnight Hour: Last Order</strong>. Thường xuyên đắm chìm trong các kịch bản đại chiến lược của Hearts of Iron IV (TNO, Red Dusk).</p>
                                 <p>Ngoài ra, có xu hướng viết kịch bản trào phúng mang đậm phong cách <strong>1977 Vlogs</strong> và thiết kế luật chơi cho <strong>Dungeons & Dragons (D&D)</strong>.</p>
                             </div>
                         </div>
@@ -461,7 +534,7 @@
                             </div>
                             <div class="d-block">
                                 <div class="d-block-title" style="display: flex; align-items: center; gap: 15px;"><span style="font-size: 35px;">🧠</span> PROMPT ENGINEERING</div>
-                                <p>Thành thạo việc ra lệnh, thiết lập bối cảnh (Context Window) và ép định dạng đầu ra đối với các Mô hình Ngôn ngữ lớn (LLM) phục vụ sản xuất nội dung số và kiểm lỗi code.</p>
+                                <p>Thành thạo việc ra lệnh, thiết lập bối cảnh (Context Window) và ép định dạng đầu ra đối với các LLM phục vụ sản xuất nội dung số và kiểm lỗi code.</p>
                             </div>
                         </div>
                     </div>
@@ -488,45 +561,68 @@
                             <path class="focus-line" d="M 1250 1250 L 1250 1400" />
                         </svg>
 
-                        <div class="focus-node completed" style="top: 50px; left: 1100px;" onclick="moHoSo(1)">
+                        <div class="focus-node completed" style="top: 50px; left: 1100px;" onclick="moHoSo(1, this)">
                             <div class="focus-icon">🗄️</div>
                             <div class="focus-title">[01] THAO TÁC TỆP TIN</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 1.4</div>
                         </div>
                         
-                        <div class="focus-node completed" style="top: 400px; left: 1100px;" onclick="moHoSo(2)">
+                        <div class="focus-node completed" style="top: 400px; left: 1100px;" onclick="moHoSo(2, this)">
                             <div class="focus-icon">📡</div>
                             <div class="focus-title">[02] TÌM KIẾM HỌC THUẬT</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 2.4</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 750px; left: 650px;" onclick="moHoSo(3)">
+                        <div class="focus-node completed" style="top: 750px; left: 650px;" onclick="moHoSo(3, this)">
                             <div class="focus-icon">🧠</div>
                             <div class="focus-title">[03] KỸ SƯ PROMPT AI</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 3.4</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 750px; left: 1550px; border-color: var(--tno-yellow);" onclick="moHoSo(4)">
+                        <div class="focus-node completed" style="top: 750px; left: 1550px; border-color: var(--tno-yellow);" onclick="moHoSo(4, this)">
                             <div class="focus-icon" style="color: var(--tno-yellow); text-shadow: 0 0 20px var(--tno-yellow);">🤝</div>
                             <div class="focus-title" style="color: var(--tno-yellow);">[04] HỢP TÁC TRỰC TUYẾN</div>
                             <div class="focus-time">Giao thức Mạng Nhóm</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 1100px; left: 1100px;" onclick="moHoSo(5)">
+                        <div class="focus-node completed" style="top: 1100px; left: 1100px;" onclick="moHoSo(5, this)">
                             <div class="focus-icon">⚙️</div>
                             <div class="focus-title">[05] AI TẠO SINH</div>
                             <div class="focus-time">Hoàn tất Giai đoạn 5.4</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 1400px; left: 1100px;" onclick="moHoSo(6)">
+                        <div class="focus-node completed" style="top: 1400px; left: 1100px;" onclick="moHoSo(6, this)">
                             <div class="focus-icon">⚖️</div>
                             <div class="focus-title">[06] LIÊM CHÍNH AI</div>
                             <div class="focus-time">Đạo luật Vĩnh viễn</div>
                         </div>
-                        
-                        <div style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.8); padding: 15px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff;">
-                            >> THAO TÁC CƠ BẢN:<br>1. Giữ chuột để Kéo Bản đồ.<br>2. Lăn chuột để Phóng to/Thu nhỏ.<br>3. CLICK VÀO TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ.
-                        </div>
+                    </div>
+                    
+                    <div class="map-instruction">
+                        >> HƯỚNG DẪN THAO TÁC (NO BUGS):<br>
+                        1. Giữ chuột để <strong>Kéo Bản đồ</strong>.<br>
+                        2. Lăn chuột để <strong>Phóng to/Thu nhỏ</strong>.<br>
+                        3. BẤM TRỰC TIẾP VÀO NÚT TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ CHI TIẾT.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="os-window" id="win-worldmap" onmousedown="bringToFront('win-worldmap')">
+            <div class="win-header" onmousedown="dragWindow(event, 'win-worldmap')">
+                <span class="win-title">[🌍] C:\SYSTEM\THE_GIOI.exe</span>
+                <div class="win-controls">
+                    <button class="win-btn win-btn-close" onclick="closeWindow('win-worldmap')">X</button>
+                </div>
+            </div>
+            <div class="win-content">
+                <div class="world-viewport" id="w-viewport">
+                    <div class="world-canvas" id="w-canvas">
+                        <div class="radar-ping"></div>
+                    </div>
+                    <div class="map-instruction">
+                        >> VỆ TINH TOÀN CẦU K70<br>
+                        Giữ chuột để Kéo, Lăn chuột để Zoom. Vị trí radar đang chỉ định tọa độ UET Hà Nội.
                     </div>
                 </div>
             </div>
@@ -547,7 +643,8 @@
                         <button class="dec-btn" onclick="switchDecTab(2)">MINH CHỨNG</button>
                     </div>
                     <div class="dec-content-area" id="dec-area">
-                        </div>
+                        <h2 style="color: var(--theme-main); text-align: center; margin-top: 50px;">ĐANG CHỜ NHẬN LỆNH TỪ BẢN ĐỒ CHIẾN LƯỢC...</h2>
+                    </div>
                 </div>
             </div>
         </div>
@@ -562,7 +659,7 @@
             <div class="win-content">
                 <div class="term-layout">
                     <div class="term-output" id="term-output">
-                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V13.0 ĐÃ SẴN SÀNG.</div>
+                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V14.0 ĐÃ SẴN SÀNG.</div>
                         <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách lệnh.</div>
                     </div>
                     <div class="term-input-row">
@@ -596,7 +693,7 @@
                 <div class="settings-content">
                     <h2 style="color: var(--theme-main); border-bottom: 2px dashed var(--theme-main); padding-bottom: 10px; margin-bottom: 20px;">TÙY CHỈNH GIAO DIỆN HỆ THỐNG</h2>
                     <p style="margin-bottom: 20px;">Chọn tông màu bảo mật cho giao diện The Midnight Hour:</p>
-                    <div style="display: flex; gap: 15px; margin-bottom: 30px;">
+                    <div style="display: flex; gap: 20px; margin-bottom: 40px;">
                         <div class="color-btn" style="background: #42f5e3;" onclick="setTheme('#42f5e3', '#165952', '#071f1c')"></div>
                         <div class="color-btn" style="background: #ffcc00;" onclick="setTheme('#ffcc00', '#6b5400', '#2a2200')"></div>
                         <div class="color-btn" style="background: #33ff33;" onclick="setTheme('#33ff33', '#0f4d0f', '#051a05')"></div>
@@ -628,8 +725,8 @@
             <div class="se-content-wrapper">
                 <div class="se-content">
                     <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT CHIẾN DỊCH TỐI HẬU ]</strong><br><br>
-                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao.<br><br>
-                    Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao để ép AI phục tùng logic của mình. 
+                    Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao (tích hợp Bản đồ Pan & Zoom đa lớp, Hiệu ứng Terminal và Giải mã đa luồng).<br><br>
+                    Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> (như Chain-of-Thought) để ép AI phục tùng logic của mình. 
                     <br><br>
                     Khái niệm <strong>'Human-in-the-loop'</strong> được khắc sâu: <i>Máy móc dù có siêu việt đến đâu cũng chỉ là công cụ tính toán. Trách nhiệm kiểm chứng, đạo đức liêm chính và Tư duy logic của con người mới là kim chỉ nam quyết định giới hạn của sự sáng tạo.</i>
                 </div>
@@ -640,7 +737,7 @@
     </div>
 
     <script>
-        /* CSS cho Layout nội bộ */
+        /* CSS nội bộ thêm cho Layout */
         const extraCSS = document.createElement('style');
         extraCSS.innerHTML = `
             .decrypt-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
@@ -651,7 +748,7 @@
             .dec-content-area { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 24px; background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%); }
             .dec-scramble { font-family: monospace; letter-spacing: 2px; color: var(--tno-yellow); word-break: break-all; opacity: 0.8; font-size: 20px; line-height: 1.2; }
             .dec-header { color: var(--theme-main); margin-bottom: 30px; font-size: 40px; text-transform: uppercase; border-bottom: 3px double var(--theme-main); padding-bottom: 10px; font-weight: bold; text-shadow: 0 0 10px var(--theme-main); }
-            .dec-block { background: rgba(0,0,0,0.7); border: 1px solid var(--theme-dim); padding: 30px; margin-bottom: 30px; box-shadow: inset 0 0 15px rgba(0,0,0,0.9); }
+            .dec-block { background: rgba(0,0,0,0.7); border: 1px solid var(--theme-dim); padding: 30px; margin-bottom: 35px; box-shadow: inset 0 0 15px rgba(0,0,0,0.9); }
             .dec-block-title { background: var(--theme-main); color: #000; padding: 5px 15px; font-size: 28px; font-weight: bold; display: inline-block; margin-bottom: 15px; position: relative; top: -45px; border: 1px solid #fff; }
             .dec-text { color: #e0e0e0; line-height: 1.6; text-align: justify; }
             .dec-text ul { padding-left: 25px; margin-top: 15px; }
@@ -663,9 +760,9 @@
         `;
         document.head.appendChild(extraCSS);
 
-        /* --- 1. BOOT SEQUENCE --- */
+        /* --- 1. BOOT SEQUENCE & AUDIO --- */
         const bootLines = [
-            "BIOS Date 06/03/26 23:59:59 Ver VIETNAM.13",
+            "BIOS Date 06/03/26 23:59:59 Ver VIETNAM.14",
             "CPU: K70 Neural-Link Processor (Hanoi Central Command)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Radar Scanners... [OK]",
@@ -678,7 +775,17 @@
         
         let bootLineIndex = 0;
         const bootTextDiv = document.getElementById('boot-text');
-        
+        const audio = document.getElementById('tno-bgm');
+        audio.volume = 0.5;
+
+        function startSystem() {
+            document.getElementById('pre-boot').style.display = 'none';
+            document.getElementById('boot-screen').style.display = 'flex';
+            // Phát nhạc
+            audio.play().catch(e => console.log("Audio play blocked by browser:", e));
+            runBoot();
+        }
+
         function runBoot() {
             if (bootLineIndex < bootLines.length) {
                 const p = document.createElement('div');
@@ -691,13 +798,24 @@
                 setTimeout(() => {
                     document.getElementById('boot-screen').style.display = 'none';
                     document.getElementById('desktop').style.display = 'block';
-                    initPanZoom(); 
+                    initPanZoom('viewport', 'canvas'); 
+                    initPanZoom('w-viewport', 'w-canvas'); // Init world map
                 }, 800);
             }
         }
-        window.onload = runBoot;
 
-        /* --- 2. SYSTEM CLOCK & WIDGET & DEFCON --- */
+        /* --- Audio Controls --- */
+        function toggleAudio() {
+            const btn = document.getElementById('btn-audio');
+            if (audio.paused) { audio.play(); btn.innerText = "⏸ TẠM DỪNG"; } 
+            else { audio.pause(); btn.innerText = "▶ PHÁT NHẠC"; }
+        }
+        function volAudio(amount) {
+            let vol = audio.volume + amount;
+            audio.volume = Math.max(0, Math.min(1, vol));
+        }
+
+        /* --- 2. SYSTEM CLOCK & DEFCON --- */
         setInterval(() => {
             document.getElementById('clock').innerText = new Date().toISOString().replace('T', ' ').substring(0, 19);
             document.getElementById('w-cpu').innerText = Math.floor(Math.random() * 25 + 5) + '%';
@@ -727,7 +845,6 @@
             const win = document.getElementById(id);
             win.style.display = 'flex';
             bringToFront(id);
-            if(id === 'win-map') initPanZoom(); 
         }
         function closeWindow(id) { document.getElementById(id).style.display = 'none'; }
         
@@ -805,33 +922,43 @@
             }
         };
 
-        /* --- 6. MAP PAN & ZOOM LOGIC --- */
-        let scale = 0.5; let panning = false; let pointX = -200; let pointY = -50; let start = { x: 0, y: 0 };
-        const viewport = document.getElementById("viewport");
-        const canvas = document.getElementById("canvas");
+        /* --- 6. KHẮC PHỤC LỖI CLICK MAP BẰNG LOGIC PAN & ZOOM ĐỘC LẬP --- */
+        // Sử dụng mảng để quản lý 2 viewport khác nhau (Map Tiêu điểm và Map Thế giới)
+        const mapStates = {};
 
-        function setTransform() { canvas.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`; }
+        function initPanZoom(viewportId, canvasId) {
+            const viewport = document.getElementById(viewportId);
+            const canvas = document.getElementById(canvasId);
+            
+            mapStates[viewportId] = { scale: 0.5, pointX: -200, pointY: -50, panning: false, start: {x:0, y:0} };
+            const state = mapStates[viewportId];
 
-        function initPanZoom() {
+            function setTransform() { canvas.style.transform = `translate(${state.pointX}px, ${state.pointY}px) scale(${state.scale})`; }
             setTransform(); 
+            
             viewport.onmousedown = function (e) {
-                e.preventDefault(); start = { x: e.clientX - pointX, y: e.clientY - pointY };
-                panning = true; viewport.style.cursor = 'grabbing';
+                // Sửa lỗi Click: Nếu bấm trúng một .focus-node, KHÔNG preventDefault để nó có thể nhận sự kiện onclick
+                if (e.target.closest('.focus-node')) return;
+                
+                e.preventDefault(); 
+                state.start = { x: e.clientX - state.pointX, y: e.clientY - state.pointY };
+                state.panning = true; viewport.style.cursor = 'grabbing';
             };
-            viewport.onmouseup = function () { panning = false; viewport.style.cursor = 'grab'; };
-            viewport.onmouseleave = function () { panning = false; viewport.style.cursor = 'grab'; };
+            viewport.onmouseup = function () { state.panning = false; viewport.style.cursor = 'grab'; };
+            viewport.onmouseleave = function () { state.panning = false; viewport.style.cursor = 'grab'; };
             viewport.onmousemove = function (e) {
-                if (!panning) return; e.preventDefault();
-                pointX = (e.clientX - start.x); pointY = (e.clientY - start.y);
+                if (!state.panning) return;
+                e.preventDefault();
+                state.pointX = (e.clientX - state.start.x); state.pointY = (e.clientY - state.start.y);
                 setTransform();
             };
             viewport.onwheel = function (e) {
                 e.preventDefault();
-                let xs = (e.clientX - pointX) / scale; let ys = (e.clientY - pointY) / scale;
+                let xs = (e.clientX - state.pointX) / state.scale; let ys = (e.clientY - state.pointY) / state.scale;
                 let delta = (e.wheelDelta ? e.wheelDelta : -e.deltaY);
-                (delta > 0) ? (scale *= 1.1) : (scale /= 1.1);
-                scale = Math.min(Math.max(0.3, scale), 2.0);
-                pointX = e.clientX - xs * scale; pointY = e.clientY - ys * scale;
+                (delta > 0) ? (state.scale *= 1.1) : (state.scale /= 1.1);
+                state.scale = Math.min(Math.max(0.3, state.scale), 2.0);
+                state.pointX = e.clientX - xs * state.scale; state.pointY = e.clientY - ys * state.scale;
                 setTransform();
             };
         }
@@ -839,8 +966,14 @@
         /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) --- */
         let currentFocusId = null;
 
-        function moHoSo(id) {
+        function moHoSo(id, el) {
             currentFocusId = id;
+            
+            // Xử lý hiệu ứng sáng nút trên bản đồ
+            document.querySelectorAll('.focus-node').forEach(n => n.style.boxShadow = "inset 0 0 30px rgba(0,0,0,1), 10px 10px 25px rgba(0,0,0,0.8)");
+            if(el) el.style.boxShadow = "0 0 50px var(--theme-main), inset 0 0 20px rgba(255,255,255,0.2)";
+
+            // Mở cửa sổ Giải mã
             openWindow('win-decrypt');
             termPrint(`Đang thực thi lệnh đọc Hồ sơ ID: ${id}...`, 'term-sys');
             
@@ -869,6 +1002,7 @@
             const display = document.getElementById('dec-area');
             const data = database[id];
             
+            // Hiệu ứng Mã hóa giả lập (Military Decryption)
             display.style.fontFamily = 'monospace';
             display.classList.add('dec-scramble');
             display.innerHTML = generateScramble(600);
@@ -891,7 +1025,7 @@
                 else if(tabIndex === 2) contentHTML = data.tab3;
                 
                 display.innerHTML = contentHTML;
-            }, 700);
+            }, 800); // 800ms chạy mã nhị phân cho xịn
         }
 
         function generateScramble(length) {
@@ -941,7 +1075,7 @@
                         setTimeout(() => termPrint("  Phản hồi từ 10.24.0.1: bytes=64 time=14ms TTL=135", 'term-sys'), 1200);
                         break;
                     case 'read':
-                        if(args[1] >= 1 && args[1] <= 6) moHoSo(args[1]);
+                        if(args[1] >= 1 && args[1] <= 6) moHoSo(args[1], null);
                         else termPrint("> LỖI: Mã ID không hợp lệ.", 'term-err');
                         break;
                     default:
@@ -952,17 +1086,15 @@
         });
 
         /* --- 9. LOCAL STORAGE: NOTEPAD & AVATAR & THEME --- */
-        // Notes
         const notepad = document.getElementById('notepad');
-        if(localStorage.getItem('tno_notes_v13')) notepad.value = localStorage.getItem('tno_notes_v13');
-        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v13', notepad.value); });
+        if(localStorage.getItem('tno_notes_v14')) notepad.value = localStorage.getItem('tno_notes_v14');
+        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v14', notepad.value); });
 
-        // Avatar
         const avatarImg = document.getElementById('dossier-img');
         const deskAvatarImg = document.getElementById('leader-portrait');
-        if(localStorage.getItem('tno_avatar_v13')) {
-            avatarImg.src = localStorage.getItem('tno_avatar_v13');
-            deskAvatarImg.src = localStorage.getItem('tno_avatar_v13');
+        if(localStorage.getItem('tno_avatar_v14')) {
+            avatarImg.src = localStorage.getItem('tno_avatar_v14');
+            deskAvatarImg.src = localStorage.getItem('tno_avatar_v14');
         }
 
         function openAvatarModal() { document.getElementById('avatar-modal').style.display = 'flex'; }
@@ -971,13 +1103,12 @@
             const url = document.getElementById('avatar-url-input').value.trim();
             if(url) {
                 avatarImg.src = url; deskAvatarImg.src = url;
-                localStorage.setItem('tno_avatar_v13', url); 
+                localStorage.setItem('tno_avatar_v14', url); 
                 termPrint("> Giao thức Cập nhật Ảnh đã lưu vào bộ nhớ.", 'term-sys');
             }
             closeAvatarModal();
         }
 
-        // Theme Settings
         if(localStorage.getItem('tno_theme_main')) {
             document.documentElement.style.setProperty('--theme-main', localStorage.getItem('tno_theme_main'));
             document.documentElement.style.setProperty('--theme-dim', localStorage.getItem('tno_theme_dim'));
