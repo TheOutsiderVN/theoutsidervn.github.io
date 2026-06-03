@@ -50,7 +50,7 @@
         ::-webkit-scrollbar-thumb:hover { background: var(--theme-main); }
 
         /* ==========================================================================
-           [2] POWER ON & BOOT SEQUENCE (FIXED BUG)
+           [2] POWER ON & BOOT SEQUENCE
            ========================================================================== */
         #pre-boot { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 10001; display: flex; flex-direction: column; justify-content: center; align-items: center; }
         .power-btn { background: transparent; border: 3px solid var(--tno-cyan); color: var(--tno-cyan); font-family: 'VT323'; font-size: 45px; padding: 25px 50px; cursor: pointer; text-transform: uppercase; transition: 0.3s; text-shadow: 0 0 15px var(--tno-cyan); box-shadow: 0 0 30px rgba(66, 245, 227, 0.2); }
@@ -76,16 +76,15 @@
         .defcon-indicator { background: var(--tno-red-dim); color: white; padding: 5px 20px; border: 2px solid var(--tno-red); cursor: pointer; transition: 0.3s; font-size: 24px; }
         .defcon-indicator:hover { background: var(--tno-red); box-shadow: 0 0 20px var(--tno-red); }
 
-        /* Compact Desktop Icons */
-        .icon-grid { position: absolute; top: 80px; left: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 10; }
-        .desktop-icon { width: 100px; display: flex; flex-direction: column; align-items: center; cursor: pointer; padding: 10px; border: 1px solid transparent; transition: 0.2s; text-align: center; }
+        /* COMPACT DESKTOP ICONS (GRID 2 CỘT FIX LỖI ĐÈ TRÊN MÀN HÌNH NHỎ) */
+        .icon-grid { position: absolute; top: 70px; left: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; z-index: 10; width: 220px; }
+        .desktop-icon { width: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 10px; border: 1px solid transparent; transition: 0.2s; text-align: center; }
         .desktop-icon:hover { background: rgba(255,255,255, 0.1); border: 1px dashed var(--theme-main); }
-        .desktop-icon:active { background: rgba(255,255,255, 0.3); }
-        .icon-img { font-size: 50px; margin-bottom: 5px; color: var(--theme-main); filter: drop-shadow(0 0 10px var(--theme-main)); }
-        .icon-text { font-size: 18px; font-weight: bold; background: rgba(0,0,0,0.8); padding: 2px 5px; border-radius: 3px; border: 1px solid var(--theme-dim); }
+        .icon-img { font-size: 45px; margin-bottom: 5px; color: var(--theme-main); filter: drop-shadow(0 0 10px var(--theme-main)); }
+        .icon-text { font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.8); padding: 2px 5px; border-radius: 3px; border: 1px solid var(--theme-dim); white-space: nowrap; }
 
         /* Desktop Widgets */
-        .widget-panel { position: absolute; top: 80px; right: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 10; width: 400px; }
+        .widget-panel { position: absolute; top: 70px; right: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 10; width: 360px; }
         .desktop-widget { background: var(--tno-panel); border: var(--border-main); padding: 20px; box-shadow: var(--shadow-inset); position: relative; }
         .desktop-widget::before { content:''; position:absolute; top:-2px; left:-2px; width:10px; height:10px; background:var(--theme-main); }
         .desktop-widget::after { content:''; position:absolute; bottom:-2px; right:-2px; width:10px; height:10px; background:var(--theme-main); }
@@ -99,7 +98,7 @@
         @keyframes ticker-scroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-150%); } }
 
         /* ==========================================================================
-           [4] WINDOW MANAGER (OS WINDOWS) - FIXED Z-INDEX
+           [4] WINDOW MANAGER (OS WINDOWS) - Z-INDEX FIX
            ========================================================================== */
         .os-window {
             position: absolute; display: none; flex-direction: column;
@@ -107,7 +106,7 @@
             box-shadow: 15px 15px 40px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.9);
             z-index: 50; transition: border 0.2s; pointer-events: auto;
         }
-        .os-window.active-win { border-color: var(--theme-main); box-shadow: 0 0 30px var(--theme-dim), 15px 15px 50px rgba(0,0,0,1); z-index: 900 !important; } /* High Z-index */
+        .os-window.active-win { border-color: var(--theme-main); box-shadow: 0 0 30px var(--theme-dim), 15px 15px 50px rgba(0,0,0,1); z-index: 900 !important; } 
         
         .win-header {
             background: repeating-linear-gradient(45deg, var(--theme-dark), var(--theme-dark) 10px, rgba(0,0,0,0.8) 10px, rgba(0,0,0,0.8) 20px);
@@ -128,33 +127,33 @@
         /* ==========================================================================
            [5] ỨNG DỤNG 1: HO_SO.exe
            ========================================================================== */
-        #win-dossier { top: 50px; left: 150px; width: 1000px; height: 750px; }
+        #win-dossier { top: 50px; left: 260px; width: 950px; height: 700px; }
         .dossier-layout { display: flex; width: 100%; height: 100%; }
         
-        .dossier-sidebar { width: 360px; background: rgba(0,0,0,0.6); border-right: 2px solid var(--theme-dim); display: flex; flex-direction: column; }
-        .dossier-portrait { height: 360px; background: #000; position: relative; border-bottom: 2px solid var(--theme-dim); }
+        .dossier-sidebar { width: 340px; background: rgba(0,0,0,0.6); border-right: 2px solid var(--theme-dim); display: flex; flex-direction: column; }
+        .dossier-portrait { height: 340px; background: #000; position: relative; border-bottom: 2px solid var(--theme-dim); }
         .dossier-portrait img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) sepia(0.3) hue-rotate(150deg); opacity: 0.9; }
         body.defcon-1 .dossier-portrait img { filter: contrast(1.5) sepia(1) hue-rotate(330deg); }
         .dossier-name { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); color: var(--theme-main); padding: 12px; font-size: 32px; font-weight: bold; text-align: center; border-top: 1px solid var(--theme-main); text-shadow: 2px 2px #000; }
         
         .dossier-nav { padding: 15px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-        .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
+        .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 24px; padding: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
         .d-nav-btn:hover, .d-nav-btn.active { background: var(--theme-dim); border: 2px solid var(--theme-main); color: #fff; font-weight: bold; padding-left: 25px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
 
-        .dossier-main { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 26px; line-height: 1.5; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 100%); }
+        .dossier-main { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 24px; line-height: 1.5; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 100%); }
         .d-tab { display: none; animation: fadeIn 0.3s; }
         .d-tab.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .d-header { color: var(--tno-orange); font-size: 38px; border-bottom: 3px dashed var(--tno-orange); padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-weight: bold; }
+        .d-header { color: var(--tno-orange); font-size: 36px; border-bottom: 3px dashed var(--tno-orange); padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-weight: bold; }
         .d-block { background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 25px; margin-bottom: 25px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
-        .d-block-title { font-size: 30px; color: var(--theme-main); margin-bottom: 15px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); padding-bottom: 5px; }
+        .d-block-title { font-size: 28px; color: var(--theme-main); margin-bottom: 15px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); padding-bottom: 5px; }
         .d-hl { color: var(--tno-yellow); font-weight: bold; }
 
         /* ==========================================================================
            [6] ỨNG DỤNG 2: BAN_DO.dir (MAP & CLICK FIX)
            ========================================================================== */
-        #win-map { top: 30px; left: 280px; width: 1200px; height: 850px; }
+        #win-map { top: 30px; left: 300px; width: 1150px; height: 800px; }
         .map-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100px 100px; }
         .map-viewport:active { cursor: grabbing; }
         .map-canvas { position: absolute; top: 0; left: 0; width: 3000px; height: 3000px; transform-origin: 0 0; }
@@ -171,18 +170,18 @@
         }
         .focus-node:hover { border-color: var(--theme-main); transform: scale(1.08); box-shadow: 0 0 50px var(--theme-main); z-index: 20; cursor: pointer; }
         .focus-node.completed { border-color: var(--theme-main); }
-        .focus-node.completed::before { content: "DỮ LIỆU SẴN SÀNG"; position: absolute; top: -18px; left: -4px; background: var(--theme-main); color: #000; font-size: 20px; padding: 2px 12px; font-weight: bold; border-top-right-radius: 10px; }
+        .focus-node.completed::before { content: "DỮ LIỆU ĐÃ MỞ KHÓA"; position: absolute; top: -18px; left: -4px; background: var(--theme-main); color: #000; font-size: 20px; padding: 2px 12px; font-weight: bold; border-top-right-radius: 10px; }
         
         .focus-icon { font-size: 70px; margin-bottom: 10px; color: var(--theme-main); filter: drop-shadow(0 0 15px var(--theme-main)); }
         .focus-title { font-size: 30px; font-weight: bold; color: #fff; border-bottom: 2px solid var(--theme-dim); padding-bottom: 10px; margin-bottom: 10px; }
         .focus-time { font-size: 22px; color: var(--tno-orange); }
 
-        .map-instruction { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none; }
+        .map-instruction { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 22px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none; }
 
         /* ==========================================================================
            [7] ỨNG DỤNG 3: THE_GIOI.exe (WORLD MAP)
            ========================================================================== */
-        #win-worldmap { top: 90px; left: 220px; width: 1250px; height: 800px; }
+        #win-worldmap { top: 90px; left: 220px; width: 1200px; height: 750px; }
         .world-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background: #000; }
         .world-viewport:active { cursor: grabbing; }
         .world-canvas { position: absolute; top: 0; left: 0; width: 4000px; height: 2500px; transform-origin: 0 0; background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/World_map_blank_with_blue_sea.svg/4000px-World_map_blank_with_blue_sea.svg.png'); background-size: cover; background-position: center; filter: invert(1) hue-rotate(160deg) contrast(1.5) sepia(0.5); opacity: 0.8; }
@@ -195,11 +194,11 @@
         /* ==========================================================================
            [8] ỨNG DỤNG 4: GIAI_MA.exe (DECRYPTOR)
            ========================================================================== */
-        #win-decrypt { top: 120px; left: 400px; width: 1050px; height: 850px; }
+        #win-decrypt { top: 120px; left: 400px; width: 1000px; height: 800px; }
         .decrypt-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
         
         .dec-nav { display: flex; border-bottom: var(--border-main); background: var(--theme-dark); flex-shrink: 0; }
-        .dec-btn { flex: 1; background: transparent; border: none; border-right: 1px solid var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 28px; padding: 15px; cursor: pointer; transition: 0.2s; font-weight: bold; }
+        .dec-btn { flex: 1; background: transparent; border: none; border-right: 1px solid var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; cursor: pointer; transition: 0.2s; font-weight: bold; }
         .dec-btn:hover { background: var(--theme-dim); }
         .dec-btn.active { background: var(--theme-main); color: #000; }
 
@@ -228,15 +227,16 @@
         .term-user { color: var(--tno-yellow); }
         .term-sys { color: var(--theme-main); text-shadow: 0 0 5px var(--theme-main); }
         .term-err { color: var(--tno-red); font-weight: bold; }
+        
         .term-input-row { display: flex; align-items: center; border-top: 1px dashed #555; padding-top: 15px; }
         .term-prompt { color: var(--tno-yellow); font-size: 26px; font-weight: bold; margin-right: 15px; }
         .term-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 28px; outline: none; }
 
-        /* Ghi Chú */
+        /* Ghi Chú (Notepad) */
         #win-notes { top: 200px; left: 1100px; width: 500px; height: 600px; }
         .notes-textarea { width: 100%; height: 100%; background: #0a0a0a; color: var(--tno-yellow); font-family: 'VT323'; font-size: 26px; border: none; padding: 25px; outline: none; resize: none; line-height: 1.5; box-shadow: inset 0 0 20px rgba(0,0,0,0.8); }
 
-        /* Cài Đặt */
+        /* Cài Đặt (Settings) */
         #win-settings { top: 350px; left: 500px; width: 600px; height: auto; }
         .settings-content { padding: 35px; font-size: 26px; background: rgba(0,0,0,0.8); }
         .color-btn { display: inline-block; width: 50px; height: 50px; margin-right: 20px; cursor: pointer; border: 3px solid #fff; transition: 0.2s; }
@@ -288,7 +288,7 @@
         <div class="taskbar">
             <div class="tb-left">
                 <span class="sys-logo">UET_OS // GRAND CAMPAIGN</span>
-                <span style="color: var(--tno-yellow); font-size: 26px;">BẢN TỐI HẬU V16.0</span>
+                <span style="color: var(--tno-yellow); font-size: 26px;">BẢN TỐI HẬU V17.0</span>
                 <div class="tb-stats">
                     <div>GDP NỘI ĐỊA: <span>$135 TỶ</span></div>
                     <div>THÂM HỤT: <span>-3.2%</span></div>
@@ -302,32 +302,32 @@
 
         <div class="icon-grid">
             <div class="desktop-icon" ondblclick="openWindow('win-dossier')">
-                <div class="icon-img" style="font-size: 55px;">👤</div>
-                <div class="icon-text" style="font-size: 18px;">HO_SO.exe</div>
+                <div class="icon-img">👤</div>
+                <div class="icon-text">HO_SO.exe</div>
             </div>
             <div class="desktop-icon" ondblclick="openWindow('win-map')">
-                <div class="icon-img" style="font-size: 55px;">🗺️</div>
-                <div class="icon-text" style="font-size: 18px;">BAN_DO.dir</div>
+                <div class="icon-img">🗺️</div>
+                <div class="icon-text">BAN_DO.dir</div>
             </div>
             <div class="desktop-icon" ondblclick="openWindow('win-worldmap')">
-                <div class="icon-img" style="font-size: 55px;">🌍</div>
-                <div class="icon-text" style="font-size: 18px;">THE_GIOI.exe</div>
+                <div class="icon-img">🌍</div>
+                <div class="icon-text">THE_GIOI.exe</div>
             </div>
             <div class="desktop-icon" ondblclick="openWindow('win-terminal')">
-                <div class="icon-img" style="font-size: 55px;">⌨️</div>
-                <div class="icon-text" style="font-size: 18px;">DONG_LENH.bat</div>
+                <div class="icon-img">⌨️</div>
+                <div class="icon-text">DONG_LENH</div>
             </div>
             <div class="desktop-icon" ondblclick="openWindow('win-notes')">
-                <div class="icon-img" style="font-size: 55px;">📝</div>
-                <div class="icon-text" style="font-size: 18px;">GHI_CHU.txt</div>
+                <div class="icon-img">📝</div>
+                <div class="icon-text">GHI_CHU.txt</div>
             </div>
             <div class="desktop-icon" ondblclick="openWindow('win-settings')">
-                <div class="icon-img" style="font-size: 55px;">⚙️</div>
-                <div class="icon-text" style="font-size: 18px;">CAI_DAT.exe</div>
+                <div class="icon-img">⚙️</div>
+                <div class="icon-text">CAI_DAT.exe</div>
             </div>
-            <div class="desktop-icon" style="margin-top: 30px;" ondblclick="openSuperEvent()">
-                <div class="icon-img" style="font-size: 55px; color: var(--tno-red); filter: drop-shadow(0 0 10px var(--tno-red));">☢️</div>
-                <div class="icon-text" style="font-size: 18px; color: var(--tno-red); border-color: var(--tno-red);">KET_THUC.exe</div>
+            <div class="desktop-icon" style="grid-column: span 2;" ondblclick="openSuperEvent()">
+                <div class="icon-img" style="color: var(--tno-red); filter: drop-shadow(0 0 10px var(--tno-red));">☢️</div>
+                <div class="icon-text" style="color: var(--tno-red); border-color: var(--tno-red);">KET_THUC.exe</div>
             </div>
         </div>
 
@@ -343,9 +343,11 @@
             </div>
 
             <div class="desktop-widget" style="padding: 15px;">
-                <div class="widget-title" style="margin-bottom: 10px;">ĐÀI PHÁT THANH K70 (TNO OST)</div>
-                <iframe width="100%" height="200" src="https://www.youtube.com/embed/ZqR9YjVlX0A?theme=dark&color=white" title="TNO OST" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                <div style="font-size: 18px; color: #aaa; text-align: center; margin-top: 10px;">🎵 Ayden George - Verify Your Clock</div>
+                <div class="widget-title" style="margin-bottom: 10px;">ĐÀI PHÁT THANH K70 (AYDEN GEORGE)</div>
+                <div id="yt-player-container" style="border: 1px solid var(--theme-dim); background: #000;">
+                    <div style="padding: 20px; text-align: center; color: #555;">[ HỆ THỐNG ÂM THANH ĐANG CHỜ KHỞI ĐỘNG ]</div>
+                </div>
+                <div style="font-size: 18px; color: #aaa; text-align: center; margin-top: 10px;">🎵 Đang nạp: TNO - Verify Your Clock</div>
             </div>
         </div>
 
@@ -392,7 +394,7 @@
                                 <div class="d-block-title" style="color: var(--tno-orange);">KÊNH LIÊN LẠC BẢO MẬT</div>
                                 <p>> <strong>Đường dây nóng (Tel):</strong> <span class="d-hl" style="font-size: 32px;">0902.069.838</span></p>
                                 <p>> <strong>Hộp thư điện tín (Email):</strong> <span class="d-hl">thetrueoutsidervn@gmail.com</span></p>
-                                <p style="color: #888; font-size: 22px; margin-top: 15px;">* Giao thức liên lạc mã hóa đầu cuối đã được kích hoạt. Sẵn sàng tiếp nhận chỉ thị 24/7.</p>
+                                <p style="color: #888; font-size: 20px; margin-top: 15px;">* Giao thức liên lạc mã hóa đầu cuối đã được kích hoạt. Sẵn sàng tiếp nhận chỉ thị 24/7.</p>
                             </div>
                         </div>
 
@@ -416,12 +418,12 @@
                         <div class="d-tab" id="d-tab-2">
                             <div class="d-header">HỆ TƯ TƯỞNG (IDEOLOGY) & LORE</div>
                             <div style="display: flex; align-items: center; gap: 25px; margin-bottom: 25px;">
-                                <div style="width: 140px; height: 140px; border-radius: 50%; background: conic-gradient(var(--tno-hcm-gold) 0% 15%, var(--tno-hcm-red) 15% 100%); border: 4px solid var(--tno-hcm-gold); box-shadow: 0 0 40px rgba(218, 37, 29, 0.8); display: flex; justify-content: center; align-items: center;">
-                                    <span style="font-size: 70px; color: var(--tno-hcm-gold); text-shadow: 0 0 10px #000;">★</span>
+                                <div style="width: 130px; height: 130px; border-radius: 50%; background: conic-gradient(var(--tno-hcm-gold) 0% 15%, var(--tno-hcm-red) 15% 100%); border: 3px solid var(--tno-hcm-gold); box-shadow: 0 0 30px rgba(218, 37, 29, 0.8); display: flex; justify-content: center; align-items: center;">
+                                    <span style="font-size: 60px; color: var(--tno-hcm-gold); text-shadow: 0 0 10px #000;">★</span>
                                 </div>
                                 <div>
-                                    <div style="font-size: 42px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold);">HO CHI MINH THOUGHT</div>
-                                    <div style="font-size: 26px; color: #ccc;">Tư tưởng Hồ Chí Minh</div>
+                                    <div style="font-size: 38px; font-weight: bold; color: var(--tno-hcm-red); text-shadow: 0 0 5px var(--tno-hcm-gold);">HO CHI MINH THOUGHT</div>
+                                    <div style="font-size: 24px; color: #ccc;">Tư tưởng Hồ Chí Minh</div>
                                 </div>
                             </div>
                             <div class="d-block">
@@ -436,29 +438,29 @@
 
                         <div class="d-tab" id="d-tab-3">
                             <div class="d-header">NỘI CÁC & MA TRẬN KHÍ TÀI (CABINET)</div>
-                            <div class="cabinet-container" style="border: none; padding: 0;">
-                                <div class="advisor-card">
-                                    <div class="advisor-icon">🐍</div>
-                                    <div class="advisor-info">
-                                        <div class="advisor-role">Bộ Trưởng Bộ Thuật Toán</div>
-                                        <div class="advisor-name">Hệ sinh thái Python Core</div>
-                                        <div style="color: #888; font-size: 20px; margin-top: 5px;">Đặc trị: Logic toán học & Game mechanics (Flappy Bird clone).</div>
+                            <div style="display: flex; flex-direction: column; gap: 15px;">
+                                <div style="display: flex; align-items: center; background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 15px;">
+                                    <div style="font-size: 40px; margin-right: 20px;">🐍</div>
+                                    <div>
+                                        <div style="font-size: 22px; color: #aaa;">Bộ Trưởng Bộ Thuật Toán</div>
+                                        <div style="font-size: 26px; font-weight: bold; color: var(--theme-main);">Hệ sinh thái Python Core</div>
+                                        <div style="color: #888; font-size: 18px; margin-top: 5px;">Đặc trị: Logic toán học & Game mechanics (Flappy Bird clone).</div>
                                     </div>
                                 </div>
-                                <div class="advisor-card">
-                                    <div class="advisor-icon">⏣</div>
-                                    <div class="advisor-info">
-                                        <div class="advisor-role">Cố Vấn Quân Sự (Phân Tích)</div>
-                                        <div class="advisor-name">Động cơ MATLAB Auspex</div>
-                                        <div style="color: #888; font-size: 20px; margin-top: 5px;">Chuyên trách: Ma trận điện dẫn (Y-bus Matrix) & Phân tích Mạch RLC.</div>
+                                <div style="display: flex; align-items: center; background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 15px;">
+                                    <div style="font-size: 40px; margin-right: 20px;">⏣</div>
+                                    <div>
+                                        <div style="font-size: 22px; color: #aaa;">Cố Vấn Quân Sự (Phân Tích)</div>
+                                        <div style="font-size: 26px; font-weight: bold; color: var(--theme-main);">Động cơ MATLAB Auspex</div>
+                                        <div style="color: #888; font-size: 18px; margin-top: 5px;">Chuyên trách: Ma trận điện dẫn (Y-bus Matrix) & Phân tích Mạch RLC.</div>
                                     </div>
                                 </div>
-                                <div class="advisor-card">
-                                    <div class="advisor-icon">🧠</div>
-                                    <div class="advisor-info">
-                                        <div class="advisor-role">Cơ Quan Tình Báo Trí Tuệ Nhân Tạo</div>
-                                        <div class="advisor-name">Generative AI (Prompting)</div>
-                                        <div style="color: #888; font-size: 20px; margin-top: 5px;">Kiểm lỗi mã nguồn và sản xuất nội dung số tốc độ cao.</div>
+                                <div style="display: flex; align-items: center; background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 15px;">
+                                    <div style="font-size: 40px; margin-right: 20px;">🧠</div>
+                                    <div>
+                                        <div style="font-size: 22px; color: #aaa;">Cơ Quan Tình Báo Trí Tuệ Nhân Tạo</div>
+                                        <div style="font-size: 26px; font-weight: bold; color: var(--theme-main);">Generative AI (Prompting LLM)</div>
+                                        <div style="color: #888; font-size: 18px; margin-top: 5px;">Kiểm lỗi mã nguồn và sản xuất nội dung số tốc độ cao.</div>
                                     </div>
                                 </div>
                             </div>
@@ -524,11 +526,11 @@
                         </div>
                     </div>
                     
-                    <div class="map-instruction">
-                        >> BẢN ĐỒ CHIẾN LƯỢC (NO BUGS):<br>
+                    <div style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none;">
+                        >> BẢN ĐỒ CHIẾN LƯỢC:<br>
                         1. Giữ chuột vào chỗ trống để <strong>Kéo Bản đồ</strong>.<br>
                         2. Lăn chuột để <strong>Phóng to/Thu nhỏ</strong>.<br>
-                        3. BẤM VÀO NÚT TIÊU ĐIỂM ĐỂ GIẢI MÃ HỒ SƠ.
+                        3. BẤM VÀO NÚT TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ.
                     </div>
                 </div>
             </div>
@@ -546,7 +548,7 @@
                     <div class="world-canvas" id="w-canvas">
                         <div class="radar-ping"></div>
                     </div>
-                    <div class="map-instruction">
+                    <div style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none;">
                         >> VỆ TINH TOÀN CẦU K70<br>
                         Giữ chuột để Kéo, Lăn chuột để Zoom. Vị trí radar đang chỉ định tọa độ UET Hà Nội.
                     </div>
@@ -585,7 +587,7 @@
             <div class="win-content">
                 <div class="term-layout">
                     <div class="term-output" id="term-output">
-                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V16.0 ĐÃ SẴN SÀNG.</div>
+                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V17.0 ĐÃ SẴN SÀNG.</div>
                         <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách lệnh.</div>
                     </div>
                     <div class="term-input-row">
@@ -633,7 +635,7 @@
     </div> <div class="modal-overlay" id="avatar-modal">
         <div class="settings-box-modal">
             <h2 style="border-bottom: 2px solid var(--theme-main); padding-bottom: 5px; margin-bottom: 20px; font-size: 36px; color: var(--theme-main);">GIAO THỨC CẬP NHẬT ẢNH</h2>
-            <p style="font-size: 26px;">Dán đường link (URL) trực tiếp của hình ảnh chân dung vào bên dưới. <i>(Dữ liệu lưu trữ nội bộ).</i></p>
+            <p style="font-size: 24px;">Dán đường link (URL) trực tiếp của hình ảnh chân dung vào bên dưới. <i>(Dữ liệu lưu trữ nội bộ).</i></p>
             <input type="text" class="settings-input" id="avatar-url-input" placeholder="https://...">
             <div style="display: flex; gap: 20px;">
                 <button class="action-link-btn" style="margin-top:0;" onclick="saveAvatar()">TIẾN HÀNH ĐỒNG BỘ</button>
@@ -652,7 +654,7 @@
                 <div class="se-content">
                     <strong>[ BÁO CÁO PHẢN ÁNH TỔNG KẾT CHIẾN DỊCH TỐI HẬU ]</strong><br><br>
                     Dự án Portfolio kỹ thuật số này đã vượt xa ranh giới của một bài tập môn học. Việc thiết kế toàn bộ hệ thống dưới dạng <strong>Hệ điều hành Mô phỏng cấp Chiến lược (Grand Strategy OS)</strong> là minh chứng cho việc tôi đã làm chủ hoàn toàn tư duy quản trị mã nguồn trên GitHub, kết hợp kỹ thuật lập trình Front-end (HTML/CSS/JS) cấp cao.<br><br>
-                    Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao (như Chain-of-Thought) để ép AI phục tùng logic của mình. Lỗi xung đột Click của bản đồ đã được triệt tiêu hoàn toàn nhờ việc viết lại hàm xử lý DOM.
+                    Hành trình này đã rèn giũa kỹ năng sống còn trong kỷ nguyên số: Không bị động trước làn sóng Trí tuệ nhân tạo. Tôi đã học được cách sử dụng <i>Toán tử Boolean</i> để thanh lọc thông tin nhiễu, và áp dụng <i>Prompt Engineering</i> cấp cao (như Chain-of-Thought) để ép AI phục tùng logic của mình. 
                     <br><br>
                     Khái niệm <strong>'Human-in-the-loop'</strong> được khắc sâu: <i>Máy móc dù có siêu việt đến đâu cũng chỉ là công cụ tính toán. Trách nhiệm kiểm chứng, đạo đức liêm chính và Tư duy logic của con người mới là kim chỉ nam quyết định giới hạn của sự sáng tạo.</i>
                 </div>
@@ -682,14 +684,13 @@
             .tag-good { color: var(--tno-cyan); font-weight: bold; background: rgba(66, 245, 227, 0.1); padding: 2px 10px; border: 1px solid var(--tno-cyan); display: inline-block; margin-bottom: 5px; }
             .tag-warn { color: var(--tno-red); font-weight: bold; background: rgba(255, 51, 51, 0.1); padding: 2px 10px; border: 1px solid var(--tno-red); display: inline-block; margin-bottom: 5px; }
             .tag-info { color: var(--tno-yellow); font-weight: bold; background: rgba(244, 211, 94, 0.1); padding: 2px 10px; border: 1px solid var(--tno-yellow); display: inline-block; margin-bottom: 5px; }
-            .settings-box-modal { background: var(--tno-panel); border: var(--border-main); width: 800px; padding: 50px; margin: auto; box-shadow: 0 0 80px var(--theme-dim); }
+            .settings-box-modal { background: var(--tno-panel); border: var(--border-main); width: 700px; padding: 40px; margin: auto; box-shadow: 0 0 80px var(--theme-dim); }
         `;
         document.head.appendChild(extraCSS);
 
-        /* --- 1. BOOT SEQUENCE SỬA LỖI --- */
-        // LUỒNG SỰ KIỆN: Nút bấm -> startSystem() -> runBoot() -> initPanZoom()
+        /* --- 1. LUỒNG SỰ KIỆN KHỞI ĐỘNG (SỬA LỖI YOUTUBE API) --- */
         const bootLines = [
-            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.16",
+            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.17",
             "CPU: K70 Neural-Link Processor (Hanoi Central Command)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Radar Scanners... [OK]",
@@ -704,8 +705,14 @@
         const bootTextDiv = document.getElementById('boot-text');
 
         function startSystem() {
+            // Tắt nút bấm
             document.getElementById('pre-boot').style.display = 'none';
             document.getElementById('boot-screen').style.display = 'flex';
+            
+            // Kích hoạt nhạc TNO của Ayden George bằng cách tiêm Iframe (Lách luật chặn Autoplay của Chrome)
+            const ytContainer = document.getElementById('yt-player-container');
+            ytContainer.innerHTML = '<iframe width="100%" height="150" src="https://www.youtube.com/embed/ZqR9YjVlX0A?autoplay=1&loop=1&playlist=ZqR9YjVlX0A&theme=dark&color=white" title="TNO OST" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';
+            
             runBoot();
         }
 
@@ -851,7 +858,7 @@
             setTransform(); 
             
             viewport.onmousedown = function (e) {
-                // Sửa lỗi: Nếu bấm trúng một .focus-node, bỏ qua việc kéo bản đồ
+                // Nếu bấm trúng một .focus-node, bỏ qua việc kéo bản đồ để click hoạt động
                 if (e.target.closest('.focus-node')) return;
                 
                 e.preventDefault(); 
@@ -878,7 +885,7 @@
         }
 
         function preventDrag(e) {
-            e.stopPropagation(); // Cực kỳ quan trọng để sửa lỗi không click được
+            e.stopPropagation(); 
         }
 
         /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) --- */
@@ -894,7 +901,7 @@
 
             // Mở cửa sổ Giải mã
             openWindow('win-decrypt');
-            bringToFront('win-decrypt'); // Đảm bảo cửa sổ này nhảy lên trên cùng
+            bringToFront('win-decrypt'); 
             termPrint(`Đang thực thi lệnh đọc Hồ sơ ID: ${id}...`, 'term-sys');
             
             const header = document.querySelector('.dec-header');
@@ -922,7 +929,7 @@
             const display = document.getElementById('dec-area');
             const data = database[id];
             
-            // Hiệu ứng Mã hóa giả lập (Military Decryption)
+            // Hiệu ứng Mã hóa giả lập
             display.style.fontFamily = 'monospace';
             display.classList.add('dec-scramble');
             display.innerHTML = generateScramble(600);
@@ -1007,14 +1014,14 @@
 
         /* --- 9. LOCAL STORAGE: NOTEPAD, AVATAR, THEME --- */
         const notepad = document.getElementById('notepad');
-        if(localStorage.getItem('tno_notes_v16')) notepad.value = localStorage.getItem('tno_notes_v16');
-        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v16', notepad.value); });
+        if(localStorage.getItem('tno_notes_v17')) notepad.value = localStorage.getItem('tno_notes_v17');
+        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v17', notepad.value); });
 
         const avatarImg = document.getElementById('dossier-img');
         const deskAvatarImg = document.getElementById('leader-portrait');
-        if(localStorage.getItem('tno_avatar_v16')) {
-            avatarImg.src = localStorage.getItem('tno_avatar_v16');
-            deskAvatarImg.src = localStorage.getItem('tno_avatar_v16');
+        if(localStorage.getItem('tno_avatar_v17')) {
+            avatarImg.src = localStorage.getItem('tno_avatar_v17');
+            deskAvatarImg.src = localStorage.getItem('tno_avatar_v17');
         }
 
         function openAvatarModal() { document.getElementById('avatar-modal').style.display = 'flex'; }
@@ -1023,7 +1030,7 @@
             const url = document.getElementById('avatar-url-input').value.trim();
             if(url) {
                 avatarImg.src = url; deskAvatarImg.src = url;
-                localStorage.setItem('tno_avatar_v16', url); 
+                localStorage.setItem('tno_avatar_v17', url); 
                 termPrint("> Giao thức Cập nhật Ảnh đã lưu vào bộ nhớ.", 'term-sys');
             }
             closeAvatarModal();
