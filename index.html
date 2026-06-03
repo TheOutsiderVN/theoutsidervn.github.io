@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TNO // MSSV: 25022175 - SUPREME OS</title>
+    <title>TNO // K70E-EC1 SUPREME OS (MSSV: 25022175)</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           [0] TNO CORE VARIABLES & AESTHETICS
+           [0] TNO CORE VARIABLES & AESTHETICS (DYNAMIC DEFCON)
            ========================================================================== */
         :root {
             --tno-cyan: #3df2db; --tno-cyan-dim: #134d45; --tno-cyan-dark: #071f1c;
@@ -20,7 +20,7 @@
             --theme-dim: var(--tno-cyan-dim);
             --theme-dark: var(--tno-cyan-dark);
             --theme-bg: var(--tno-bg);
-            --window-bg: #010808;
+            --window-bg: #020808;
             
             --border-main: 2px solid var(--theme-main);
             --shadow-glow: 0 0 15px var(--theme-main);
@@ -32,13 +32,13 @@
             --theme-bg: #140000; --window-bg: #1a0505;
             animation: red-alert-flash 2s infinite;
         }
-        @keyframes red-alert-flash { 0% { box-shadow: inset 0 0 0px var(--theme-main); } 50% { box-shadow: inset 0 0 120px var(--theme-dim); } 100% { box-shadow: inset 0 0 0px var(--theme-main); } }
+        @keyframes red-alert-flash { 0% { box-shadow: inset 0 0 0px var(--theme-main); } 50% { box-shadow: inset 0 0 150px var(--theme-dim); } 100% { box-shadow: inset 0 0 0px var(--theme-main); } }
 
         * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
         body { background-color: var(--theme-bg); color: var(--tno-text); font-family: 'VT323', monospace; height: 100vh; width: 100vw; overflow: hidden; transition: background-color 0.8s; }
 
         /* ==========================================================================
-           [1] VISUAL EFFECTS (CRT, SCANLINES)
+           [1] VISUAL EFFECTS (CRT, SCANLINES, NOISE)
            ========================================================================== */
         .crt-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 9998; }
         .scanlines { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px); pointer-events: none; z-index: 9999; }
@@ -76,14 +76,14 @@
         .defcon-indicator { background: var(--tno-red-dim); color: white; padding: 5px 20px; border: 2px solid var(--tno-red); cursor: pointer; transition: 0.3s; font-size: 24px; }
         .defcon-indicator:hover { background: var(--tno-red); box-shadow: 0 0 20px var(--tno-red); }
 
-        /* Compact Desktop Icons */
+        /* Compact Desktop Icons (Grid) */
         .icon-grid { position: absolute; top: 80px; left: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; z-index: 10; width: 220px; }
         .desktop-icon { width: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 10px; border: 1px solid transparent; transition: 0.2s; text-align: center; }
         .desktop-icon:hover { background: rgba(255,255,255, 0.1); border: 1px dashed var(--theme-main); }
         .icon-img { font-size: 45px; margin-bottom: 5px; color: var(--theme-main); filter: drop-shadow(0 0 10px var(--theme-main)); }
         .icon-text { font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.8); padding: 2px 5px; border-radius: 3px; border: 1px solid var(--theme-dim); white-space: nowrap; }
 
-        /* Desktop Widgets */
+        /* Desktop Widgets (Right Sidebar) */
         .widget-panel { position: absolute; top: 80px; right: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 10; width: 400px; }
         .desktop-widget { background: var(--tno-panel); border: var(--border-main); padding: 20px; box-shadow: var(--shadow-inset); position: relative; }
         .desktop-widget::before { content:''; position:absolute; top:-2px; left:-2px; width:10px; height:10px; background:var(--theme-main); }
@@ -91,36 +91,36 @@
         .widget-title { font-size: 24px; color: var(--tno-orange); border-bottom: 2px dashed var(--tno-orange); margin-bottom: 15px; text-transform: uppercase; font-weight: bold; }
         .sys-stat-row { display: flex; justify-content: space-between; font-size: 20px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
 
-        /* NATIVE AUDIO PLAYER (REPLACES YOUTUBE) */
+        /* NATIVE AUDIO PLAYER (FIX NHẠC TNO) */
         .audio-player-box { background: #000; border: 1px solid var(--theme-dim); padding: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .audio-track-name { font-size: 20px; color: var(--theme-main); background: rgba(255,255,255,0.05); padding: 5px; border: 1px solid var(--theme-dim); }
-        .audio-controls-row { display: flex; justify-content: space-between; align-items: center; }
+        .audio-track-name { font-size: 22px; color: var(--theme-main); background: rgba(255,255,255,0.05); padding: 5px 10px; border: 1px solid var(--theme-dim); overflow: hidden; white-space: nowrap; }
+        .audio-controls-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .audio-btn { background: var(--theme-dark); border: 1px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 22px; padding: 5px 15px; cursor: pointer; transition: 0.2s; font-weight: bold; }
         .audio-btn:hover { background: var(--theme-main); color: #000; }
         .volume-controls { display: flex; align-items: center; gap: 10px; font-size: 20px; color: #fff; }
-        .vol-btn { background: #222; border: 1px solid #555; color: #fff; cursor: pointer; padding: 2px 8px; font-family: 'VT323'; font-size: 20px; }
+        .vol-btn { background: #222; border: 1px solid #555; color: #fff; cursor: pointer; padding: 2px 10px; font-family: 'VT323'; font-size: 20px; }
         .vol-btn:hover { background: #555; }
         
-        /* Audio Visualizer (Fake EQ) */
-        .visualizer { display: flex; gap: 4px; height: 30px; align-items: flex-end; margin-top: 5px; }
-        .vis-bar { width: 100%; background: var(--theme-main); opacity: 0.8; }
-        .vis-bar.active { animation: eq-bounce 0.5s infinite alternate ease-in-out; }
+        /* Audio Visualizer */
+        .visualizer { display: flex; gap: 4px; height: 40px; align-items: flex-end; margin-top: 10px; justify-content: center; }
+        .vis-bar { width: 15px; background: var(--theme-main); opacity: 0.8; height: 5px; transition: height 0.1s; }
+        .vis-bar.active { animation: eq-bounce 0.4s infinite alternate ease-in-out; }
         .vis-bar:nth-child(1) { animation-delay: 0.1s; }
         .vis-bar:nth-child(2) { animation-delay: 0.3s; }
         .vis-bar:nth-child(3) { animation-delay: 0.0s; }
         .vis-bar:nth-child(4) { animation-delay: 0.4s; }
         .vis-bar:nth-child(5) { animation-delay: 0.2s; }
         .vis-bar:nth-child(6) { animation-delay: 0.5s; }
-        @keyframes eq-bounce { 0% { height: 5px; } 100% { height: 30px; } }
+        @keyframes eq-bounce { 0% { height: 5px; } 100% { height: 40px; } }
 
         /* News Ticker */
         .news-ticker { position: absolute; bottom: 0; left: 0; width: 100%; height: 45px; background: var(--theme-dark); border-top: var(--border-main); display: flex; align-items: center; overflow: hidden; color: var(--theme-main); font-size: 26px; z-index: 100; }
         .ticker-label { background: var(--theme-main); color: #000; padding: 0 20px; font-weight: bold; margin-right: 20px; z-index: 2; height: 100%; display: flex; align-items: center; }
-        .ticker-text { white-space: nowrap; animation: ticker-scroll 40s linear infinite; font-weight: bold; text-shadow: 0 0 5px var(--theme-main); }
+        .ticker-text { white-space: nowrap; animation: ticker-scroll 35s linear infinite; font-weight: bold; text-shadow: 0 0 5px var(--theme-main); }
         @keyframes ticker-scroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-150%); } }
 
         /* ==========================================================================
-           [4] WINDOW MANAGER (OS WINDOWS) - Z-INDEX FIX
+           [4] WINDOW MANAGER (OS WINDOWS)
            ========================================================================== */
         .os-window {
             position: absolute; display: none; flex-direction: column;
@@ -149,33 +149,33 @@
         /* ==========================================================================
            [5] ỨNG DỤNG 1: HO_SO.exe
            ========================================================================== */
-        #win-dossier { top: 50px; left: 150px; width: 1050px; height: 750px; }
+        #win-dossier { top: 50px; left: 260px; width: 1050px; height: 750px; }
         .dossier-layout { display: flex; width: 100%; height: 100%; }
         
-        .dossier-sidebar { width: 360px; background: rgba(0,0,0,0.6); border-right: 2px solid var(--theme-dim); display: flex; flex-direction: column; }
-        .dossier-portrait { height: 360px; background: #000; position: relative; border-bottom: 2px solid var(--theme-dim); }
+        .dossier-sidebar { width: 380px; background: rgba(0,0,0,0.6); border-right: 2px solid var(--theme-dim); display: flex; flex-direction: column; }
+        .dossier-portrait { height: 380px; background: #000; position: relative; border-bottom: 2px solid var(--theme-dim); }
         .dossier-portrait img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.2) sepia(0.3) hue-rotate(150deg); opacity: 0.9; }
         body.defcon-1 .dossier-portrait img { filter: contrast(1.5) sepia(1) hue-rotate(330deg); }
-        .dossier-name { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); color: var(--theme-main); padding: 12px; font-size: 32px; font-weight: bold; text-align: center; border-top: 1px solid var(--theme-main); text-shadow: 2px 2px #000; }
+        .dossier-name { position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.85); color: var(--theme-main); padding: 12px; font-size: 34px; font-weight: bold; text-align: center; border-top: 1px solid var(--theme-main); text-shadow: 2px 2px #000; }
         .upload-overlay { position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.8); border: 1px dashed var(--theme-main); padding: 5px 15px; cursor: pointer; font-size: 18px; color: var(--theme-main); transition: 0.3s; }
         .upload-overlay:hover { background: var(--theme-main); color: #000; font-weight: bold; }
 
         .dossier-nav { padding: 15px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
-        .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 24px; padding: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
+        .d-nav-btn { background: transparent; border: 1px dashed var(--theme-dim); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; text-align: left; cursor: pointer; transition: 0.2s; }
         .d-nav-btn:hover, .d-nav-btn.active { background: var(--theme-dim); border: 2px solid var(--theme-main); color: #fff; font-weight: bold; padding-left: 25px; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); }
 
-        .dossier-main { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 24px; line-height: 1.5; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 100%); }
+        .dossier-main { flex: 1; padding: 35px; overflow-y: auto; user-select: text; font-size: 26px; line-height: 1.6; background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(255,255,255,0.03) 100%); }
         .d-tab { display: none; animation: fadeIn 0.3s; }
         .d-tab.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .d-header { color: var(--tno-orange); font-size: 36px; border-bottom: 3px dashed var(--tno-orange); padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-weight: bold; }
+        .d-header { color: var(--tno-orange); font-size: 40px; border-bottom: 3px dashed var(--tno-orange); padding-bottom: 10px; margin-bottom: 25px; text-transform: uppercase; font-weight: bold; }
         .d-block { background: rgba(0,0,0,0.6); border: 1px solid var(--theme-dim); padding: 25px; margin-bottom: 25px; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
-        .d-block-title { font-size: 28px; color: var(--theme-main); margin-bottom: 15px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); padding-bottom: 5px; }
+        .d-block-title { font-size: 30px; color: var(--theme-main); margin-bottom: 15px; font-weight: bold; border-bottom: 1px solid var(--theme-dim); padding-bottom: 5px; }
         .d-hl { color: var(--tno-yellow); font-weight: bold; }
 
         /* ==========================================================================
-           [6] ỨNG DỤNG 2: BAN_DO.dir (MAP & CLICK FIX)
+           [6] ỨNG DỤNG 2: BAN_DO.dir (MAP)
            ========================================================================== */
         #win-map { top: 30px; left: 300px; width: 1200px; height: 800px; }
         .map-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100px 100px; }
@@ -186,19 +186,19 @@
         .focus-line { stroke: var(--theme-dim); stroke-width: 14; fill: none; stroke-dasharray: 30, 15; animation: dash-flow 40s linear infinite; pointer-events: none; }
 
         .focus-node {
-            position: absolute; z-index: 10; width: 340px;
+            position: absolute; z-index: 10; width: 350px;
             background: var(--tno-panel); border: 4px solid var(--theme-dim);
             padding: 20px; text-align: center; transition: all 0.2s;
             box-shadow: inset 0 0 30px rgba(0,0,0,1), 10px 10px 25px rgba(0,0,0,0.8);
-            pointer-events: auto; /* Cực kỳ quan trọng để click được */
+            pointer-events: auto; /* MUST BE CLICKABLE */
         }
         .focus-node:hover { border-color: var(--theme-main); transform: scale(1.08); box-shadow: 0 0 50px var(--theme-main); z-index: 20; cursor: pointer; }
         .focus-node.completed { border-color: var(--theme-main); }
         .focus-node.completed::before { content: "DỮ LIỆU SẴN SÀNG"; position: absolute; top: -18px; left: -4px; background: var(--theme-main); color: #000; font-size: 20px; padding: 2px 12px; font-weight: bold; border-top-right-radius: 10px; }
         
         .focus-icon { font-size: 70px; margin-bottom: 10px; color: var(--theme-main); filter: drop-shadow(0 0 15px var(--theme-main)); }
-        .focus-title { font-size: 30px; font-weight: bold; color: #fff; border-bottom: 2px solid var(--theme-dim); padding-bottom: 10px; margin-bottom: 10px; }
-        .focus-time { font-size: 22px; color: var(--tno-orange); }
+        .focus-title { font-size: 32px; font-weight: bold; color: #fff; border-bottom: 2px solid var(--theme-dim); padding-bottom: 10px; margin-bottom: 10px; }
+        .focus-time { font-size: 24px; color: var(--tno-orange); }
 
         .map-instruction { position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none; }
 
@@ -293,25 +293,32 @@
     </style>
 </head>
 <body>
-    <audio id="os-bgm" loop>
+    <!-- NATIVE AUDIO PLAYER (OUR FINAL WAR - AYDEN GEORGE) -->
+    <!-- Dùng link trực tiếp MP3 trên kho lưu trữ mở để vượt qua rào cản Youtube -->
+    <audio id="os-bgm" loop preload="auto">
         <source src="https://ia800801.us.archive.org/21/items/HolstThePlanets_862/01MarsTheBringerOfWar.mp3" type="audio/mpeg">
+        <!-- HƯỚNG DẪN: Nếu link trên hỏng, bạn hãy tải file mp3 bài Our Final War về máy, đặt tên là 'our_final_war.mp3' để cùng thư mục với file HTML này và sửa dòng source ở trên thành <source src="our_final_war.mp3" type="audio/mpeg"> -->
     </audio>
 
     <div class="crt-overlay"></div>
     <div class="scanlines"></div>
     <div class="scanline-bar"></div>
 
+    <!-- MÀN HÌNH CHỜ (KÍCH HOẠT HỆ THỐNG VÀ AUDIO TRÌNH DUYỆT) -->
     <div id="pre-boot">
-        <div style="text-align: center; margin-bottom: 30px; font-size: 32px; color: var(--tno-cyan);">> K70E-EC1 SYSTEM STANDBY...</div>
+        <div style="text-align: center; margin-bottom: 30px; font-size: 32px; color: var(--tno-cyan);">> MÃ ĐỊNH DANH 25022175 ĐANG TRONG TRẠNG THÁI CHỜ...</div>
         <button class="power-btn" onclick="startSystem()">KHỞI ĐỘNG HỆ ĐIỀU HÀNH VÀ ÂM THANH</button>
     </div>
 
+    <!-- MÀN HÌNH BIOS BOOT -->
     <div id="boot-screen">
         <div id="boot-text"></div>
         <div><span class="blink-cursor">█</span></div>
     </div>
 
+    <!-- MÔI TRƯỜNG DESKTOP -->
     <div id="desktop">
+        <!-- Thanh Taskbar -->
         <div class="taskbar">
             <div class="tb-left">
                 <span class="sys-logo">UET_OS // GRAND CAMPAIGN</span>
@@ -327,6 +334,7 @@
             </div>
         </div>
 
+        <!-- Biểu tượng Desktop -->
         <div class="icon-grid">
             <div class="desktop-icon" ondblclick="openWindow('win-dossier')">
                 <div class="icon-img" style="font-size: 55px;">👤</div>
@@ -358,6 +366,7 @@
             </div>
         </div>
 
+        <!-- Các Tiện ích Desktop (Widgets) -->
         <div class="widget-panel">
             <div class="desktop-widget">
                 <div class="widget-title">GIÁM SÁT KỸ THUẬT (SYSTEM)</div>
@@ -366,14 +375,15 @@
                 <div class="sys-stat-row"><span>LỚP TRỰC THUỘC:</span> <span style="color:var(--tno-yellow);">K70E-EC1</span></div>
                 <div class="sys-stat-row"><span>MÃ BẢO MẬT:</span> <span style="color:var(--tno-red);">ĐÃ MÃ HÓA</span></div>
                 <div style="font-size: 18px; color: #aaa; margin-top: 15px; border-top: 1px dashed var(--theme-dim); padding-top: 10px; line-height: 1.4;">
-                    * NHẤP ĐÚP CHUỘT (Double-click) VÀO BIỂU TƯỢNG BÊN TRÁI ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
+                    * NHẤP ĐÚP CHUỘT VÀO BIỂU TƯỢNG BÊN TRÁI ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
                 </div>
             </div>
 
+            <!-- TNO RADIO (NATIVE AUDIO PLAYER) -->
             <div class="desktop-widget audio-player-box">
                 <div class="widget-title" style="margin-bottom: 5px;">ĐÀI PHÁT THANH K70</div>
                 <div class="audio-track-name">
-                    <marquee scrollamount="4">🎵 Đang phát: Ayden George - Verify Your Clock (TNO OST Simulated)</marquee>
+                    <marquee scrollamount="4">🎵 Đang phát: Ayden George - Our Final War (TNO OST Simulated)</marquee>
                 </div>
                 <div class="visualizer">
                     <div class="vis-bar active"></div><div class="vis-bar active"></div>
@@ -388,12 +398,10 @@
                         <button class="vol-btn" onclick="changeVolume(0.1)">+</button>
                     </div>
                 </div>
-                <div style="font-size: 16px; color: #666; text-align: center; margin-top: 5px;">
-                    (Tải file nhạc TNO .mp3 lên Github để đổi bài nhạc mặc định)
-                </div>
             </div>
         </div>
 
+        <!-- Thanh News Ticker dưới cùng -->
         <div class="news-ticker">
             <div class="ticker-label">UET GLOBAL NEWS TAPE</div>
             <div class="ticker-text">
@@ -401,6 +409,9 @@
             </div>
         </div>
 
+        <!-- ================= CÁC CỬA SỔ ỨNG DỤNG (WINDOWS) ================= -->
+        
+        <!-- WIN 1: HO_SO.exe -->
         <div class="os-window" id="win-dossier">
             <div class="win-header" onmousedown="dragWindow(event, 'win-dossier')">
                 <span class="win-title">[👤] C:\UET\HO_SO_TINH_BAO.exe</span>
@@ -514,6 +525,7 @@
             </div>
         </div>
 
+        <!-- WIN 2: BAN_DO.dir (MAP & CLICK FIX) -->
         <div class="os-window" id="win-map">
             <div class="win-header" onmousedown="dragWindow(event, 'win-map')">
                 <span class="win-title">[🗺️] C:\SYSTEM\BAN_DO_CHIEN_LUOC.dir</span>
@@ -525,6 +537,7 @@
                 <div class="map-viewport" id="viewport">
                     <div class="map-canvas" id="canvas">
                         <svg class="svg-lines">
+                            <!-- SVG Connections -->
                             <path class="focus-line" d="M 1250 200 L 1250 400" />
                             <path class="focus-line" d="M 1250 550 L 1250 650 L 800 650 L 800 750" />
                             <path class="focus-line" d="M 1250 550 L 1250 650 L 1700 650 L 1700 750" />
@@ -533,6 +546,7 @@
                             <path class="focus-line" d="M 1250 1250 L 1250 1400" />
                         </svg>
 
+                        <!-- Thêm onmousedown="preventDrag(event)" để sửa lỗi click bị nuốt -->
                         <div class="focus-node completed" style="top: 50px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(1, this, event)">
                             <div class="focus-icon">🗄️</div>
                             <div class="focus-title">[01] THAO TÁC TỆP TIN</div>
@@ -574,12 +588,13 @@
                         >> BẢN ĐỒ CHIẾN LƯỢC (NO BUGS):<br>
                         1. Giữ chuột vào chỗ trống để <strong>Kéo Bản đồ</strong>.<br>
                         2. Lăn chuột để <strong>Phóng to/Thu nhỏ</strong>.<br>
-                        3. BẤM VÀO NÚT TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ.
+                        3. BẤM VÀO NÚT TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ TỨC THÌ.
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- WIN 3: THE_GIOI.exe (WORLD MAP) -->
         <div class="os-window" id="win-worldmap">
             <div class="win-header" onmousedown="dragWindow(event, 'win-worldmap')">
                 <span class="win-title">[🌍] C:\SYSTEM\THE_GIOI.exe</span>
@@ -593,13 +608,14 @@
                         <div class="radar-ping"></div>
                     </div>
                     <div style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none;">
-                        >> VỆ TINH TOÀN CẦU K70<br>
+                        >> VỆ TINH TOÀN CẦU UET<br>
                         Giữ chuột để Kéo, Lăn chuột để Zoom. Vị trí radar đang chỉ định tọa độ Đại học Công nghệ Hà Nội.
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- WIN 4: GIAI_MA.exe (DECRYPTOR - KHÔNG CÒN NHIỄU CHỮ) -->
         <div class="os-window" id="win-decrypt">
             <div class="win-header" onmousedown="dragWindow(event, 'win-decrypt')">
                 <span class="win-title">[🔓] C:\TOOLS\GIAI_MA_HO_SO.exe</span>
@@ -615,12 +631,14 @@
                         <button class="dec-btn" onclick="switchDecTab(2)">TÀI LIỆU MINH CHỨNG</button>
                     </div>
                     <div class="dec-content-area" id="dec-area">
+                        <!-- Nội dung hiển thị ngay lập tức, bỏ qua nhiễu chữ -->
                         <h2 style="color: var(--theme-main); text-align: center; margin-top: 60px; font-size: 30px;">ĐANG CHỜ NHẬN LỆNH TỪ BẢN ĐỒ CHIẾN LƯỢC...</h2>
                     </div>
                 </div>
             </div>
         </div>
 
+        <!-- WIN 5: DONG_LENH.bat (TERMINAL) -->
         <div class="os-window" id="win-terminal">
             <div class="win-header" onmousedown="dragWindow(event, 'win-terminal')">
                 <span class="win-title">[⌨️] C:\SYSTEM\DONG_LENH.bat</span>
@@ -642,6 +660,7 @@
             </div>
         </div>
 
+        <!-- WIN 6: GHI_CHU.txt (NOTEPAD) -->
         <div class="os-window" id="win-notes">
             <div class="win-header" onmousedown="dragWindow(event, 'win-notes')">
                 <span class="win-title">[📝] C:\USERS\GHI_CHU.txt</span>
@@ -654,6 +673,7 @@
             </div>
         </div>
 
+        <!-- WIN 7: CAI_DAT.exe (SETTINGS) -->
         <div class="os-window" id="win-settings">
             <div class="win-header" onmousedown="dragWindow(event, 'win-settings')">
                 <span class="win-title">[⚙️] C:\SYSTEM\CAI_DAT.exe</span>
@@ -676,7 +696,13 @@
             </div>
         </div>
 
-    </div> <div class="modal-overlay" id="avatar-modal">
+    </div> <!-- Kết thúc Desktop -->
+
+    <!-- ==========================================================================
+         [4] CÁC HỘP THOẠI MODAL
+         ========================================================================== */ -->
+    
+    <div class="modal-overlay" id="avatar-modal">
         <div class="settings-box-modal">
             <h2 style="border-bottom: 2px solid var(--theme-main); padding-bottom: 5px; margin-bottom: 20px; font-size: 36px; color: var(--theme-main);">GIAO THỨC CẬP NHẬT ẢNH</h2>
             <p style="font-size: 24px;">Dán đường link (URL) trực tiếp của hình ảnh chân dung vào bên dưới. <i>(Dữ liệu lưu trữ nội bộ).</i></p>
@@ -688,6 +714,7 @@
         </div>
     </div>
 
+    <!-- Super Event Modal (Sự kiện Kết thúc Chiến dịch) -->
     <div class="modal-overlay" id="super-event-modal">
         <div class="se-box">
             <div class="se-title">THE MIDNIGHT HOUR STRIKES</div>
@@ -708,6 +735,9 @@
         </div>
     </div>
 
+    <!-- ==========================================================================
+         [5] JAVASCRIPT LOGIC & CƠ SỞ DỮ LIỆU
+         ========================================================================== */ -->
     <script>
         /* CSS nội bộ thêm cho Layout */
         const extraCSS = document.createElement('style');
@@ -956,7 +986,7 @@
             e.stopPropagation(); 
         }
 
-        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) BỎ NHIỄU CHỮ --- */
+        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) KHÔNG CÓ HIỆU ỨNG NHIỄU SCRAMBLE --- */
         let currentFocusId = null;
 
         function moHoSo(id, el, e) {
@@ -992,6 +1022,7 @@
             const display = document.getElementById('dec-area');
             const data = database[id];
             
+            // Đã tắt hoàn toàn hiệu ứng scramble gây lag/khó chịu. Nội dung hiện thẳng lập tức.
             display.style.fontFamily = "'VT323', monospace";
             display.classList.remove('dec-scramble');
             
