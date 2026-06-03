@@ -7,14 +7,21 @@
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           [0] TNO CORE VARIABLES & AESTHETICS
+           [0] TNO CORE VARIABLES & AESTHETICS (DYNAMIC DEFCON)
            ========================================================================== */
         :root {
-            --tno-cyan: #3df2db; --tno-cyan-dim: #134d45; --tno-cyan-dark: #071f1c;
-            --tno-bg: #010303; --tno-panel: rgba(3, 10, 9, 0.95);
-            --tno-red: #ff2a2a; --tno-red-dim: #6b1414;
-            --tno-orange: #ff9900; --tno-yellow: #f4d35e;
-            --tno-text: #e0fcf9; --tno-hcm-red: #da251d; --tno-hcm-gold: #ffff00;
+            --tno-cyan: #3df2db; 
+            --tno-cyan-dim: #134d45; 
+            --tno-cyan-dark: #071f1c;
+            --tno-bg: #010303; 
+            --tno-panel: rgba(3, 10, 9, 0.95);
+            --tno-red: #ff2a2a; 
+            --tno-red-dim: #6b1414;
+            --tno-orange: #ff9900; 
+            --tno-yellow: #f4d35e;
+            --tno-text: #e0fcf9; 
+            --tno-hcm-red: #da251d; 
+            --tno-hcm-gold: #ffff00;
             
             --theme-main: var(--tno-cyan);
             --theme-dim: var(--tno-cyan-dim);
@@ -27,23 +34,80 @@
             --shadow-inset: inset 0 0 40px rgba(0,0,0,0.9);
         }
 
+        /* Chế độ Báo động Hạt nhân */
         body.defcon-1 {
-            --theme-main: #ff2a2a; --theme-dim: #6b1414; --theme-dark: #2a0505;
-            --theme-bg: #140000; --window-bg: #1a0505;
+            --theme-main: #ff2a2a; 
+            --theme-dim: #6b1414; 
+            --theme-dark: #2a0505;
+            --theme-bg: #140000; 
+            --window-bg: #1a0505;
             animation: red-alert-flash 2s infinite;
         }
-        @keyframes red-alert-flash { 0% { box-shadow: inset 0 0 0px var(--theme-main); } 50% { box-shadow: inset 0 0 120px var(--theme-dim); } 100% { box-shadow: inset 0 0 0px var(--theme-main); } }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; user-select: none; }
-        body { background-color: var(--theme-bg); color: var(--tno-text); font-family: 'VT323', monospace; height: 100vh; width: 100vw; overflow: hidden; transition: background-color 0.8s; }
+        @keyframes red-alert-flash { 
+            0% { box-shadow: inset 0 0 0px var(--theme-main); } 
+            50% { box-shadow: inset 0 0 120px var(--theme-dim); } 
+            100% { box-shadow: inset 0 0 0px var(--theme-main); } 
+        }
+
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+            user-select: none; 
+        }
+
+        body { 
+            background-color: var(--theme-bg); 
+            color: var(--tno-text); 
+            font-family: 'VT323', monospace; 
+            height: 100vh; 
+            width: 100vw; 
+            overflow: hidden; 
+            transition: background-color 0.8s; 
+        }
 
         /* ==========================================================================
            [1] VISUAL EFFECTS (CRT, SCANLINES)
            ========================================================================== */
-        .crt-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 9998; }
-        .scanlines { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px); pointer-events: none; z-index: 9999; }
-        .scanline-bar { position: fixed; top: 0; left: 0; width: 100vw; height: 25px; background: rgba(255,255,255,0.05); box-shadow: 0 0 50px var(--theme-main); animation: scanline-move 8s linear infinite; pointer-events: none; z-index: 9997; opacity: 0.6; }
-        @keyframes scanline-move { 0% { top: -25px; } 100% { top: 100vh; } }
+        .crt-overlay { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh; 
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); 
+            background-size: 100% 2px, 3px 100%; 
+            pointer-events: none; 
+            z-index: 9998; 
+        }
+
+        .scanlines { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100vw; height: 100vh; 
+            background: repeating-linear-gradient(0deg, rgba(0,0,0,0.15) 0px, rgba(0,0,0,0.15) 1px, transparent 1px, transparent 2px); 
+            pointer-events: none; 
+            z-index: 9999; 
+        }
+
+        .scanline-bar { 
+            position: fixed; 
+            top: 0; left: 0; 
+            width: 100vw; height: 25px; 
+            background: rgba(255,255,255,0.05); 
+            box-shadow: 0 0 50px var(--theme-main); 
+            animation: scanline-move 8s linear infinite; 
+            pointer-events: none; 
+            z-index: 9997; 
+            opacity: 0.6; 
+        }
+
+        @keyframes scanline-move { 
+            0% { top: -25px; } 
+            100% { top: 100vh; } 
+        }
+
+        /* Thanh cuộn (Scrollbar) */
         ::-webkit-scrollbar { width: 12px; height: 12px; }
         ::-webkit-scrollbar-track { background: var(--theme-dark); border-left: 1px solid var(--theme-dim); }
         ::-webkit-scrollbar-thumb { background: var(--theme-dim); border: 1px solid var(--theme-main); }
@@ -52,11 +116,40 @@
         /* ==========================================================================
            [2] POWER ON & BOOT SEQUENCE
            ========================================================================== */
-        #pre-boot { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 10001; display: flex; flex-direction: column; justify-content: center; align-items: center; }
-        .power-btn { background: transparent; border: 3px solid var(--tno-cyan); color: var(--tno-cyan); font-family: 'VT323'; font-size: 45px; padding: 25px 50px; cursor: pointer; text-transform: uppercase; transition: 0.3s; text-shadow: 0 0 15px var(--tno-cyan); box-shadow: 0 0 30px rgba(66, 245, 227, 0.2); }
-        .power-btn:hover { background: var(--tno-cyan); color: #000; box-shadow: 0 0 60px var(--tno-cyan); transform: scale(1.05); }
+        #pre-boot { 
+            position: fixed; top: 0; left: 0; 
+            width: 100vw; height: 100vh; 
+            background: #000; z-index: 10001; 
+            display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; 
+        }
+
+        .power-btn { 
+            background: transparent; 
+            border: 3px solid var(--tno-cyan); 
+            color: var(--tno-cyan); 
+            font-family: 'VT323'; font-size: 45px; 
+            padding: 25px 50px; cursor: pointer; 
+            text-transform: uppercase; transition: 0.3s; 
+            text-shadow: 0 0 15px var(--tno-cyan); 
+            box-shadow: 0 0 30px rgba(66, 245, 227, 0.2); 
+        }
+
+        .power-btn:hover { 
+            background: var(--tno-cyan); color: #000; 
+            box-shadow: 0 0 60px var(--tno-cyan); 
+            transform: scale(1.05); 
+        }
         
-        #boot-screen { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #000; z-index: 10000; padding: 40px; flex-direction: column; justify-content: flex-end; font-size: 26px; color: var(--theme-main); text-shadow: 0 0 10px var(--theme-main); }
+        #boot-screen { 
+            display: none; position: fixed; top: 0; left: 0; 
+            width: 100vw; height: 100vh; background: #000; 
+            z-index: 10000; padding: 40px; 
+            flex-direction: column; justify-content: flex-end; 
+            font-size: 26px; color: var(--theme-main); 
+            text-shadow: 0 0 10px var(--theme-main); 
+        }
+
         .boot-line { margin-bottom: 5px; }
         .blink-cursor { animation: blink 1s step-end infinite; }
         @keyframes blink { 50% { opacity: 0; } }
@@ -64,26 +157,58 @@
         /* ==========================================================================
            [3] DESKTOP ENVIRONMENT
            ========================================================================== */
-        #desktop { display: none; height: 100%; width: 100%; position: relative; background-image: radial-gradient(circle at center, rgba(255,255,255, 0.05) 0%, transparent 80%), linear-gradient(rgba(255,255,255, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255, 0.03) 1px, transparent 1px); background-size: 100% 100%, 120px 120px, 120px 120px; }
+        #desktop { 
+            display: none; height: 100%; width: 100%; position: relative; 
+            background-image: 
+                radial-gradient(circle at center, rgba(255,255,255, 0.05) 0%, transparent 80%), 
+                linear-gradient(rgba(255,255,255, 0.03) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(255,255,255, 0.03) 1px, transparent 1px); 
+            background-size: 100% 100%, 120px 120px, 120px 120px; 
+        }
 
-        /* Taskbar */
-        .taskbar { position: absolute; top: 0; left: 0; width: 100%; height: 50px; background: var(--theme-dark); border-bottom: var(--border-main); display: flex; justify-content: space-between; align-items: center; padding: 0 25px; font-size: 26px; font-weight: bold; z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.9); }
+        /* Thanh Taskbar */
+        .taskbar { 
+            position: absolute; top: 0; left: 0; 
+            width: 100%; height: 50px; 
+            background: var(--theme-dark); 
+            border-bottom: var(--border-main); 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 0 25px; font-size: 26px; font-weight: bold; 
+            z-index: 100; box-shadow: 0 5px 20px rgba(0,0,0,0.9); 
+        }
+
         .tb-left { display: flex; gap: 30px; align-items: center; }
         .sys-logo { color: var(--theme-main); text-shadow: 0 0 10px var(--theme-main); letter-spacing: 2px; font-size: 30px; }
         .tb-stats { display: flex; gap: 20px; color: #aaa; font-size: 22px; border-left: 2px dashed var(--theme-dim); padding-left: 20px; }
         .tb-stats span { color: var(--tno-yellow); }
         .tb-right { display: flex; gap: 30px; align-items: center; }
-        .defcon-indicator { background: var(--tno-red-dim); color: white; padding: 5px 20px; border: 2px solid var(--tno-red); cursor: pointer; transition: 0.3s; font-size: 24px; }
+        
+        .defcon-indicator { 
+            background: var(--tno-red-dim); color: white; 
+            padding: 5px 20px; border: 2px solid var(--tno-red); 
+            cursor: pointer; transition: 0.3s; font-size: 24px; 
+        }
         .defcon-indicator:hover { background: var(--tno-red); box-shadow: 0 0 20px var(--tno-red); }
 
-        /* Compact Desktop Icons */
-        .icon-grid { position: absolute; top: 80px; left: 20px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; z-index: 10; width: 220px; }
-        .desktop-icon { width: 100px; display: flex; flex-direction: column; align-items: center; justify-content: center; cursor: pointer; padding: 10px; border: 1px solid transparent; transition: 0.2s; text-align: center; }
+        /* Các biểu tượng Desktop */
+        .icon-grid { 
+            position: absolute; top: 80px; left: 20px; 
+            display: grid; grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; z-index: 10; width: 220px; 
+        }
+
+        .desktop-icon { 
+            width: 100px; display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; cursor: pointer; 
+            padding: 10px; border: 1px solid transparent; 
+            transition: 0.2s; text-align: center; 
+        }
         .desktop-icon:hover { background: rgba(255,255,255, 0.1); border: 1px dashed var(--theme-main); }
+        
         .icon-img { font-size: 45px; margin-bottom: 5px; color: var(--theme-main); filter: drop-shadow(0 0 10px var(--theme-main)); }
         .icon-text { font-size: 16px; font-weight: bold; background: rgba(0,0,0,0.8); padding: 2px 5px; border-radius: 3px; border: 1px solid var(--theme-dim); white-space: nowrap; }
 
-        /* Desktop Widgets */
+        /* Tiện ích Desktop (Widgets) */
         .widget-panel { position: absolute; top: 80px; right: 20px; display: flex; flex-direction: column; gap: 20px; z-index: 10; width: 400px; }
         .desktop-widget { background: var(--tno-panel); border: var(--border-main); padding: 20px; box-shadow: var(--shadow-inset); position: relative; }
         .desktop-widget::before { content:''; position:absolute; top:-2px; left:-2px; width:10px; height:10px; background:var(--theme-main); }
@@ -91,17 +216,18 @@
         .widget-title { font-size: 24px; color: var(--tno-orange); border-bottom: 2px dashed var(--tno-orange); margin-bottom: 15px; text-transform: uppercase; font-weight: bold; }
         .sys-stat-row { display: flex; justify-content: space-between; font-size: 20px; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 5px; }
 
-        /* NATIVE AUDIO PLAYER */
+        /* Trình phát nhạc (Audio Player) */
         .audio-player-box { background: #000; border: 1px solid var(--theme-dim); padding: 15px; display: flex; flex-direction: column; gap: 10px; }
-        .audio-track-name { font-size: 20px; color: var(--theme-main); background: rgba(255,255,255,0.05); padding: 5px; border: 1px solid var(--theme-dim); }
-        .audio-controls-row { display: flex; justify-content: space-between; align-items: center; }
+        .audio-track-name { font-size: 20px; color: var(--theme-main); background: rgba(255,255,255,0.05); padding: 5px; border: 1px solid var(--theme-dim); overflow: hidden; white-space: nowrap; }
+        .audio-controls-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .audio-btn { background: var(--theme-dark); border: 1px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 22px; padding: 5px 15px; cursor: pointer; transition: 0.2s; font-weight: bold; }
         .audio-btn:hover { background: var(--theme-main); color: #000; }
         .volume-controls { display: flex; align-items: center; gap: 10px; font-size: 20px; color: #fff; }
         .vol-btn { background: #222; border: 1px solid #555; color: #fff; cursor: pointer; padding: 2px 8px; font-family: 'VT323'; font-size: 20px; }
         .vol-btn:hover { background: #555; }
         
-        .visualizer { display: flex; gap: 4px; height: 30px; align-items: flex-end; margin-top: 5px; }
+        /* Hiệu ứng thanh sóng âm thanh */
+        .visualizer { display: flex; gap: 4px; height: 30px; align-items: flex-end; margin-top: 5px; justify-content: center; }
         .vis-bar { width: 100%; background: var(--theme-main); opacity: 0.8; }
         .vis-bar.active { animation: eq-bounce 0.5s infinite alternate ease-in-out; }
         .vis-bar:nth-child(1) { animation-delay: 0.1s; }
@@ -112,14 +238,19 @@
         .vis-bar:nth-child(6) { animation-delay: 0.5s; }
         @keyframes eq-bounce { 0% { height: 5px; } 100% { height: 30px; } }
 
-        /* News Ticker */
-        .news-ticker { position: absolute; bottom: 0; left: 0; width: 100%; height: 45px; background: var(--theme-dark); border-top: var(--border-main); display: flex; align-items: center; overflow: hidden; color: var(--theme-main); font-size: 26px; z-index: 100; }
+        /* Bảng tin News Ticker */
+        .news-ticker { 
+            position: absolute; bottom: 0; left: 0; 
+            width: 100%; height: 45px; background: var(--theme-dark); 
+            border-top: var(--border-main); display: flex; align-items: center; 
+            overflow: hidden; color: var(--theme-main); font-size: 26px; z-index: 100; 
+        }
         .ticker-label { background: var(--theme-main); color: #000; padding: 0 20px; font-weight: bold; margin-right: 20px; z-index: 2; height: 100%; display: flex; align-items: center; }
         .ticker-text { white-space: nowrap; animation: ticker-scroll 40s linear infinite; font-weight: bold; text-shadow: 0 0 5px var(--theme-main); }
         @keyframes ticker-scroll { 0% { transform: translateX(100vw); } 100% { transform: translateX(-150%); } }
 
         /* ==========================================================================
-           [4] WINDOW MANAGER (OS WINDOWS) - Z-INDEX FIX
+           [4] TRÌNH QUẢN LÝ CỬA SỔ (WINDOW MANAGER)
            ========================================================================== */
         .os-window {
             position: absolute; display: none; flex-direction: column;
@@ -127,7 +258,11 @@
             box-shadow: 15px 15px 40px rgba(0,0,0,0.95), inset 0 0 30px rgba(0,0,0,0.9);
             z-index: 50; transition: border 0.2s; pointer-events: auto;
         }
-        .os-window.active-win { border-color: var(--theme-main); box-shadow: 0 0 30px var(--theme-dim), 15px 15px 50px rgba(0,0,0,1); z-index: 900 !important; } 
+        .os-window.active-win { 
+            border-color: var(--theme-main); 
+            box-shadow: 0 0 30px var(--theme-dim), 15px 15px 50px rgba(0,0,0,1); 
+            z-index: 900 !important; 
+        } 
         
         .win-header {
             background: repeating-linear-gradient(45deg, var(--theme-dark), var(--theme-dark) 10px, rgba(0,0,0,0.8) 10px, rgba(0,0,0,0.8) 20px);
@@ -143,12 +278,18 @@
 
         .win-content { flex: 1; overflow: hidden; display: flex; position: relative; }
         
-        /* Thay thế button action-link-btn bằng the a để dễ dàng chèn link tải file */
-        .action-link-btn { display: block; width: 100%; background: var(--theme-dark); border: 2px solid var(--theme-main); color: var(--theme-main); font-family: 'VT323'; font-size: 26px; padding: 15px; cursor: pointer; transition: 0.2s; text-align: center; text-decoration: none; text-transform: uppercase; font-weight: bold; margin-top: 15px; }
+        /* Nút hành động chuẩn */
+        .action-link-btn { 
+            display: block; width: 100%; background: var(--theme-dark); 
+            border: 2px solid var(--theme-main); color: var(--theme-main); 
+            font-family: 'VT323'; font-size: 26px; padding: 15px; cursor: pointer; 
+            transition: 0.2s; text-align: center; text-decoration: none; 
+            text-transform: uppercase; font-weight: bold; margin-top: 15px; 
+        }
         .action-link-btn:hover { background: var(--theme-main); color: #000; box-shadow: 0 0 20px var(--theme-main); letter-spacing: 2px; }
 
         /* ==========================================================================
-           [5] ỨNG DỤNG 1: HO_SO.exe
+           [5] ỨNG DỤNG 1: HO_SO.exe (DOSSIER)
            ========================================================================== */
         #win-dossier { top: 50px; left: 260px; width: 1050px; height: 750px; }
         .dossier-layout { display: flex; width: 100%; height: 100%; }
@@ -176,7 +317,7 @@
         .d-hl { color: var(--tno-yellow); font-weight: bold; }
 
         /* ==========================================================================
-           [6] ỨNG DỤNG 2: BAN_DO.dir (MAP)
+           [6] ỨNG DỤNG 2: BAN_DO.dir (MAP & KÉO THẢ)
            ========================================================================== */
         #win-map { top: 30px; left: 300px; width: 1200px; height: 800px; }
         .map-viewport { width: 100%; height: 100%; position: relative; overflow: hidden; cursor: grab; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 100px 100px; }
@@ -191,7 +332,7 @@
             background: var(--tno-panel); border: 4px solid var(--theme-dim);
             padding: 20px; text-align: center; transition: all 0.2s;
             box-shadow: inset 0 0 30px rgba(0,0,0,1), 10px 10px 25px rgba(0,0,0,0.8);
-            pointer-events: auto; /* MUST BE CLICKABLE */
+            pointer-events: auto; /* Quan trọng để bấm được */
         }
         .focus-node:hover { border-color: var(--theme-main); transform: scale(1.08); box-shadow: 0 0 50px var(--theme-main); z-index: 20; cursor: pointer; }
         .focus-node.completed { border-color: var(--theme-main); }
@@ -217,7 +358,7 @@
         @keyframes ping-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0.7); } 70% { box-shadow: 0 0 0 60px rgba(255, 42, 42, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 42, 42, 0); } }
 
         /* ==========================================================================
-           [8] ỨNG DỤNG 4: GIAI_MA.exe (DECRYPTOR)
+           [8] ỨNG DỤNG 4: GIAI_MA.exe (DECRYPTOR / HIỂN THỊ NỘI DUNG)
            ========================================================================== */
         #win-decrypt { top: 120px; left: 400px; width: 1050px; height: 850px; }
         .decrypt-layout { display: flex; flex-direction: column; width: 100%; height: 100%; }
@@ -243,6 +384,7 @@
         /* ==========================================================================
            [9] ỨNG DỤNG KHÁC: TERMINAL, GHI_CHU, CAI_DAT
            ========================================================================== */
+        
         /* Terminal */
         #win-terminal { top: 450px; left: 50px; width: 700px; height: 450px; }
         .term-layout { display: flex; flex-direction: column; width: 100%; height: 100%; background: #000; padding: 20px; }
@@ -267,7 +409,7 @@
         .color-btn:hover { transform: scale(1.2); box-shadow: 0 0 15px #fff; }
 
         /* ==========================================================================
-           [10] SỰ KIỆN TỐI HẬU (SUPER EVENT MODAL)
+           [10] SỰ KIỆN TỐI HẬU & MODALS
            ========================================================================== */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
@@ -294,8 +436,6 @@
     </style>
 </head>
 <body>
-    <!-- NATIVE AUDIO PLAYER -->
-    <!-- Dòng dưới đây yêu cầu bạn tải file our_final_war.mp3 lên chung thư mục với index.html -->
     <audio id="os-bgm" loop preload="auto">
         <source src="our_final_war.mp3" type="audio/mpeg">
     </audio>
@@ -304,21 +444,17 @@
     <div class="scanlines"></div>
     <div class="scanline-bar"></div>
 
-    <!-- MÀN HÌNH CHỜ (KÍCH HOẠT HỆ THỐNG VÀ AUDIO TRÌNH DUYỆT) -->
     <div id="pre-boot">
         <div style="text-align: center; margin-bottom: 30px; font-size: 32px; color: var(--tno-cyan);">> MÃ ĐỊNH DANH 25022175 ĐANG TRONG TRẠNG THÁI CHỜ...</div>
         <button class="power-btn" onclick="startSystem()">KHỞI ĐỘNG HỆ ĐIỀU HÀNH VÀ ÂM THANH</button>
     </div>
 
-    <!-- MÀN HÌNH BIOS BOOT -->
     <div id="boot-screen">
         <div id="boot-text"></div>
         <div><span class="blink-cursor">█</span></div>
     </div>
 
-    <!-- MÔI TRƯỜNG DESKTOP -->
     <div id="desktop">
-        <!-- Thanh Taskbar -->
         <div class="taskbar">
             <div class="tb-left">
                 <span class="sys-logo">UET_OS // GRAND CAMPAIGN</span>
@@ -334,7 +470,6 @@
             </div>
         </div>
 
-        <!-- Biểu tượng Desktop -->
         <div class="icon-grid">
             <div class="desktop-icon" ondblclick="openWindow('win-dossier')">
                 <div class="icon-img" style="font-size: 55px;">👤</div>
@@ -366,7 +501,6 @@
             </div>
         </div>
 
-        <!-- Các Tiện ích Desktop (Widgets) -->
         <div class="widget-panel">
             <div class="desktop-widget">
                 <div class="widget-title">GIÁM SÁT KỸ THUẬT (SYSTEM)</div>
@@ -375,11 +509,10 @@
                 <div class="sys-stat-row"><span>LỚP TRỰC THUỘC:</span> <span style="color:var(--tno-yellow);">K70E-EC1</span></div>
                 <div class="sys-stat-row"><span>MÃ BẢO MẬT:</span> <span style="color:var(--tno-red);">ĐÃ MÃ HÓA</span></div>
                 <div style="font-size: 18px; color: #aaa; margin-top: 15px; border-top: 1px dashed var(--theme-dim); padding-top: 10px; line-height: 1.4;">
-                    * NHẤP ĐÚP CHUỘT VÀO BIỂU TƯỢNG BÊN TRÁI ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
+                    * NHẤP ĐÚP CHUỘT (Double-click) VÀO BIỂU TƯỢNG BÊN TRÁI ĐỂ MỞ ỨNG DỤNG.<br>* CÁC CỬA SỔ CÓ THỂ KÉO THẢ TỰ DO.
                 </div>
             </div>
 
-            <!-- TNO RADIO -->
             <div class="desktop-widget audio-player-box">
                 <div class="widget-title" style="margin-bottom: 5px;">ĐÀI PHÁT THANH K70</div>
                 <div class="audio-track-name">
@@ -401,7 +534,6 @@
             </div>
         </div>
 
-        <!-- Thanh News Ticker dưới cùng -->
         <div class="news-ticker">
             <div class="ticker-label">UET GLOBAL NEWS TAPE</div>
             <div class="ticker-text">
@@ -409,9 +541,6 @@
             </div>
         </div>
 
-        <!-- ================= CÁC CỬA SỔ ỨNG DỤNG (WINDOWS) ================= -->
-        
-        <!-- WIN 1: HO_SO.exe -->
         <div class="os-window" id="win-dossier">
             <div class="win-header" onmousedown="dragWindow(event, 'win-dossier')">
                 <span class="win-title">[👤] C:\UET\HO_SO_TINH_BAO.exe</span>
@@ -525,7 +654,6 @@
             </div>
         </div>
 
-        <!-- WIN 2: BAN_DO.dir (MAP & CLICK FIX) -->
         <div class="os-window" id="win-map">
             <div class="win-header" onmousedown="dragWindow(event, 'win-map')">
                 <span class="win-title">[🗺️] C:\SYSTEM\BAN_DO_CHIEN_LUOC.dir</span>
@@ -537,64 +665,68 @@
                 <div class="map-viewport" id="viewport">
                     <div class="map-canvas" id="canvas">
                         <svg class="svg-lines">
-                            <!-- SVG Connections -->
-                            <path class="focus-line" d="M 1250 200 L 1250 400" />
-                            <path class="focus-line" d="M 1250 550 L 1250 650 L 800 650 L 800 750" />
-                            <path class="focus-line" d="M 1250 550 L 1250 650 L 1700 650 L 1700 750" />
-                            <path class="focus-line" d="M 800 900 L 800 1000 L 1250 1000 L 1250 1100" />
-                            <path class="focus-line" d="M 1700 900 L 1700 1000 L 1250 1000 L 1250 1100" />
-                            <path class="focus-line" d="M 1250 1250 L 1250 1400" />
+                            <path class="focus-line" d="M 1250 150 L 1250 350" />
+                            <path class="focus-line" d="M 1250 450 L 1250 550 L 800 550 L 800 650" />
+                            <path class="focus-line" d="M 1250 450 L 1250 550 L 1700 550 L 1700 650" />
+                            <path class="focus-line" d="M 800 800 L 800 850 L 1250 850 L 1250 950" />
+                            <path class="focus-line" d="M 1700 800 L 1700 850 L 1250 850 L 1250 950" />
+                            <path class="focus-line" d="M 1250 1050 L 1250 1250" />
+                            <path class="focus-line" d="M 1250 1350 L 1250 1550" />
                         </svg>
 
-                        <!-- Đã thêm event.stopPropagation() để chống dính chuột -->
                         <div class="focus-node completed" style="top: 50px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(1, this, event)">
                             <div class="focus-icon">🗄️</div>
-                            <div class="focus-title">[01] THAO TÁC TỆP TIN</div>
+                            <div class="focus-title">[01] THAO TÁC TỆP TIN VÀ THƯ MỤC</div>
                             <div class="focus-time">Giai đoạn 1.4</div>
                         </div>
                         
-                        <div class="focus-node completed" style="top: 400px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(2, this, event)">
+                        <div class="focus-node completed" style="top: 350px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(2, this, event)">
                             <div class="focus-icon">📡</div>
-                            <div class="focus-title">[02] TÌM KIẾM HỌC THUẬT</div>
+                            <div class="focus-title">[02] TÌM KIẾM VÀ ĐÁNH GIÁ THÔNG TIN HỌC THUẬT</div>
                             <div class="focus-time">Giai đoạn 2.4</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 750px; left: 650px;" onmousedown="preventDrag(event)" onclick="moHoSo(3, this, event)">
+                        <div class="focus-node completed" style="top: 650px; left: 650px;" onmousedown="preventDrag(event)" onclick="moHoSo(3, this, event)">
                             <div class="focus-icon">🧠</div>
-                            <div class="focus-title">[03] KỸ SƯ PROMPT AI</div>
+                            <div class="focus-title">[03] VIẾT PROMPT AI HIỆU QUẢ</div>
                             <div class="focus-time">Giai đoạn 3.4</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 750px; left: 1550px; border-color: var(--tno-yellow);" onmousedown="preventDrag(event)" onclick="moHoSo(4, this, event)">
+                        <div class="focus-node completed" style="top: 650px; left: 1550px; border-color: var(--tno-yellow);" onmousedown="preventDrag(event)" onclick="moHoSo(4, this, event)">
                             <div class="focus-icon" style="color: var(--tno-yellow); text-shadow: 0 0 20px var(--tno-yellow);">🤝</div>
-                            <div class="focus-title" style="color: var(--tno-yellow);">[04] HỢP TÁC TRỰC TUYẾN</div>
+                            <div class="focus-title" style="color: var(--tno-yellow);">[04] CÔNG CỤ HỢP TÁC TRỰC TUYẾN</div>
                             <div class="focus-time">Giao thức Mạng Nhóm</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 1100px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(5, this, event)">
+                        <div class="focus-node completed" style="top: 950px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(5, this, event)">
                             <div class="focus-icon">⚙️</div>
-                            <div class="focus-title">[05] AI TẠO SINH</div>
+                            <div class="focus-title">[05] AI TẠO SINH SÁNG TẠO NỘI DUNG</div>
                             <div class="focus-time">Giai đoạn 5.4</div>
                         </div>
 
-                        <div class="focus-node completed" style="top: 1400px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(6, this, event)">
+                        <div class="focus-node completed" style="top: 1250px; left: 1100px;" onmousedown="preventDrag(event)" onclick="moHoSo(6, this, event)">
                             <div class="focus-icon">⚖️</div>
-                            <div class="focus-title">[06] LIÊM CHÍNH AI</div>
+                            <div class="focus-title">[06] SỬ DỤNG AI CÓ TRÁCH NHIỆM</div>
                             <div class="focus-time">Đạo luật Vĩnh viễn</div>
+                        </div>
+
+                        <div class="focus-node completed" style="top: 1550px; left: 1100px; border-color: var(--tno-red);" onmousedown="preventDrag(event)" onclick="moHoSo(7, this, event)">
+                            <div class="focus-icon" style="color: var(--tno-red); text-shadow: 0 0 20px var(--tno-red);">🛡️</div>
+                            <div class="focus-title" style="color: var(--tno-red);">[07] PHÂN TÍCH TÀI LIỆU VỚI AI</div>
+                            <div class="focus-time">Giai đoạn 7.4</div>
                         </div>
                     </div>
                     
                     <div style="position: absolute; top: 20px; left: 20px; background: rgba(0,0,0,0.85); padding: 15px 20px; border: 2px dashed var(--theme-main); font-size: 24px; color: #fff; line-height: 1.4; box-shadow: 0 0 20px rgba(0,0,0,0.9); z-index: 100; pointer-events: none;">
-                        >> BẢN ĐỒ CHIẾN LƯỢC (NO BUGS):<br>
+                        >> BẢN ĐỒ CHIẾN LƯỢC:<br>
                         1. Giữ chuột vào chỗ trống để <strong>Kéo Bản đồ</strong>.<br>
                         2. Lăn chuột để <strong>Phóng to/Thu nhỏ</strong>.<br>
-                        3. BẤM VÀO NÚT TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ.
+                        3. BẤM VÀO NÚT TIÊU ĐIỂM ĐỂ MỞ HỒ SƠ TỨC THÌ.
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- WIN 3: THE_GIOI.exe (WORLD MAP) -->
         <div class="os-window" id="win-worldmap">
             <div class="win-header" onmousedown="dragWindow(event, 'win-worldmap')">
                 <span class="win-title">[🌍] C:\SYSTEM\THE_GIOI.exe</span>
@@ -615,7 +747,6 @@
             </div>
         </div>
 
-        <!-- WIN 4: GIAI_MA.exe (DECRYPTOR - TÍCH HỢP TẢI FILE MINH CHỨNG) -->
         <div class="os-window" id="win-decrypt">
             <div class="win-header" onmousedown="dragWindow(event, 'win-decrypt')">
                 <span class="win-title">[🔓] C:\TOOLS\GIAI_MA_HO_SO.exe</span>
@@ -631,14 +762,12 @@
                         <button class="dec-btn" onclick="switchDecTab(2)">TÀI LIỆU MINH CHỨNG</button>
                     </div>
                     <div class="dec-content-area" id="dec-area">
-                        <!-- Nội dung hiển thị ngay lập tức, bỏ qua nhiễu chữ -->
                         <h2 style="color: var(--theme-main); text-align: center; margin-top: 60px; font-size: 30px;">ĐANG CHỜ NHẬN LỆNH TỪ BẢN ĐỒ CHIẾN LƯỢC...</h2>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- WIN 5: DONG_LENH.bat (TERMINAL) -->
         <div class="os-window" id="win-terminal">
             <div class="win-header" onmousedown="dragWindow(event, 'win-terminal')">
                 <span class="win-title">[⌨️] C:\SYSTEM\DONG_LENH.bat</span>
@@ -649,7 +778,7 @@
             <div class="win-content">
                 <div class="term-layout">
                     <div class="term-output" id="term-output">
-                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V20.0 ĐÃ SẴN SÀNG.</div>
+                        <div class="term-entry term-sys">> HỆ ĐIỀU HÀNH UET_OS KERNEL V23.0 ĐÃ SẴN SÀNG.</div>
                         <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách lệnh.</div>
                     </div>
                     <div class="term-input-row">
@@ -660,7 +789,6 @@
             </div>
         </div>
 
-        <!-- WIN 6: GHI_CHU.txt (NOTEPAD) -->
         <div class="os-window" id="win-notes">
             <div class="win-header" onmousedown="dragWindow(event, 'win-notes')">
                 <span class="win-title">[📝] C:\USERS\GHI_CHU.txt</span>
@@ -673,7 +801,6 @@
             </div>
         </div>
 
-        <!-- WIN 7: CAI_DAT.exe (SETTINGS) -->
         <div class="os-window" id="win-settings">
             <div class="win-header" onmousedown="dragWindow(event, 'win-settings')">
                 <span class="win-title">[⚙️] C:\SYSTEM\CAI_DAT.exe</span>
@@ -696,13 +823,7 @@
             </div>
         </div>
 
-    </div> <!-- Kết thúc Desktop -->
-
-    <!-- ==========================================================================
-         [4] CÁC HỘP THOẠI MODAL
-         ========================================================================== */ -->
-    
-    <div class="modal-overlay" id="avatar-modal">
+    </div> <div class="modal-overlay" id="avatar-modal">
         <div class="settings-box-modal">
             <h2 style="border-bottom: 2px solid var(--theme-main); padding-bottom: 5px; margin-bottom: 20px; font-size: 36px; color: var(--theme-main);">GIAO THỨC CẬP NHẬT ẢNH</h2>
             <p style="font-size: 24px;">Dán đường link (URL) trực tiếp của hình ảnh chân dung vào bên dưới. <i>(Dữ liệu lưu trữ nội bộ).</i></p>
@@ -714,7 +835,6 @@
         </div>
     </div>
 
-    <!-- Super Event Modal (Sự kiện Kết thúc Chiến dịch) -->
     <div class="modal-overlay" id="super-event-modal">
         <div class="se-box">
             <div class="se-title">THE MIDNIGHT HOUR STRIKES</div>
@@ -735,13 +855,10 @@
         </div>
     </div>
 
-    <!-- ==========================================================================
-         [5] JAVASCRIPT LOGIC & CƠ SỞ DỮ LIỆU
-         ========================================================================== */ -->
     <script>
         /* --- 1. LUỒNG SỰ KIỆN KHỞI ĐỘNG VÀ AUDIO NATIVE --- */
         const bootLines = [
-            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.20",
+            "BIOS Date 06/03/26 23:59:59 Ver GRAND_ARCHITECT.23",
             "CPU: K70 Neural-Link Processor (Hanoi Central Command)",
             "Memory Test: 135 TB OK",
             "Initializing Auspex Radar Scanners... [OK]",
@@ -874,43 +991,49 @@
             document.querySelectorAll('.d-tab').forEach((tab, i) => tab.classList.toggle('active', i === index));
         }
 
-        /* --- 5. HIGH-DENSITY DATABASE (ĐÃ TÍCH HỢP ĐƯỜNG LINK TẢI TỆP TRỰC TIẾP) --- */
+        /* --- 5. HIGH-DENSITY DATABASE (VIETNAMESE - CHI TIẾT TỐI ĐA) --- */
         const database = {
             1: { 
                 title: "BÀI 1: KIẾN TRÚC LƯU TRỮ VÀ THAO TÁC TỆP TIN", 
                 tab1: "Tiến hành một cuộc đại tu toàn diện hệ thống lưu trữ dữ liệu học thuật trên máy tính cá nhân và Google Drive.<br><br><strong>Quy trình thực thi:</strong><br>- Xây dựng cấu trúc cây thư mục (Directory Tree) phân cấp nghiêm ngặt: <code>Root (Đại học) -> Năm học (Năm 1) -> Học kỳ -> Môn học (CNS) -> Phân loại (Bài tập / Tài liệu / Tham khảo)</code>. <br>- Thiết lập và áp dụng triệt để quy tắc danh pháp (Naming Convention) cho mọi tệp tin đầu ra theo định dạng chuẩn quân sự: <code>[Mã học phần]_[Tên bài tập/Dự án]_[MSSV_25022175]_[Phiên bản].pdf</code>.<br>- Toàn bộ quá trình này được đồng bộ hóa tự động lên hệ thống Google Drive của trường UET để đảm bảo nguyên tắc sao lưu 3-2-1, chống mất mát dữ liệu do hỏng hóc ổ cứng vật lý.",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Giác ngộ được triết lý '5S' trong không gian số. Việc quy hoạch thông tin bài bản giúp loại bỏ hoàn toàn rác kỹ thuật số, giải phóng tài nguyên bộ não khỏi việc ghi nhớ vị trí file. Điều này làm tăng tốc độ truy xuất tài liệu lên đến 50% trong các tình huống khẩn cấp (như lúc sát giờ nộp bài).</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Rào cản tâm lý cực kỳ lớn khi phải đối mặt với hàng chục Gigabyte tệp tin hỗn tạp, file tải về (Downloads) vô danh tồn đọng từ nhiều năm trước. Mất rất nhiều thời gian thủ công để phân loại, đổi tên và xóa bỏ dữ liệu thừa.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Giao thức lưu trữ này đã trở thành tiêu chuẩn vĩnh viễn của tôi khi quản lý mã nguồn code Python và sắp xếp cấu trúc thư mục cho các đồ án kỹ thuật phức tạp (như Tính toán Giải tích, Đại số tuyến tính) tại Đại học Công nghệ UET.</li></ul>",
-                tab3: "<a href='bai1.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai1.pdf...\", \"term-sys\")'>[ MỞ TỆP TIN MINH CHỨNG BÀI 1 ]</a>"
+                tab3: "<a href='bai1.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai1.pdf...\", \"term-sys\")'>[ TRUY CẬP TỆP TIN MINH CHỨNG BÀI 1 ]</a>"
             },
             2: { 
-                title: "BÀI 2: TOÁN TỬ TÌM KIẾM VÀ AUSPEX SCANNER", 
+                title: "BÀI 2: TOÁN TỬ TÌM KIẾM VÀ ĐÁNH GIÁ THÔNG TIN HỌC THUẬT", 
                 tab1: "Kích hoạt chiến dịch tình báo dữ liệu (Data Mining) quy mô lớn thông qua các Toán tử tìm kiếm Boolean (Boolean Search Operators) trên công cụ Google.<br><br><strong>Chiến thuật áp dụng:</strong><br>- Đi sâu vào việc sử dụng các cú pháp kết hợp: <code>site:.edu.vn OR site:.gov</code> (chỉ lấy tài liệu từ các cơ sở giáo dục và chính phủ), <code>filetype:pdf</code> (lọc thẳng ra báo cáo thay vì bài viết web), kết hợp các hàm <code>AND</code>, <code>NOT (-)</code> để loại trừ thông tin rác và dấu ngoặc kép <code>\" \"</code> để buộc Google trả về cụm từ chuyên ngành chính xác.<br>- Xây dựng ma trận đánh giá uy tín nguồn tin dựa trên bài kiểm tra <strong>CRAAP Test</strong> (Currency - Tính cập nhật, Relevance - Tính liên quan, Authority - Thẩm quyền tác giả, Accuracy - Độ chính xác, Purpose - Mục đích bài viết).",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Phá vỡ thói quen 'Google mù' (chỉ gõ từ khóa tự do và click vào link đầu tiên). Kỹ năng này biến tôi thành một nhà nghiên cứu thực thụ, có khả năng khoan thủng các lớp thông tin rác, vượt qua các thuật toán SEO thương mại để tiếp cận thẳng các tài liệu gốc mang tính hàn lâm cao.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Mạng Internet tràn ngập các trang web 'copy-paste' tinh vi được làm cực kỳ đẹp mắt. Khó khăn nhất là việc phải truy xuất ngược (Reverse search) để tìm ra tác giả gốc của một báo cáo kỹ thuật không ghi rõ nguồn trích dẫn.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Đây là vũ khí tối thượng phục vụ cho việc làm nghiên cứu khoa học, viết tiểu luận cho các môn học đại cương và tìm kiếm các tài liệu lập trình chuyên sâu, các bài báo IEEE mà Google thông thường sẽ giấu đi.</li></ul>",
-                tab3: "<a href='bai2.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai2.pdf...\", \"term-sys\")'>[ MỞ TỆP TIN MINH CHỨNG BÀI 2 ]</a>"
+                tab3: "<a href='bai2.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang xuất bảng ma trận đánh giá định dạng PDF...\", \"term-sys\")'>[ MỞ BẢNG ĐÁNH GIÁ NGUỒN TIN THEO CHUẨN CRAAP ]</a>"
             },
             3: { 
                 title: "BÀI 3: KỸ SƯ CÂU LỆNH (PROMPT ENGINEERING)", 
                 tab1: "Trực tiếp can thiệp vào lõi của các Mô hình Ngôn ngữ Lớn (LLM - Generative AI như ChatGPT, Gemini).<br><br><strong>Quá trình tiến hóa Prompt:</strong><br>- Từ bỏ phương pháp <i>Zero-shot</i> thô sơ (kiểu ra lệnh cụt lủn \"Viết cho tôi đoạn code\").<br>- Chuyển sang sử dụng các Framework Prompting cao cấp như <strong>RTF (Role - Task - Format)</strong> và <strong>Chain of Thought (CoT - Tư duy chuỗi)</strong>.<br>- <i>Tiến trình cụ thể:</i> (1) Cấp vai trò chuyên gia (Expert Persona) cho AI -> (2) Định nghĩa rõ giới hạn bối cảnh (Context Window) -> (3) Yêu cầu AI suy luận từng bước trước khi trả lời -> (4) Ép buộc AI phải xuất dữ liệu theo định dạng mong muốn (Bảng, JSON, Markdown). Lưu trữ và lập bảng đối chiếu sự khác biệt khổng lồ về chất lượng trước và sau khi tinh chỉnh.",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Ngộ ra bản chất của Trí tuệ nhân tạo: AI không tự nhiên thông minh, nó chỉ là một tấm gương phản chiếu lại mức độ logic và tư duy hệ thống của chính người ra lệnh. Lệnh càng có cấu trúc chặt chẽ, kết quả AI trả về càng sắc bén và đúng trọng tâm.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: AI thường mắc hội chứng 'Ảo giác thông tin' (Hallucination) - chúng có xu hướng tự bịa ra các thư mục tài liệu không tồn tại, hoặc giải sai các phương trình ma trận nhưng với giọng điệu cực kỳ tự tin. Việc thiết lập Prompt để 'trói buộc' sự sáng tạo quá đà của AI tốn rất nhiều công sức test đi test lại.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Hiện tại, tôi đang sử dụng AI như một trợ lý lập trình viên (Pair Programming): Dùng để giải thích các khối code Python bị lỗi, debug thuật toán cơ bản và tóm tắt nhanh các tài liệu kỹ thuật phức tạp hàng chục trang.</li></ul>",
-                tab3: "<a href='bai3.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai3.pdf...\", \"term-sys\")'>[ MỞ TỆP TIN MINH CHỨNG BÀI 3 ]</a>"
+                tab3: "<a href='bai3.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang đối chiếu dữ liệu Prompt...\", \"term-sys\")'>[ TRUY XUẤT BẢNG ĐỐI CHIẾU KẾT QUẢ AI ]</a>"
             },
             4: { 
                 title: "BÀI 4: GIAO THỨC HỢP TÁC TRỰC TUYẾN (AGILE/KANBAN)", 
                 tab1: "Vận hành chiến dịch hợp tác phi tập trung trên không gian mạng nội bộ UET.<br><br><strong>Thông tin Chiến dịch:</strong><br>- Đề tài dự án: Ứng dụng Trí tuệ Nhân tạo trong Khoa học Tự nhiên & Kỹ thuật.<br>- Lực lượng tham chiến (Lớp K70E-EC1): Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br><br><strong>Công cụ & Phương pháp:</strong><br>Hệ thống hóa quy trình làm việc nhóm bằng phương pháp Agile/Kanban. Sử dụng triệt để các nền tảng điện toán đám mây (Google Docs/Sheets cho tài liệu, Trello/Notion cho quản lý thẻ công việc) để phân chia nhiệm vụ (Task Tracking), quản lý phiên bản (Version Control) và đảm bảo thông lượng dữ liệu giữa 5 thành viên được đồng bộ hóa theo thời gian thực (Real-time sync).",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Nắm vững nghệ thuật điều phối vi mô (Micro-management) và tư duy làm việc nhóm hiệp đồng (Synergy). Hiểu được sức mạnh của việc chia nhỏ dự án lớn thành các chặng ngắn (Sprints), cho phép nhiều bộ não cùng lúc giải quyết một vấn đề phức tạp mà không dẫm chân lên luồng công việc của nhau.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Xung đột lớn nhất là sự bất đồng bộ về thời gian biểu sinh hoạt và tốc độ xử lý công việc của 5 cá thể khác nhau. Việc ép tiến độ (push deadline) và hợp nhất (merge) các phong cách viết khác nhau qua mạng khó khăn và dễ gây hiểu lầm hơn nhiều so với việc họp mặt trực tiếp trên lớp.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Kỹ năng tổ chức không gian làm việc số (Digital Workspace) này là hành trang sống còn cho mọi bài tập lớn (Group Assignments), đồ án tốt nghiệp và môi trường doanh nghiệp công nghệ trong tương lai.</li></ul>",
-                tab3: "<a href='bai4.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai4.pdf...\", \"term-sys\")'>[ MỞ TỆP TIN MINH CHỨNG BÀI 4 ]</a>"
+                tab3: "<a href='bai4.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Kiểm tra nhật ký mạng lưới nhóm...\", \"term-sys\")'>[ KIỂM TRA BẰNG CHỨNG ĐỒNG BỘ MẠNG LƯỚI NHÓM ]</a>"
             },
             5: { 
                 title: "BÀI 5: SÁNG TẠO SẢN PHẨM SỐ VỚI AI TẠO SINH", 
                 tab1: "Biến Trí tuệ nhân tạo thành bộ khuếch đại sức mạnh đồ họa và tư duy logic. Đưa AI trực tiếp vào quy trình sản xuất (Production Pipeline) để phá vỡ hội chứng 'Sợ trang giấy trắng' (Writer's Block) ngay từ khâu lên ý tưởng.<br><br><strong>Chi tiết quá trình sản xuất:</strong><br>- <i>Lập trình:</i> Dùng AI hỗ trợ viết bộ khung mã nguồn (Boilerplate code) và thuật toán phát hiện va chạm cho dự án game <strong>Flappy Bird Clone bằng Python</strong>.<br>- <i>Sáng tạo nội dung (Lore):</i> Xây dựng kho tàng dữ liệu lịch sử và kịch bản phân nhánh cho vũ trụ giả tưởng dị bản <strong>'The Midnight Hour'</strong>. Thiết lập hệ thống hội thoại mang âm hưởng trào phúng của <strong>1977 Vlogs</strong> kết hợp cơ chế tung xúc xắc của <strong>D&D</strong>.<br>- <i>Bảo mật:</i> Tạo ra hệ thống mật mã Cypher 8 ký tự phục vụ chiến dịch giải đố dịp Tết 2026.",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Thừa nhận AI là một 'bàn đạp' siêu việt thay vì coi nó là kẻ thù. Nó có khả năng rút ngắn thời gian phác thảo ý tưởng (Brainstorming) và xây dựng bản nháp (Prototyping) xuống gấp 10 lần so với phương pháp chế tác thủ công truyền thống.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Nếu buông lỏng việc kiểm soát (thiếu sự can thiệp của con người - Human-in-the-loop), sản phẩm sinh ra sẽ đậm đặc 'mùi công nghiệp' (Robotic tone), câu văn rập khuôn và sáo rỗng. Việc hiệu chỉnh văn phong trào phúng, tinh chỉnh từng dòng code để mang lại 'linh hồn cá nhân' thực sự tốn rất nhiều chất xám.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Đang áp dụng kỹ năng này để thiết kế nhanh UI/UX, tạo ra các slide thuyết trình đồ họa cao và lập trình thần tốc các module phần mềm nhỏ (Indie app) để thử nghiệm các ý tưởng cá nhân.</li></ul>",
-                tab3: "<a href='bai5.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai5.pdf...\", \"term-sys\")'>[ MỞ TỆP TIN MINH CHỨNG BÀI 5 ]</a>"
+                tab3: "<a href='bai5.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Giải mã tài sản kỹ thuật số...\", \"term-sys\")'>[ TRÍCH XUẤT SẢN PHẨM NỘI DUNG SỐ (GAME/KỊCH BẢN) ]</a>"
             },
             6: { 
                 title: "BÀI 6: LEX MECHANICUS - ĐẠO LUẬT LIÊM CHÍNH HỌC THUẬT", 
                 tab1: "Biên soạn, ký kết và công bố Tuyên ngôn Đạo đức Trí tuệ Nhân tạo cá nhân (Đạo luật Lex Mechanicus). Văn bản này thiết lập nguyên tắc tối thượng trong suốt quãng thời gian học tập tại UET: <strong>'AI chỉ là Công cụ nội suy, Con người mới là Đạo diễn của Tri thức'</strong>.<br><br><strong>Các điều khoản cốt lõi:</strong><br>1. Tuyệt đối nghiêm cấm việc sử dụng AI để đạo văn (Plagiarism) hoặc vi phạm bản quyền trí tuệ.<br>2. Mọi thông tin, số liệu do thuật toán AI sinh ra bắt buộc phải trải qua quy trình kiểm duyệt chéo khắt khe (Cross-checking & Fact-checking) với cơ sở dữ liệu gốc do con người viết.<br>3. Yêu cầu trích dẫn minh bạch tỷ lệ phần trăm có sự can thiệp của AI trong mọi báo cáo đồ án gửi cho giảng viên.",
                 tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Định hình được ranh giới đạo đức rạch ròi, mỏng manh giữa việc 'Sử dụng công cụ hỗ trợ để làm việc thông minh hơn' và 'Lạm dụng máy móc để gian lận, lấp liếm sự lười biếng'. Tri thức bền vững bắt buộc phải mọc lên từ sự thấu hiểu cốt lõi của tế bào thần kinh, không phải từ nút Copy.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Liên tục phải đấu tranh tâm lý trước sự cám dỗ tột độ của việc 'copy-paste' giải pháp hoàn chỉnh có sẵn từ ChatGPT. Hệ thống đòi hỏi kỷ luật thép để buộc bản thân phải tự phân tích lại, gõ lại code và cấu trúc lại kiến thức bằng ngôn ngữ tư duy của chính mình.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Rèn luyện tư duy phản biện (Critical Thinking) luôn hoài nghi trước mọi luồng thông tin trên mạng. Bảo vệ bản thân tuyệt đối khỏi các rủi ro pháp lý, rớt môn hoặc bị đuổi học vì vi phạm đạo đức học thuật tại trường Đại học.</li></ul>",
-                tab3: "<a href='bai6.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Đang truy xuất tệp bai6.pdf...\", \"term-sys\")'>[ MỞ TỆP TIN MINH CHỨNG BÀI 6 ]</a>"
+                tab3: "<a href='bai6.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Mở văn bản tuân thủ luật...\", \"term-sys\")'>[ ĐỌC BỘ TUYÊN NGÔN LIÊM CHÍNH ĐÃ KÝ ]</a>"
+            },
+            7: { 
+                title: "BÀI 7: PHÂN TÍCH TÀI LIỆU VỚI TRỢ LÝ NGHIÊN CỨU AI", 
+                tab1: "Sử dụng các công cụ Trợ lý Nghiên cứu AI (AI Research Assistants) để phân tích, tóm tắt và bóc tách dữ liệu từ các tài liệu học thuật chuyên sâu có độ dài lớn (các file PDF hàng chục trang).<br><br><strong>Quy trình thực thi:</strong><br>- Tải các bài báo khoa học, tài liệu kỹ thuật lên nền tảng AI (như NotebookLM, ChatPDF).<br>- Thiết lập Prompt yêu cầu AI trích xuất các luận điểm chính, phương pháp nghiên cứu và kết quả cốt lõi của tài liệu.<br>- <strong>Vấn đề Bảo mật:</strong> Áp dụng nghiêm ngặt giao thức ẩn danh hóa dữ liệu (Data Anonymization). Tuyệt đối không tải các thông tin nhạy cảm, mã nguồn riêng hoặc dữ liệu cá nhân chưa được mã hóa lên các nền tảng AI đám mây cộng đồng để tránh rò rỉ.",
+                tab2: "<ul><li><span class='tag-good'>[ BÀI HỌC CỐT LÕI ]</span>: Làm chủ kỹ năng 'Đọc lướt có định hướng'. AI giúp tôi tổng hợp khối lượng tri thức khổng lồ từ các bài báo IEEE quốc tế nhanh gấp 5 lần, biến một tài liệu 50 trang thành một bản tóm tắt 2 trang cực kỳ súc tích và đúng trọng tâm.</li><li><span class='tag-warn'>[ KHỦNG HOẢNG GẶP PHẢI ]</span>: Khó khăn lớn nhất là rào cản ngôn ngữ chuyên ngành. Khi yêu cầu AI tóm tắt các tài liệu kỹ thuật phức tạp (như cơ điện tử hoặc thuật toán cao cấp), AI thường dịch các thuật ngữ tiếng Anh sang tiếng Việt một cách rất gượng gạo và sai lệch ý nghĩa chuyên môn, buộc tôi phải tự đối chiếu lại với bản gốc.</li><li><span class='tag-info'>[ THỰC TIỄN ÁP DỤNG ]</span>: Kỹ năng này đã trở thành công cụ đắc lực để tôi tiến hành Tổng quan Tài liệu (Literature Review) phục vụ cho việc viết các báo cáo tổng luận đồ án chuyên ngành tại UET, giúp duy trì quỹ đạo GPA ổn định.</li></ul>",
+                tab3: "<a href='bai7.pdf' target='_blank' class='action-link-btn' onclick='termPrint(\"Truy cập minh chứng phân tích...\", \"term-sys\")'>[ MỞ TÀI LIỆU MINH CHỨNG PHÂN TÍCH AI (BÀI 7) ]</a>"
             }
         };
 
@@ -953,9 +1076,11 @@
             };
         }
 
-        function preventDrag(e) { e.stopPropagation(); }
+        function preventDrag(e) {
+            e.stopPropagation(); 
+        }
 
-        /* --- 7. DECRYPTOR WINDOW LOGIC --- */
+        /* --- 7. DECRYPTOR WINDOW LOGIC (GIAI_MA.exe) --- */
         let currentFocusId = null;
 
         function moHoSo(id, el, e) {
@@ -1031,7 +1156,7 @@
                         termPrint(">>> DANH SÁCH LỆNH HỆ THỐNG:", 'term-sys');
                         termPrint("  help         : Hiển thị danh sách này", 'term-sys');
                         termPrint("  clear        : Xóa màn hình Terminal", 'term-sys');
-                        termPrint("  read [1-6]   : Cưỡng chế mở hồ sơ lưu trữ", 'term-sys');
+                        termPrint("  read [1-7]   : Cưỡng chế mở hồ sơ lưu trữ", 'term-sys');
                         termPrint("  defcon       : Chuyển đổi trạng thái Báo động Hạt nhân", 'term-sys');
                         termPrint("  ping         : Kiểm tra kết nối với máy chủ UET", 'term-sys');
                         break;
@@ -1043,7 +1168,7 @@
                         setTimeout(() => termPrint("  Phản hồi từ 10.24.0.1: bytes=64 time=14ms TTL=135", 'term-sys'), 1200);
                         break;
                     case 'read':
-                        if(args[1] >= 1 && args[1] <= 6) moHoSo(args[1], null, null);
+                        if(args[1] >= 1 && args[1] <= 7) moHoSo(args[1], null, null);
                         else termPrint("> LỖI: Mã ID không hợp lệ.", 'term-err');
                         break;
                     default:
@@ -1055,14 +1180,14 @@
 
         /* --- 9. LOCAL STORAGE: NOTEPAD, AVATAR, THEME --- */
         const notepad = document.getElementById('notepad');
-        if(localStorage.getItem('tno_notes_v20')) notepad.value = localStorage.getItem('tno_notes_v20');
-        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v20', notepad.value); });
+        if(localStorage.getItem('tno_notes_v23')) notepad.value = localStorage.getItem('tno_notes_v23');
+        notepad.addEventListener('input', () => { localStorage.setItem('tno_notes_v23', notepad.value); });
 
         const avatarImg = document.getElementById('dossier-img');
         const deskAvatarImg = document.getElementById('leader-portrait');
-        if(localStorage.getItem('tno_avatar_v20')) {
-            avatarImg.src = localStorage.getItem('tno_avatar_v20');
-            deskAvatarImg.src = localStorage.getItem('tno_avatar_v20');
+        if(localStorage.getItem('tno_avatar_v23')) {
+            avatarImg.src = localStorage.getItem('tno_avatar_v23');
+            deskAvatarImg.src = localStorage.getItem('tno_avatar_v23');
         }
 
         function openAvatarModal() { document.getElementById('avatar-modal').style.display = 'flex'; }
@@ -1071,7 +1196,7 @@
             const url = document.getElementById('avatar-url-input').value.trim();
             if(url) {
                 avatarImg.src = url; deskAvatarImg.src = url;
-                localStorage.setItem('tno_avatar_v20', url); 
+                localStorage.setItem('tno_avatar_v23', url); 
                 termPrint("> Giao thức Cập nhật Ảnh đã lưu vào bộ nhớ.", 'term-sys');
             }
             closeAvatarModal();
