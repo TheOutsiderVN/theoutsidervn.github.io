@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UET INTEL PORTFOLIO // ĐẶC VỤ: 25022175</title>
+    <title>UET ACADEMIC PORTFOLIO // NGUYỄN VŨ ĐÔNG (25022175)</title>
     <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
     <style>
         /* ==========================================================================
-           [0] TNO CORE VARIABLES & MILITARY AESTHETICS
+           [0] CORE VARIABLES & AESTHETICS (MÀU SẮC & GIAO DIỆN LÕI)
            ========================================================================== */
         :root {
-            --tno-cyan: #3df2db; 
-            --tno-cyan-dim: #134d45; 
-            --tno-cyan-dark: #071f1c;
-            --tno-bg: #030505; 
-            --tno-panel: rgba(5, 12, 11, 0.95);
-            --tno-red: #ff2a2a; 
-            --tno-red-dim: #6b1414;
-            --tno-orange: #ff9900; 
-            --tno-yellow: #f4d35e;
-            --tno-text: #e0fcf9; 
-            --tno-green: #33ff33;
-            --tno-warning: repeating-linear-gradient(-45deg, #ff9900, #ff9900 10px, #000 10px, #000 20px);
+            --theme-cyan: #3df2db; 
+            --theme-cyan-dim: #134d45; 
+            --theme-cyan-dark: #071f1c;
+            --theme-bg: #030505; 
+            --theme-panel: rgba(5, 12, 11, 0.95);
+            --theme-red: #ff2a2a; 
+            --theme-red-dim: #6b1414;
+            --theme-orange: #ff9900; 
+            --theme-yellow: #f4d35e;
+            --theme-text: #e0fcf9; 
+            --theme-green: #33ff33;
+            --theme-warning: repeating-linear-gradient(-45deg, #ff9900, #ff9900 10px, #000 10px, #000 20px);
             
-            --main-color: var(--tno-cyan);
-            --dim-color: var(--tno-cyan-dim);
-            --dark-color: var(--tno-cyan-dark);
-            --bg-color: var(--tno-bg);
+            --main-color: var(--theme-cyan);
+            --dim-color: var(--theme-cyan-dim);
+            --dark-color: var(--theme-cyan-dark);
+            --bg-color: var(--theme-bg);
             
             --border-main: 2px solid var(--main-color);
             --shadow-glow: 0 0 15px var(--main-color);
@@ -51,7 +51,7 @@
         
         body { 
             background-color: var(--bg-color); 
-            color: var(--tno-text); 
+            color: var(--theme-text); 
             font-family: 'VT323', monospace; 
             height: 100vh; width: 100vw; 
             overflow: hidden; 
@@ -75,7 +75,7 @@
             background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
                         linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06)); 
             background-size: 100% 2px, 3px 100%; pointer-events: none; z-index: 9998; 
-            transition: opacity 0.3s; pointer-events: none;
+            transition: opacity 0.3s;
         }
 
         .scanlines { 
@@ -98,8 +98,7 @@
         ::-webkit-scrollbar-thumb { background: var(--dim-color); border: 1px solid var(--main-color); }
         ::-webkit-scrollbar-thumb:hover { background: var(--main-color); }
 
-        /* TNO Warning Tape */
-        .warning-tape { width: 100%; height: 10px; background: var(--tno-warning); border-bottom: 2px solid var(--theme-orange); border-top: 2px solid var(--theme-orange); }
+        .warning-tape { width: 100%; height: 10px; background: var(--theme-warning); border-bottom: 2px solid var(--theme-orange); border-top: 2px solid var(--theme-orange); }
 
         /* ==========================================================================
            [2] BOOT SEQUENCE & SECURITY CLEARANCE
@@ -110,8 +109,8 @@
             justify-content: center; align-items: center; 
         }
 
-        .sys-identity { font-size: 60px; color: var(--theme-cyan); font-weight: bold; margin-bottom: 15px; letter-spacing: 6px; text-shadow: 0 0 25px var(--theme-cyan); text-transform: uppercase; border-bottom: 3px double var(--theme-cyan); padding-bottom: 10px; }
-        .sys-sub { font-size: 35px; color: var(--theme-yellow); margin-bottom: 50px; text-transform: uppercase; letter-spacing: 4px; }
+        .sys-identity { font-size: 60px; color: var(--theme-cyan); font-weight: bold; margin-bottom: 15px; letter-spacing: 6px; text-shadow: 0 0 25px var(--theme-cyan); text-transform: uppercase; border-bottom: 3px double var(--theme-cyan); padding-bottom: 10px; text-align: center;}
+        .sys-sub { font-size: 35px; color: var(--theme-yellow); margin-bottom: 50px; text-transform: uppercase; letter-spacing: 4px; text-align: center;}
 
         .power-btn { 
             background: rgba(0,0,0,0.8); border: 4px solid var(--theme-cyan); color: var(--theme-cyan); 
@@ -143,10 +142,10 @@
             background: rgba(0,0,0,0.95); z-index: 15000; flex-direction: column; 
             justify-content: center; align-items: center;
         }
-        .compile-glitch { font-size: 90px; color: var(--main-color); margin-bottom: 20px; font-weight: bold; animation: glitch-anim 0.15s infinite; text-shadow: 0 0 30px var(--main-color); letter-spacing: 5px; }
+        .compile-glitch { font-size: 90px; color: var(--main-color); margin-bottom: 20px; font-weight: bold; animation: glitch-anim 0.15s infinite; text-shadow: 0 0 30px var(--main-color); letter-spacing: 5px; text-align: center;}
         .compile-bar-container { width: 75%; height: 50px; border: 4px solid var(--main-color); padding: 5px; margin-top: 30px; position: relative; background: var(--dark-color); }
         .compile-bar-fill { width: 0%; height: 100%; background: var(--main-color); box-shadow: 0 0 40px var(--main-color); transition: width 0.1s; }
-        .compile-text { font-size: 45px; color: var(--main-color); text-transform: uppercase; font-weight: bold; margin-bottom: 15px; letter-spacing: 4px; }
+        .compile-text { font-size: 45px; color: var(--main-color); text-transform: uppercase; font-weight: bold; margin-bottom: 15px; letter-spacing: 4px; text-align: center;}
         .compile-detail { font-size: 28px; color: var(--theme-yellow); font-family: monospace; height: 200px; width: 75%; overflow: hidden; text-align: left; background: rgba(0,0,0,0.6); padding: 20px; border: 2px dashed var(--dim-color); box-shadow: inset 0 0 30px rgba(0,0,0,0.9); }
 
         /* ==========================================================================
@@ -162,7 +161,6 @@
             background-size: 100% 100%, 60px 60px, 60px 60px;
         }
 
-        /* Top Bar (Taskbar Điều khiển) */
         .top-bar { 
             flex: 0 0 65px; background: var(--dark-color); border-bottom: var(--border-main); 
             display: flex; justify-content: space-between; align-items: center; 
@@ -185,11 +183,10 @@
         .defcon-indicator { background: var(--theme-red-dim); color: white; padding: 8px 25px; border: 2px solid var(--theme-red); cursor: pointer; transition: 0.3s; font-size: 26px; font-weight: bold; text-shadow: 0 0 5px #000; }
         .defcon-indicator:hover { background: var(--theme-red); box-shadow: 0 0 30px var(--theme-red); letter-spacing: 1px; }
 
-        /* Main Container (Chia 2 cột) */
         .main-container { flex: 1; display: flex; overflow: hidden; position: relative; }
 
         /* ==========================================================================
-           [4] SIDEBAR: HỒ SƠ ĐẶC VỤ CHI TIẾT (NGUYỄN VŨ ĐÔNG)
+           [4] SIDEBAR: HỒ SƠ CÁ NHÂN CHI TIẾT
            ========================================================================== */
         .sidebar {
             flex: 0 0 480px; background: var(--theme-panel); border-right: var(--border-main);
@@ -198,7 +195,7 @@
         }
         .sidebar::-webkit-scrollbar { display: none; }
         
-        /* Khung Avatar Sinh Trắc Học (Cyber Frame) */
+        /* Khung Avatar Sinh Trắc Học */
         .profile-wrapper { padding: 30px; background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%); display: flex; flex-direction: column; align-items: center; border-bottom: 2px solid var(--dim-color); position: relative; }
         
         .cyber-avatar-frame {
@@ -221,7 +218,6 @@
         .profile-img-box img { width: 100%; height: 100%; object-fit: cover; filter: contrast(1.1) sepia(0.2) hue-rotate(150deg); opacity: 0.9; transition: 0.5s; }
         body.focus-mode .profile-img-box img { filter: contrast(1.6) sepia(1) hue-rotate(330deg) blur(1px); animation: glitch-img 0.15s infinite; }
 
-        /* Tia Laser Quét */
         .scan-laser { position: absolute; top: -15px; left: 0; width: 100%; height: 5px; background: var(--theme-green); box-shadow: 0 0 25px var(--theme-green), 0 0 50px var(--theme-green); display: none; z-index: 5; }
         .scan-laser.active { display: block; animation: scan-laser-anim 2s cubic-bezier(0.4, 0, 0.2, 1) forwards; }
         @keyframes scan-laser-anim { 0% { top: -15px; } 50% { top: 100%; } 100% { top: -15px; } }
@@ -229,7 +225,7 @@
         .btn-scan { background: var(--dark-color); border: 2px dashed var(--main-color); color: var(--main-color); font-family: 'VT323'; font-size: 24px; padding: 10px; cursor: pointer; width: 100%; margin-top: 20px; transition: 0.2s; letter-spacing: 3px; font-weight: bold; }
         .btn-scan:hover { background: var(--main-color); color: #000; box-shadow: 0 0 20px var(--main-color); }
 
-        /* THẺ ĐỊNH DANH ĐIỆN TỬ (DIGITAL ID CARD) */
+        /* THẺ ĐỊNH DANH ĐIỆN TỬ */
         .digital-id-card {
             background: rgba(0,0,0,0.6); border: 2px solid var(--dim-color); margin-top: 25px; width: 100%;
             position: relative; box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
@@ -244,25 +240,22 @@
         .sidebar-section { padding: 30px; border-bottom: 2px solid var(--dim-color); position: relative; }
         .section-title { font-size: 30px; color: var(--theme-orange); border-bottom: 3px double var(--theme-orange); margin-bottom: 20px; text-transform: uppercase; font-weight: bold; display: flex; justify-content: space-between; align-items: center; padding-bottom: 5px; }
 
-        /* MA TRẬN CHỈ SỐ NHẬN THỨC (COGNITIVE MATRIX) */
+        /* MA TRẬN CHỈ SỐ */
         .stat-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-        .micro-stat { background: rgba(0,0,0,0.7); border: 1px solid var(--dim-color); padding: 15px; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
+        .micro-stat { background: rgba(0,0,0,0.7); border: 1px solid var(--dim-color); padding: 15px 10px; text-align: center; position: relative; overflow: hidden; box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
         .micro-stat::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--main-color); }
         .micro-label { font-size: 22px; color: #aaa; margin-bottom: 8px; text-transform: uppercase; font-weight: bold; border-bottom: 1px dashed #444; padding-bottom: 5px; }
         .micro-value { font-size: 38px; font-weight: bold; color: var(--main-color); text-shadow: 0 0 20px var(--main-color); }
 
-        /* Thanh Năng lượng Kỹ năng (Progress Bars) */
+        /* Thanh Năng lượng Kỹ năng */
         .skill-group { margin-bottom: 25px; }
         .skill-header { display: flex; justify-content: space-between; font-size: 26px; margin-bottom: 10px; color: #ddd; font-weight: bold; }
         .skill-bar { width: 100%; height: 20px; background: var(--dark-color); border: 2px solid var(--dim-color); position: relative; overflow: hidden; }
         .skill-fill { height: 100%; background: var(--main-color); box-shadow: 0 0 20px var(--main-color); position: absolute; left: 0; top: 0; transition: width 0.5s ease-out; }
         .skill-fill.striped { background: repeating-linear-gradient(45deg, var(--main-color), var(--main-color) 10px, var(--dim-color) 10px, var(--dim-color) 20px); }
 
-        /* MỤC TIÊU IELTS ĐƯỢC LÀM NỔI BẬT RÕ RÀNG */
         .ielts-goal-box { background: rgba(244, 211, 94, 0.1); border: 2px dashed var(--theme-yellow); padding: 15px; margin-top: 25px; text-align: center; }
-        .ielts-goal-title { font-size: 26px; color: var(--theme-yellow); font-weight: bold; margin-bottom: 5px; text-transform: uppercase; }
-        .ielts-goal-val { font-size: 45px; color: var(--theme-yellow); font-weight: bold; text-shadow: 0 0 15px var(--theme-yellow); }
-
+        
         /* Server & Live Logs */
         .server-status { display: flex; align-items: center; justify-content: space-between; margin-bottom: 15px; font-size: 26px; background: rgba(0,0,0,0.6); padding: 10px 20px; border: 1px solid var(--dim-color); font-weight: bold; }
         .led-indicator { width: 18px; height: 18px; border-radius: 50%; background: var(--theme-green); box-shadow: 0 0 20px var(--theme-green); animation: blink-led 1.5s infinite; border: 1px solid #fff; }
@@ -281,7 +274,7 @@
         .a-btn:hover { background: var(--main-color); color: #000; box-shadow: 0 0 20px var(--main-color); transform: scale(1.05); }
 
         /* ==========================================================================
-           [5] MAIN CONTENT: KHÔNG GIAN BÀI TẬP VÀ ĐỊNH HƯỚNG CÁ NHÂN (PROJECT DOSSIERS)
+           [5] MAIN CONTENT: KHÔNG GIAN BÀI TẬP VÀ ĐỊNH HƯỚNG CÁ NHÂN
            ========================================================================== */
         .content-area {
             flex: 1; overflow-y: auto; padding: 60px;
@@ -289,7 +282,7 @@
             scroll-behavior: smooth; position: relative; z-index: 5;
         }
 
-        /* TNO TABS (KHU VỰC ĐỊNH HƯỚNG MỚI) */
+        /* KHU VỰC ĐỊNH HƯỚNG CÁ NHÂN */
         .tno-event-box { background: rgba(0,0,0,0.8); border: 3px solid var(--dim-color); margin-bottom: 60px; box-shadow: inset 0 0 40px rgba(0,0,0,0.9), 10px 10px 30px rgba(0,0,0,0.7); position: relative; }
         .tno-event-header { background: repeating-linear-gradient(45deg, var(--dark-color), var(--dark-color) 10px, rgba(0,0,0,0.8) 10px, rgba(0,0,0,0.8) 20px); color: var(--main-color); padding: 20px 30px; font-size: 40px; font-weight: bold; border-bottom: 3px solid var(--dim-color); text-transform: uppercase; text-shadow: 2px 2px #000; display: flex; align-items: center; gap: 20px; }
         .tno-event-body { padding: 40px; }
@@ -350,7 +343,6 @@
         .tag-warn { color: var(--theme-red); font-weight: bold; background: rgba(255,42,42,0.1); padding: 2px 10px; border: 1px solid var(--theme-red); display: inline-block; margin-bottom: 5px;}
         .tag-info { color: var(--theme-yellow); font-weight: bold; background: rgba(244,211,94,0.1); padding: 2px 10px; border: 1px solid var(--theme-yellow); display: inline-block; margin-bottom: 5px;}
 
-        /* Nút Tương tác của Bài Tập (Đa tầng) */
         .p-actions { display: flex; border-top: 3px solid var(--dim-color); }
         .btn-half {
             flex: 1; display: flex; align-items: center; justify-content: center; gap: 15px;
@@ -374,7 +366,7 @@
         .report-text { font-size: 34px; line-height: 1.7; color: #fff; text-align: justify; margin-bottom: 60px; padding: 0 60px; }
 
         /* ==========================================================================
-           [6] TERMINAL NGĂN KÉO CỰC NGẦU & MODALS
+           [6] TERMINAL NGĂN KÉO
            ========================================================================== */
         #terminal-drawer {
             position: fixed; bottom: -50vh; left: 480px; right: 0; height: 50vh;
@@ -445,76 +437,65 @@
            [7] BẢN IN PDF (PRINT MEDIA QUERY) - CHUẨN HÓA KHI NỘP BÀI CỰC ĐẸP
            ========================================================================== */
         @media print {
-            /* Reset nền đen thành trắng để in */
-            body, #portfolio-app, .content-area { background: #fff !important; color: #000 !important; animation: none !important; box-shadow: none !important; overflow: auto !important; height: auto !important; font-family: 'Times New Roman', serif !important; }
+            body { background: #fff !important; color: #000 !important; font-family: 'Times New Roman', serif !important; font-size: 12pt !important; overflow: auto !important; height: auto !important; box-shadow: none !important; animation: none !important;}
             
-            /* Ẩn các yếu tố không cần thiết */
-            .crt-overlay, .scanlines, .scanline-bar, .top-bar, .audio-player, #term-toggle-btn, #terminal-drawer, .p-actions, .nav-container, .update-avatar-btn, .modal-overlay, .btn-scan, #matrix-canvas, .server-status, .live-logs-box, .scan-laser, .warning-tape { display: none !important; }
+            /* Ẩn toàn bộ hiệu ứng, khung lệnh và sidebar không cần thiết */
+            .crt-overlay, .scanlines, .scanline-bar, .top-bar, .audio-player, #term-toggle-btn, #terminal-drawer, .p-actions, .nav-container, .update-avatar-btn, .modal-overlay, .btn-scan, #matrix-canvas, .server-status, .live-logs-box, .scan-laser, .warning-tape, .tno-tabs { display: none !important; }
             
+            #portfolio-app { display: block !important; background: none !important; }
             .main-container { display: block !important; overflow: visible !important; }
             
-            /* Cấu trúc Sidebar khi in */
-            .sidebar { width: 100% !important; border: none !important; box-shadow: none !important; border-bottom: 4px solid #000 !important; margin-bottom: 40px !important; background: #fff !important; color: #000 !important; display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; }
+            /* Sidebar Styling cho bản in */
+            .sidebar { width: 100% !important; border: none !important; box-shadow: none !important; border-bottom: 3px solid #000 !important; margin-bottom: 30px !important; background: #fff !important; color: #000 !important; display: flex !important; flex-direction: row !important; flex-wrap: wrap !important; justify-content: space-between !important; }
             
-            /* Avatar thu nhỏ */
-            .profile-wrapper { width: 25% !important; border: none !important; padding: 0 !important; background: none !important; }
-            .cyber-avatar-frame { width: 150px !important; height: 200px !important; background: none !important; box-shadow: none !important; border: 3px solid #000 !important; padding: 0 !important; margin: 0 auto !important; }
+            .profile-wrapper { width: 30% !important; border: none !important; padding: 0 !important; background: none !important; }
+            .cyber-avatar-frame { width: 150px !important; height: 200px !important; background: none !important; box-shadow: none !important; border: 2px solid #000 !important; padding: 0 !important; margin: 0 auto !important; }
             .profile-img-box { border: none !important; }
             .profile-img-box img { filter: none !important; }
             
-            /* ID Card dạng bảng in */
-            .digital-id-card { width: 70% !important; margin: 0 !important; box-shadow: none !important; border: 3px solid #000 !important; background: #fff !important; color: #000 !important; }
-            .id-header { background: #ddd !important; color: #000 !important; border-bottom: 3px solid #000 !important; }
+            .digital-id-card { width: 65% !important; margin-left: 5% !important; box-shadow: none !important; border: 2px solid #000 !important; background: #fff !important; color: #000 !important; }
+            .id-header { background: #eee !important; color: #000 !important; border-bottom: 2px solid #000 !important; font-size: 14pt !important; padding: 5px !important;}
             .id-barcode { display: none !important; }
-            .id-line { border-bottom: 1px solid #aaa !important; }
-            .id-val, .hl-name { color: #000 !important; text-shadow: none !important; }
+            .id-line { border-bottom: 1px solid #ccc !important; font-size: 12pt !important;}
+            .id-val, .hl-name { color: #000 !important; text-shadow: none !important; font-size: 12pt !important;}
             
-            /* Sections info */
             .sidebar-section { width: 48% !important; border: none !important; padding: 10px 0 !important; }
-            .section-title { color: #000 !important; border-bottom: 2px solid #000 !important; font-size: 24px !important; margin-bottom: 15px !important; }
-            .info-val, .micro-value, .skill-header span { color: #000 !important; text-shadow: none !important; font-size: 18px !important; }
-            .micro-stat { background: #fff !important; border: 2px solid #000 !important; padding: 10px !important; }
+            .section-title { color: #000 !important; border-bottom: 2px solid #000 !important; font-size: 14pt !important; margin-bottom: 10px !important; }
+            .info-val, .micro-value, .skill-header span { color: #000 !important; text-shadow: none !important; font-size: 12pt !important; }
+            .micro-stat { background: #fff !important; border: 1px solid #000 !important; padding: 5px !important; }
             .micro-stat::before { display: none !important; }
-            .skill-bar { border: 2px solid #000 !important; background: #fff !important; }
-            .skill-fill { background: #444 !important; box-shadow: none !important; }
+            .skill-bar { border: 1px solid #000 !important; background: #fff !important; }
+            .skill-fill { background: #555 !important; box-shadow: none !important; }
             
             /* Bài tập khi in */
-            .page-title { color: #000 !important; text-shadow: none !important; border-bottom: 5px double #000 !important; font-size: 36px !important; margin-bottom: 30px !important; text-align: center;}
+            .content-area { padding: 0 !important; background: none !important; overflow: visible !important; }
+            .page-title { color: #000 !important; text-shadow: none !important; border-bottom: 3px double #000 !important; font-size: 20pt !important; margin-bottom: 20px !important; text-align: center;}
             
-            .project-card { background: #fff !important; border: 2px solid #000 !important; box-shadow: none !important; margin-bottom: 40px !important; page-break-inside: avoid; }
+            .project-card { background: #fff !important; border: 1px solid #000 !important; box-shadow: none !important; margin-bottom: 30px !important; page-break-inside: avoid; }
             .project-card::before, .project-card::after { display: none !important; }
-            .p-header { background: #eee !important; color: #000 !important; border-bottom: 2px solid #000 !important; font-size: 28px !important; padding: 15px !important; }
-            .p-icon { filter: none !important; font-size: 28px !important;}
-            .p-body { padding: 20px !important; display: block !important; }
-            .p-col { background: #fff !important; border: none !important; padding: 0 !important; margin-bottom: 25px !important; box-shadow: none !important; }
-            .p-col-title { color: #000 !important; border-bottom: 2px solid #aaa !important; font-size: 22px !important; margin-bottom: 15px !important;}
-            .p-text { color: #000 !important; font-size: 18px !important; line-height: 1.6 !important; }
-            .p-text code { background: #f5f5f5 !important; color: #000 !important; border: 1px solid #aaa !important; font-size: 16px !important; }
+            .p-header { background: #eee !important; color: #000 !important; border-bottom: 2px solid #000 !important; font-size: 16pt !important; padding: 10px !important; }
+            .p-icon { filter: none !important; font-size: 16pt !important;}
+            .p-body { padding: 15px !important; display: block !important; }
+            .p-col { background: #fff !important; border: none !important; padding: 0 !important; margin-bottom: 15px !important; box-shadow: none !important; }
+            .p-col-title { color: #000 !important; border-bottom: 1px solid #ccc !important; font-size: 14pt !important; margin-bottom: 10px !important;}
+            .p-text { color: #000 !important; font-size: 12pt !important; line-height: 1.5 !important; }
+            .p-text code { background: #eee !important; color: #000 !important; border: 1px solid #ccc !important; font-size: 11pt !important; }
             .tag-good, .tag-warn, .tag-info { background: none !important; border: none !important; font-weight: bold; color: #000 !important; text-decoration: underline;}
             
             .tno-event-box { border: 2px solid #000 !important; background: #fff !important; box-shadow: none !important; page-break-inside: avoid;}
-            .tno-event-header { background: #eee !important; color: #000 !important; text-shadow: none !important; border-bottom: 2px solid #000 !important; }
-            .tno-tab-btn { color: #000 !important; border: 1px solid #aaa !important; opacity: 1 !important; margin-right: 5px;}
-            .tno-tab-btn.active { background: #ddd !important; border: 2px solid #000 !important; border-bottom: none !important;}
-            .tno-tab-content { color: #000 !important; font-size: 18px !important;}
+            .tno-event-header { background: #eee !important; color: #000 !important; text-shadow: none !important; border-bottom: 2px solid #000 !important; font-size: 18pt !important; padding: 10px !important;}
+            .tno-tab-content { color: #000 !important; font-size: 12pt !important;}
             
-            .report-box { background: #fff !important; border: 4px double #000 !important; box-shadow: none !important; color: #000 !important; padding: 30px !important; margin-top: 40px !important; page-break-inside: avoid;}
-            .report-title { color: #000 !important; text-shadow: none !important; font-size: 32px !important; border-bottom: 2px solid #000 !important; padding-bottom: 15px !important;}
-            .report-text { color: #000 !important; font-size: 18px !important; padding: 0 !important; margin-bottom: 20px !important;}
+            .report-box { background: #fff !important; border: 3px double #000 !important; box-shadow: none !important; color: #000 !important; padding: 20px !important; margin-top: 30px !important; page-break-inside: avoid;}
+            .report-title { color: #000 !important; text-shadow: none !important; font-size: 18pt !important; border-bottom: 2px solid #000 !important; padding-bottom: 10px !important;}
+            .report-text { color: #000 !important; font-size: 12pt !important; padding: 0 !important; margin-bottom: 20px !important;}
             
             /* Watermark chuyên nghiệp */
             body::before {
                 content: "UET K70E-EC1 - BÁO CÁO HỌC THUẬT: 25022175";
                 position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);
-                font-size: 70px; color: rgba(0,0,0,0.06); z-index: -1; white-space: nowrap; pointer-events: none;
+                font-size: 50pt; color: rgba(0,0,0,0.06); z-index: -1; white-space: nowrap; pointer-events: none;
             }
-        }
-
-        /* Responsive Layout */
-        @media (max-width: 1600px) {
-            .p-body { grid-template-columns: 1fr; gap: 20px; padding: 25px; }
-            .btn-half { font-size: 24px; padding: 20px; }
-            .sidebar { flex: 0 0 420px; }
         }
     </style>
 </head>
@@ -532,11 +513,11 @@
     <div class="scanlines" id="fx-scanlines"></div>
     <div class="scanline-bar" id="fx-scanbar"></div>
 
-    <!-- MÀN HÌNH CHỜ (KÍCH HOẠT HỆ THỐNG VÀ BẺ KHÓA AUDIO) -->
+    <!-- MÀN HÌNH CHỜ -->
     <div id="pre-boot" style="display: flex;">
         <div class="sys-identity">HỆ THỐNG LƯU TRỮ UET K70</div>
         <div class="sys-sub">ĐẶC VỤ: NGUYỄN VŨ ĐÔNG (25022175)</div>
-        <button class="power-btn" onclick="startSystem()">[ BẤM ĐỂ KHỞI CHẠY HỆ ĐIỀU HÀNH & KẾT NỐI AUDIO ]</button>
+        <button class="power-btn" onclick="startSystem()">[ KHỞI CHẠY HỆ ĐIỀU HÀNH & KẾT NỐI AUDIO ]</button>
         <div style="margin-top: 40px; font-size: 28px; color: #888; font-family: monospace;">> Đảm bảo file 'avatar.jpg' và 'our_final_war.mp3' nằm cùng thư mục gốc.</div>
     </div>
 
@@ -563,7 +544,7 @@
         <div class="top-bar">
             <div style="display: flex; gap: 30px; align-items: center;">
                 <span class="sys-logo">UET ACADEMIC PORTFOLIO</span>
-                <span style="color: var(--theme-yellow); font-size: 26px;">VER: 32.0 (APEX)</span>
+                <span style="color: var(--theme-yellow); font-size: 26px;">VER: 33.0 (APEX)</span>
             </div>
             <div class="tb-buttons">
                 <button class="tb-btn" onclick="openModal('system-check-modal')">🛡️ KIỂM TRA BẢO MẬT</button>
@@ -574,7 +555,7 @@
             </div>
         </div>
 
-        <div class="warning-tape"></div> <!-- Dải cảnh báo chuẩn TNO -->
+        <div class="warning-tape"></div>
 
         <div class="main-container">
             
@@ -586,7 +567,7 @@
                     <div class="cyber-avatar-frame">
                         <div class="profile-img-box">
                             <div class="scan-line-img"></div>
-                            <!-- CHỈ THỊ: Tự động tải avatar.jpg tại thư mục gốc -->
+                            <!-- Đọc file avatar.jpg cục bộ -->
                             <img id="sidebar-img" src="avatar.jpg" alt="Sinh viên" onerror="this.onerror=null; this.src='https://i.pinimg.com/736x/8f/c3/7b/8fc37b7ca8436ceb562a122e23b169db.jpg';">
                             <div class="scan-laser" id="bio-laser"></div>
                         </div>
@@ -605,14 +586,13 @@
                     </div>
                 </div>
 
-                <!-- MA TRẬN CHỈ SỐ NHẬN THỨC -->
+                <!-- MA TRẬN CHỈ SỐ -->
                 <div class="sidebar-section">
                     <div class="section-title">CHỈ SỐ COGNITIVE <span>[STAT]</span></div>
                     <div class="stat-grid-box">
                         <div class="micro-stat"><div class="micro-label">CPA MỤC TIÊU</div><div class="micro-value">3.2 / 4.0</div></div>
                         <div class="micro-stat"><div class="micro-label">TÍN CHỈ TÍCH LŨY</div><div class="micro-value">135 TC</div></div>
-                        <!-- CẬP NHẬT THEO YÊU CẦU: Mục tiêu IELTS -->
-                        <div class="micro-stat" style="grid-column: span 2;"><div class="micro-label" style="color:var(--theme-yellow);">MỤC TIÊU IELTS (TRONG TƯƠNG LAI)</div><div class="micro-value" style="color:var(--theme-yellow); text-shadow:0 0 10px var(--theme-yellow);">Band 5.0 - 6.5</div></div>
+                        <div class="micro-stat" style="grid-column: span 2;"><div class="micro-label" style="color:var(--theme-yellow);">MỤC TIÊU NGOẠI NGỮ (IELTS)</div><div class="micro-value" style="color:var(--theme-yellow); text-shadow:0 0 10px var(--theme-yellow);">Band 5.0 - 6.5</div></div>
                         <div class="micro-stat" style="grid-column: span 2;"><div class="micro-label">HIỆU SUẤT XỬ LÝ NÃO BỘ</div><div class="micro-value" id="dynamic-perf" style="color:var(--theme-red); text-shadow:0 0 10px var(--theme-red);">98%</div></div>
                     </div>
                 </div>
@@ -633,9 +613,9 @@
                         <div class="skill-header"><span>Prompt Engineering (LLM)</span> <span id="dyn-ai">95%</span></div>
                         <div class="skill-bar"><div class="skill-fill striped" style="width: 95%; background: var(--theme-red); box-shadow: 0 0 10px var(--theme-red);" id="bar-ai"></div></div>
                     </div>
-                    <!-- Thanh Mục Tiêu IELTS Mới -->
+                    <!-- Thanh Mục Tiêu IELTS Đang Chạy -->
                     <div class="skill-group">
-                        <div class="skill-header"><span style="color:var(--theme-yellow);">Tiến độ Mục tiêu IELTS 6.5</span> <span style="color:var(--theme-yellow);">Đang nạp</span></div>
+                        <div class="skill-header"><span style="color:var(--theme-yellow);">Tiến độ Mục tiêu IELTS 6.5</span> <span style="color:var(--theme-yellow);">Đang ôn luyện</span></div>
                         <div class="skill-bar" style="border-color: var(--theme-yellow);"><div class="skill-fill" style="width: 45%; background: var(--theme-yellow); box-shadow: 0 0 10px var(--theme-yellow);"></div></div>
                     </div>
                 </div>
@@ -678,9 +658,9 @@
                 
                 <h1 class="page-title">HỆ THỐNG BÁO CÁO NHIỆM VỤ (PROJECTS)</h1>
 
-                <!-- KHU VỰC MỚI: ĐỊNH HƯỚNG CÁ NHÂN THEO YÊU CẦU -->
+                <!-- KHU VỰC ĐỊNH HƯỚNG HỌC THUẬT (THAY THẾ LORE) -->
                 <div class="tno-event-box" id="personal-dossier">
-                    <div class="tno-event-header">HỒ SƠ TÌNH BÁO TỐI MẬT // NGUYỄN VŨ ĐÔNG</div>
+                    <div class="tno-event-header">HỒ SƠ ĐỊNH HƯỚNG CHIẾN LƯỢC // NGUYỄN VŨ ĐÔNG</div>
                     <div class="tno-event-body">
                         <div class="tno-tabs">
                             <button class="tno-tab-btn active" onclick="openTnoTab(0, this)">ĐỊNH HƯỚNG TƯƠNG LAI</button>
@@ -691,28 +671,28 @@
                         <div class="tno-tab-content active" id="tno-tab-0">
                             <p><strong>MỤC TIÊU CHIẾN LƯỢC DÀI HẠN:</strong></p>
                             <ul>
-                                <li>Hoàn tất khối lượng 135 tín chỉ của chương trình đào tạo kỹ sư tại trường Đại học Công nghệ.</li>
-                                <li>Chinh phục mốc điểm học tập tích lũy lý tưởng: <strong>GPA 3.2 / 4.0</strong>.</li>
-                                <li>Đạt mục tiêu chứng chỉ ngoại ngữ quốc tế <strong>IELTS Band 5.0 đến 6.5</strong> để sẵn sàng xử lý các tài liệu kỹ thuật tiếng Anh phức tạp.</li>
-                                <li>Nắm vững tư duy logic của Đại số Tuyến tính, Tín hiệu & Hệ thống, đồng thời làm chủ hệ sinh thái thuật toán Python và phân tích mạch MATLAB.</li>
+                                <li>Hoàn tất khối lượng 135 tín chỉ của chương trình đào tạo Kỹ sư tại trường Đại học Công nghệ (UET) đúng hạn.</li>
+                                <li>Chinh phục mốc điểm học tập tích lũy (CPA) mục tiêu: <strong>3.2 / 4.0</strong>.</li>
+                                <li>Đạt mốc chứng chỉ ngoại ngữ quốc tế <strong>IELTS Band 5.0 đến 6.5</strong> để dễ dàng tiếp cận các tài liệu chuyên ngành khoa học máy tính và kỹ thuật tiếng Anh.</li>
+                                <li>Làm chủ các nền tảng toán học ứng dụng (Đại số Tuyến tính, Giải tích), thành thạo hệ sinh thái lập trình Python và tối ưu hóa xử lý ma trận bằng phần mềm MATLAB.</li>
                             </ul>
                         </div>
 
                         <div class="tno-tab-content" id="tno-tab-1">
-                            <p><strong>CÁC KHỦNG HOẢNG CÓ THỂ PHÁT SINH:</strong></p>
+                            <p><strong>CÁC KHỦNG HOẢNG VÀ THÁCH THỨC CÓ THỂ PHÁT SINH:</strong></p>
                             <ul>
-                                <li><strong>Áp lực thời gian:</strong> Việc cân bằng giữa cường độ học thuật khốc liệt của sinh viên K70 và việc theo đuổi các dự án cá nhân là một thách thức cực hạn.</li>
-                                <li><strong>Xung đột tài nguyên não bộ:</strong> Vừa phải xử lý các phương trình Mạch điện tử và Toán học phức tạp, vừa phải dành dung lượng não để phát triển cốt truyện cho dự án <i>'The Midnight Hour: Last Order'</i>.</li>
-                                <li><strong>Thách thức kỹ thuật:</strong> Quá trình tích hợp cơ chế luật chơi Dungeons & Dragons (D&D) vào các kịch bản trào phúng mang phong cách 1977 Vlogs đòi hỏi sự kiên nhẫn và logic lập trình rất cao.</li>
+                                <li><strong>Áp lực thời gian:</strong> Quản lý và cân bằng quỹ thời gian giữa việc ôn luyện lý thuyết khắt khe trên trường và thực hành các dự án lập trình cá nhân.</li>
+                                <li><strong>Xung đột tài nguyên não bộ:</strong> Cường độ xử lý các bài toán kỹ thuật điện tử, kết hợp với việc học ngôn ngữ mới (IELTS) và nghiên cứu các luồng thuật toán Trí tuệ Nhân tạo (Machine Learning) là một thử thách giới hạn chịu đựng.</li>
+                                <li><strong>Thách thức cập nhật công nghệ:</strong> Lĩnh vực IT thay đổi từng ngày, đặc biệt là Generative AI. Việc liên tục cập nhật công cụ mới mà không làm loãng kiến thức nền tảng (Core Knowledge) là một bài toán khó.</li>
                             </ul>
                         </div>
 
                         <div class="tno-tab-content" id="tno-tab-2">
                             <p><strong>ĐỊNH HƯỚNG LƯU TRỮ CỦA WEBSITE NÀY:</strong></p>
                             <ul>
-                                <li>Không chỉ là một danh mục để nộp bài môn Nhập môn Công nghệ số, website này được định hướng trở thành <strong>Trung tâm Chỉ huy Kỹ thuật số</strong> (Digital Command Center) cá nhân.</li>
-                                <li>Nơi đây sẽ lưu trữ vĩnh viễn các thành tựu mã nguồn Python (như bản clone Flappy Bird), các thuật toán ma trận điện dẫn Y-bus bằng MATLAB.</li>
-                                <li>Trở thành bảo tàng lưu trữ các hoạt động sáng tạo nội dung, bao gồm kịch bản game giả tưởng Hearts of Iron IV (TNO, Red Dusk) và sự kiện giải mã mật thư 8 ký tự dịp Tết 2026.</li>
+                                <li>Vượt ra ngoài khuôn khổ một bài tập môn Nhập môn Công nghệ số, website này được xây dựng để trở thành <strong>Trung tâm Chỉ huy Kỹ thuật số (Digital Command Center)</strong> của riêng tôi.</li>
+                                <li>Hệ thống này sẽ được dùng làm nơi lưu trữ (Hosting) vĩnh viễn các đoạn mã nguồn thuật toán Python được tối ưu hóa, cũng như các biểu đồ phân tích kỹ thuật điện tử.</li>
+                                <li>Là một Portfolio chuyên nghiệp, độc đáo mang đậm phong cách cá nhân, đóng vai trò như một hồ sơ năng lực sắc bén để chuẩn bị cho quá trình xin thực tập tại các doanh nghiệp Công nghệ Thông tin sau này.</li>
                             </ul>
                         </div>
                     </div>
@@ -847,7 +827,7 @@
                                 Tổ chức và thực hiện dự án làm việc nhóm hoàn toàn trên không gian mạng nội bộ.<br><br>
                                 <strong>Thông tin Dự án:</strong><br>
                                 - Đề tài: Ứng dụng Trí tuệ Nhân tạo trong Khoa học Tự nhiên & Kỹ thuật.<br>
-                                - Thành viên nhóm: Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br>
+                                - Thành viên nhóm K70E-EC1: Nguyễn Mậu Hà, Nguyễn Duy Đan, Nguyễn Minh Đức, Nguyễn Vũ Đông, Nguyễn Thành Đạt.<br>
                                 - Sử dụng bộ công cụ đám mây (Google Workspace, Trello) để quản lý tiến độ, phân chia nhiệm vụ theo phương pháp <strong>Agile/Kanban</strong>.
                             </div>
                         </div>
@@ -880,18 +860,18 @@
                             <div class="p-text">
                                 Tích hợp AI tạo sinh (Generative AI) vào quy trình sáng tạo để tăng tốc độ phát triển dự án.<br><br>
                                 <strong>Chi tiết áp dụng:</strong><br>
-                                - <i>Hỗ trợ lập trình:</i> Dùng AI viết bộ khung mã nguồn (Boilerplate) và thiết lập thuật toán va chạm cho mini-game <strong>Flappy Bird bằng Python</strong>.<br>
-                                - <i>Sáng tạo nội dung:</i> Nhờ AI xây dựng Lore, kịch bản phân nhánh <strong>'The Midnight Hour'</strong>, kết hợp hội thoại trào phúng <strong>1977 Vlogs</strong>.<br>
-                                - <i>Bảo mật logic:</i> Hỗ trợ tạo hệ thống mật mã Cypher 8 ký tự cho minigame dịp Tết 2026.
+                                - <i>Hỗ trợ lập trình:</i> Sử dụng AI để sinh mã nguồn cơ sở (Boilerplate) và thiết lập cấu trúc luồng cho một module phần mềm phân tích dữ liệu giả lập.<br>
+                                - <i>Nghiên cứu tài liệu:</i> Hỗ trợ phác thảo dàn ý (outline) cho các bài nghiên cứu khoa học chuyên ngành, xây dựng sơ đồ hệ thống (UML diagrams) thông qua các công cụ Text-to-Diagram.<br>
+                                - <i>Xử lý Dataset:</i> Tạo ra các tập dữ liệu giả (Mock data) để huấn luyện các thuật toán cơ bản.
                             </div>
                         </div>
                         <div class="p-col">
                             <div class="p-col-title">II. ĐÁNH GIÁ & BÀI HỌC</div>
                             <div class="p-text">
                                 <ul>
-                                    <li><span class="tag-good">[ BÀI HỌC ]</span>: AI là chất xúc tác mạnh mẽ giúp rút ngắn khâu phác thảo ý tưởng (Brainstorming) xuống gấp 10 lần.</li>
-                                    <li><span class="tag-warn">[ KHÓ KHĂN ]</span>: Sản phẩm do AI sinh ra mang văn phong rập khuôn (Robotic). Đòi hỏi hiệu chỉnh thủ công lớn để giữ nét cá tính riêng.</li>
-                                    <li><span class="tag-info">[ ÁP DỤNG ]</span>: Thiết kế nhanh UI/UX đồ họa cao và phát triển thần tốc các module phần mềm Indie để thử nghiệm ý tưởng.</li>
+                                    <li><span class="tag-good">[ BÀI HỌC ]</span>: AI là chất xúc tác mạnh mẽ giúp rút ngắn khâu phác thảo ý tưởng (Brainstorming) và xây dựng nguyên mẫu (Prototyping).</li>
+                                    <li><span class="tag-warn">[ KHÓ KHĂN ]</span>: Sản phẩm do AI sinh ra mang văn phong rập khuôn (Robotic). Đòi hỏi hiệu chỉnh thủ công lớn để giữ nét logic của riêng lập trình viên.</li>
+                                    <li><span class="tag-info">[ ÁP DỤNG ]</span>: Tăng tốc quy trình thiết kế phần mềm và xây dựng hệ thống cơ sở dữ liệu mẫu.</li>
                                 </ul>
                             </div>
                         </div>
@@ -993,8 +973,8 @@
             </div>
             <div class="term-body">
                 <div class="term-output" id="term-output">
-                    <div class="term-entry term-sys">> HỆ THỐNG ACADEMIC TERMINAL V32.0 ĐÃ SẴN SÀNG.</div>
-                    <div class="term-entry term-sys">> Đăng nhập dưới tư cách Đặc vụ: Nguyễn Vũ Đông (25022175).</div>
+                    <div class="term-entry term-sys">> HỆ THỐNG ACADEMIC TERMINAL V33.0 ĐÃ SẴN SÀNG.</div>
+                    <div class="term-entry term-sys">> Đăng nhập dưới tư cách: Nguyễn Vũ Đông (25022175).</div>
                     <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách chỉ thị.</div>
                 </div>
                 <div class="term-input-row">
@@ -1008,18 +988,6 @@
     <!-- ==========================================================================
          [6] CÁC HỘP THOẠI MODAL (CÀI ĐẶT, ẢNH, CHI TIẾT BÀI)
          ========================================================================== */ -->
-    
-    <!-- Modal Cập nhật ảnh -->
-    <div class="modal-overlay" id="avatar-modal">
-        <div class="settings-box-modal">
-            <button class="modal-close-btn" onclick="closeModal('avatar-modal')">X</button>
-            <h2 style="border-bottom: 2px solid var(--main-color); padding-bottom: 5px; margin-bottom: 20px; font-size: 45px; color: var(--main-color); text-transform: uppercase;">Tải lên ảnh sinh trắc học</h2>
-            <p style="font-size: 28px; line-height: 1.5; color: #ccc;">Hệ thống đã được thiết lập <strong>đọc ảnh tự động từ máy chủ.</strong> <br><br>Hãy thực hiện thao tác sau trên GitHub:<br>1. Tải bức ảnh của bạn lên mục <strong>Upload files</strong>.<br>2. Đảm bảo tên file được đổi chính xác thành <strong><code style="color:var(--theme-yellow); font-size:32px;">avatar.jpg</code></strong>.</p>
-            <div style="display: flex; gap: 20px; margin-top: 40px;">
-                <button class="action-link-btn" style="margin-top:0;" onclick="closeModal('avatar-modal')">ĐÃ HIỂU VÀ ĐÓNG BẢNG</button>
-            </div>
-        </div>
-    </div>
 
     <!-- Modal Hệ thống phụ -->
     <div class="modal-overlay" id="system-check-modal">
@@ -1031,7 +999,7 @@
                 > Tường lửa UET: Đang hoạt động ẩn danh.<br>
                 > Thuật toán Python: Đã biên dịch 100%.<br>
                 > Ma trận MATLAB: Ổn định.<br>
-                > Mạng lưới Skitarii 5 thành viên: Đang trực tuyến.<br>
+                > Trạng thái chứng chỉ IELTS: Trong tiến trình.<br>
             </p>
             <div style="display: flex; gap: 20px; margin-top: 40px;">
                 <button class="action-link-btn" style="margin-top:0; color: var(--theme-green); border-color: var(--theme-green);" onclick="closeModal('system-check-modal')">HỆ THỐNG AN TOÀN - ĐÓNG</button>
@@ -1141,14 +1109,17 @@
         
         let bootLineIndex = 0;
         const bootTextDiv = document.getElementById('boot-text');
-        const audioPlayer = document.getElementById('os-bgm');
         
-        if (audioPlayer) { audioPlayer.volume = 0.5; }
-
         function startSystem() {
             document.getElementById('pre-boot').style.display = 'none';
             document.getElementById('boot-screen').style.display = 'flex';
-            if(audioPlayer) { audioPlayer.play().catch(e => console.log("Audio block: " + e)); }
+            
+            // Xử lý bật Audio an toàn
+            const audioPlayer = document.getElementById('os-bgm');
+            if(audioPlayer) { 
+                audioPlayer.volume = 0.5;
+                audioPlayer.play().catch(e => console.log("Trình duyệt chặn autoplay Audio.")); 
+            }
             runBoot();
         }
 
@@ -1168,9 +1139,17 @@
             }
         }
 
-        // --- 2. MA TRẬN CHỈ SỐ, ĐỒNG HỒ & DEFCON ---
+        // --- 2. MA TRẬN CHỈ SỐ, ĐỒNG HỒ (GIỜ VIỆT NAM) & DEFCON ---
         setInterval(() => {
-            document.getElementById('clock').innerText = new Date().toISOString().replace('T', ' ').substring(0, 19);
+            const now = new Date();
+            const options = { 
+                timeZone: 'Asia/Ho_Chi_Minh', 
+                hour12: false, 
+                year: 'numeric', month: '2-digit', day: '2-digit', 
+                hour: '2-digit', minute: '2-digit', second: '2-digit' 
+            };
+            const formatter = new Intl.DateTimeFormat('vi-VN', options);
+            document.getElementById('clock').innerText = formatter.format(now).replace(/\//g, '-').replace(',', '');
         }, 1000);
 
         function startDynamicStats() {
@@ -1209,23 +1188,33 @@
             }
         }
 
-        // --- 3. ĐIỀU KHIỂN ÂM THANH NATIVE & SCAN AVATAR ---
+        // --- 3. ĐIỀU KHIỂN ÂM THANH NATIVE & SCAN AVATAR (FIX BUG NÚT) ---
         function toggleCustomAudio() {
+            const audio = document.getElementById('os-bgm');
             const btn = document.getElementById('play-pause-btn');
-            if(audioPlayer.paused) {
-                audioPlayer.play(); btn.innerText = "⏸ TẠM DỪNG";
-                addLog("> Phục hồi luồng tín hiệu Radio.");
+            if(!audio || !btn) return;
+            
+            if(audio.paused) {
+                audio.play().then(() => {
+                    btn.innerText = "⏸ TẠM DỪNG";
+                    addLog("> Phục hồi luồng tín hiệu Radio.");
+                }).catch(e => console.log(e));
             } else {
-                audioPlayer.pause(); btn.innerText = "▶ PHÁT NHẠC";
+                audio.pause(); 
+                btn.innerText = "▶ PHÁT NHẠC";
                 addLog("> Luồng tín hiệu Radio tạm ngắt.");
             }
         }
 
         function changeVolume(val) {
-            let newVol = audioPlayer.volume + val;
+            const audio = document.getElementById('os-bgm');
+            const display = document.getElementById('vol-display');
+            if(!audio || !display) return;
+            
+            let newVol = audio.volume + val;
             newVol = Math.max(0, Math.min(1, newVol));
-            audioPlayer.volume = newVol;
-            document.getElementById('vol-display').innerText = Math.round(newVol * 100) + "%";
+            audio.volume = newVol;
+            display.innerText = Math.round(newVol * 100) + "%";
         }
 
         function triggerBioScan() {
@@ -1298,14 +1287,14 @@
             }
         }
 
-        // LOGIC MODAL CHI TIẾT BÀI TẬP (GIẢI MÃ DỮ LIỆU CỰC NGẦU)
+        // LOGIC MODAL CHI TIẾT BÀI TẬP (GIẢI MÃ DỮ LIỆU)
         const detailDB = {
             1: { title: "HỒ SƠ MỞ RỘNG BÀI 1", ai: "0%", txt: "Hệ thống lưu trữ là nền tảng của mọi hệ thống thông tin. Theo kiến trúc đã thiết lập, mọi dữ liệu tại Đại học được đồng bộ theo cấu trúc phân nhánh nhằm tối thiểu hóa rủi ro phân mảnh dữ liệu. Nguyên tắc 3-2-1 được triển khai thủ công thông qua Google Drive UET giúp đảm bảo tính dự phòng cao nhất trong suốt quá trình rà soát học thuật. Toàn bộ mã nguồn code trên máy tính cũng được di chuyển vào khuôn khổ này." },
-            2: { title: "HỒ SƠ MỞ RỘNG BÀI 2", ai: "5%", txt: "Việc sử dụng Toán tử Boolean kết hợp với việc kiểm định theo bộ quy chuẩn CRAAP (Currency, Relevance, Authority, Accuracy, Purpose) đã biến việc tìm kiếm trên Google thành một phương pháp thu thập tín hiệu tình báo khoa học. Rào cản lớn nhất không phải là thiếu thông tin, mà là việc phải thanh lọc các nguồn thông tin rác từ các thuật toán SEO thương mại." },
+            2: { title: "HỒ SƠ MỞ RỘNG BÀI 2", ai: "5%", txt: "Việc sử dụng Toán tử Boolean kết hợp với việc kiểm định theo bộ quy chuẩn CRAAP (Currency, Relevance, Authority, Accuracy, Purpose) đã biến việc tìm kiếm trên Google thành một phương pháp thu thập tín hiệu khoa học. Rào cản lớn nhất không phải là thiếu thông tin, mà là việc phải thanh lọc các nguồn thông tin rác từ các thuật toán SEO thương mại." },
             3: { title: "HỒ SƠ MỞ RỘNG BÀI 3", ai: "85%", txt: "Prompt Engineering là nghệ thuật giao tiếp với thuật toán. Việc ứng dụng cấu trúc Role-Task-Format (RTF) và Chain of Thought (CoT) đã ép các mô hình LLM từ bỏ lối trả lời chung chung để tạo ra các bảng dữ liệu sâu sát chuyên ngành. Khả năng kiểm soát 'Ảo giác AI' (Hallucination) là kỹ năng cốt lõi giúp giữ vững độ chính xác của mọi thông tin trả về." },
-            4: { title: "HỒ SƠ MỞ RỘNG BÀI 4", ai: "10%", txt: "Phương thức Agile/Kanban đã được thiết lập thành công trên không gian Trello và Google Workspace cho nhóm 5 sinh viên K70E-EC1. Điều này giải quyết hoàn toàn vấn đề xung đột thời gian biểu, cho phép phân bổ thông lượng công việc (Workload) đồng đều. Các phiên bản tài liệu (Version Control) được kiểm soát chặt chẽ tránh mất mát khi gộp nội dung." },
-            5: { title: "HỒ SƠ MỞ RỘNG BÀI 5", ai: "95%", txt: "Trí tuệ nhân tạo (Generative AI) được ứng dụng triệt để vào khâu sản xuất nội dung số. AI đóng vai trò làm bàn đạp (springboard) hỗ trợ xây dựng thuật toán Python cho minigame, đồng thời phác thảo nhánh kịch bản trào phúng. Tuy nhiên, sự can thiệp của con người là bắt buộc để thổi hồn vào sản phẩm, xóa bỏ dấu ấn ngôn ngữ rập khuôn của thuật toán sinh học." },
-            6: { title: "HỒ SƠ MỞ RỘNG BÀI 6", ai: "0%", txt: "Bộ luật Lex Mechanicus cá nhân đóng vai trò như một bức tường lửa đạo đức, ngăn chặn việc lạm dụng máy móc vào mục đích gian lận học thuật. Mọi kết quả đầu ra của AI đều phải qua bộ lọc tư duy phản biện (Critical Thinking) và đối chiếu với nguồn dữ liệu gốc của nhân loại, đảm bảo tính liêm chính 100% trong môi trường học thuật của trường Đại học Công nghệ." },
+            4: { title: "HỒ SƠ MỞ RỘNG BÀI 4", ai: "10%", txt: "Phương thức Agile/Kanban đã được thiết lập thành công trên không gian Trello và Google Workspace cho nhóm sinh viên K70E-EC1. Điều này giải quyết hoàn toàn vấn đề xung đột thời gian biểu, cho phép phân bổ thông lượng công việc (Workload) đồng đều. Các phiên bản tài liệu (Version Control) được kiểm soát chặt chẽ tránh mất mát khi gộp nội dung." },
+            5: { title: "HỒ SƠ MỞ RỘNG BÀI 5", ai: "95%", txt: "Trí tuệ nhân tạo (Generative AI) được ứng dụng triệt để vào khâu sản xuất nội dung số. AI đóng vai trò làm bàn đạp (springboard) hỗ trợ xây dựng thuật toán cấu trúc phân tích dữ liệu, đồng thời phác thảo sơ đồ UML. Tuy nhiên, sự can thiệp của con người là bắt buộc để kiểm soát chất lượng, xóa bỏ dấu ấn ngôn ngữ rập khuôn của thuật toán." },
+            6: { title: "HỒ SƠ MỞ RỘNG BÀI 6", ai: "0%", txt: "Cam kết học thuật cá nhân đóng vai trò như một bức tường lửa đạo đức, ngăn chặn việc lạm dụng máy móc vào mục đích gian lận. Mọi kết quả đầu ra của AI đều phải qua bộ lọc tư duy phản biện (Critical Thinking) và đối chiếu với nguồn dữ liệu gốc của nhân loại, đảm bảo tính liêm chính 100% trong môi trường học thuật của trường Đại học." },
             7: { title: "HỒ SƠ MỞ RỘNG BÀI 7", ai: "70%", txt: "Phân tích tài liệu bằng Trợ lý AI mang lại ưu thế tuyệt đối trong việc đọc lướt và tóm lược các báo cáo quốc tế định dạng PDF. Quá trình này được thực thi nghiêm ngặt theo các giao thức bảo mật dữ liệu, ẩn danh hóa mọi thông tin nhạy cảm trước khi nạp vào hệ thống đám mây phân tích. AI hoàn thành xuất sắc vai trò trích xuất từ khóa chuyên sâu." }
         };
 
@@ -1317,7 +1306,6 @@
             const scrambler = document.getElementById('dm-scramble');
             const realContent = document.getElementById('dm-real-content');
             
-            // Trạng thái khởi tạo: Hiện nhiễu mã hóa, giấu nội dung thật
             titleEl.innerText = "ĐANG GIẢI MÃ DỮ LIỆU TỐI MẬT...";
             statBox.style.display = 'none';
             realContent.style.display = 'none';
@@ -1327,7 +1315,6 @@
             termPrint(`> Bắt đầu giải mã tệp tin lưu trữ Bài ${id}...`, 'term-sys');
             addLog(`> Chạy giao thức giải mã Cấp độ 5 cho Hồ sơ Bài ${id}.`);
 
-            // Hiệu ứng delay tắt nhiễu, hiện nội dung thật
             setTimeout(() => {
                 const data = detailDB[id];
                 titleEl.innerText = `[ MẬT MÃ MỞ KHÓA ] ${data.title}`;
@@ -1389,7 +1376,7 @@
                         termPrint("  help         : Hiển thị danh sách lệnh", 'term-sys');
                         termPrint("  clear        : Xóa sạch màn hình Terminal", 'term-sys');
                         termPrint("  date         : Truy xuất thời gian máy chủ", 'term-sys');
-                        termPrint("  location     : Lấy tọa độ Radar hiện tại", 'term-sys');
+                        termPrint("  location     : Lấy tọa độ hệ thống hiện tại", 'term-sys');
                         termPrint("  whoami       : Trích xuất danh tính người dùng", 'term-sys');
                         termPrint("  analyze      : Chạy chẩn đoán toàn bộ hệ thống", 'term-sys');
                         termPrint("  defcon       : Chuyển trạng thái Cảnh báo Focus Mode", 'term-sys');
@@ -1400,7 +1387,11 @@
                     case 'clear': termOutput.innerHTML = ''; break;
                     case 'defcon': toggleDefcon(); break;
                     case 'close': toggleTerminal(); break;
-                    case 'date': termPrint(`> Server Time: ${new Date().toString()}`, 'term-sys'); break;
+                    case 'date': 
+                        const now = new Date();
+                        const formatter = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        termPrint(`> Server Time (VN): ${formatter.format(now)}`, 'term-sys'); 
+                        break;
                     case 'location': termPrint("> Tọa độ: Đại học Công nghệ (UET) - 144 Xuân Thủy, Cầu Giấy, Hà Nội.", 'term-sys'); break;
                     case 'whoami': 
                         termPrint("> USER: Nguyễn Vũ Đông | ID: 25022175 | LỚP: K70E-EC1 | ROLE: Tác giả", 'term-sys'); 
@@ -1408,7 +1399,7 @@
                     case 'analyze':
                         termPrint("> Phân tích cấu trúc: BÌNH THƯỜNG", 'term-sys');
                         termPrint("> Lỗ hổng bảo mật: 0 phát hiện", 'term-sys');
-                        termPrint("> Lộ trình IELTS 6.5: Đang thực thi", 'term-sys');
+                        termPrint("> Lộ trình IELTS 6.5: Đang thực thi ôn luyện", 'term-sys');
                         termPrint("> Lộ trình GPA 3.2: Khả thi", 'term-sys');
                         break;
                     case 'sudo':
@@ -1451,7 +1442,7 @@
             let progress = 0;
             const steps = [
                 "> Khởi tạo giao thức kết xuất...",
-                "> Đang tải dữ liệu sinh trắc học 'avatar.jpg'...",
+                "> Đang tải dữ liệu định danh sinh viên...",
                 "> Tổng hợp tham số CSS Variables...",
                 "> Vô hiệu hóa hiệu ứng nhiễu CRT...",
                 "> Dịch mã khối dữ liệu Bài 1 đến Bài 7...",
