@@ -189,9 +189,14 @@
             font-family: 'VT323'; font-size: 22px; padding: 6px 15px; cursor: pointer; transition: 0.2s; font-weight: bold;
         }
         .tb-btn:hover { background: var(--main-color); color: #000; box-shadow: 0 0 20px var(--main-color); transform: translateY(-2px); }
+        
         .tb-btn-special { border-color: var(--theme-yellow); color: var(--theme-yellow); }
         .tb-btn-special:hover { background: var(--theme-yellow); color: #000; box-shadow: 0 0 20px var(--theme-yellow); }
         
+        /* Nút GAME ARCADE trên Taskbar */
+        .tb-btn-game { border-color: var(--theme-red); color: var(--theme-red); }
+        .tb-btn-game:hover { background: var(--theme-red); color: #fff; box-shadow: 0 0 25px var(--theme-red); }
+
         .defcon-indicator { background: var(--theme-red-dim); color: white; padding: 6px 15px; border: 2px solid var(--theme-red); cursor: pointer; transition: 0.3s; font-size: 22px; font-weight: bold; text-shadow: 0 0 5px #000; }
         .defcon-indicator:hover { background: var(--theme-red); box-shadow: 0 0 25px var(--theme-red); }
 
@@ -371,7 +376,7 @@
         .report-text { font-size: 28px; line-height: 1.6; color: #fff; text-align: justify; margin-bottom: 40px; padding: 0 20px; }
 
         /* ==========================================================================
-           [6] WINDOW MANAGER (OS WINDOWS) - CHO GAME VÀ TÍNH NĂNG ẨN
+           [6] WINDOW MANAGER (OS WINDOWS) - DÀNH CHO GAME VÀ TÍNH NĂNG ẨN
            ========================================================================== */
         .os-window {
             position: absolute; display: none; flex-direction: column;
@@ -427,16 +432,9 @@
         .term-prompt { color: var(--theme-yellow); font-size: 28px; font-weight: bold; margin-right: 15px; }
         .term-input { flex: 1; background: transparent; border: none; color: #fff; font-family: 'VT323'; font-size: 28px; outline: none; }
 
-        #term-toggle-btn {
-            position: fixed; bottom: 0; right: 110px; background: var(--dark-color);
-            color: var(--main-color); border: 3px solid var(--main-color); border-bottom: none;
-            padding: 10px 30px; font-family: 'VT323'; font-size: 26px; font-weight: bold;
-            cursor: pointer; z-index: 999; transition: 0.3s; border-radius: 12px 12px 0 0;
-            box-shadow: 0 0 20px rgba(0,0,0,0.8);
-        }
-        #term-toggle-btn:hover { background: var(--main-color); color: #000; box-shadow: 0 0 25px var(--main-color); padding-bottom: 15px; letter-spacing: 1px; }
-
-        /* Modals */
+        /* ==========================================================================
+           MODALS (CÀI ĐẶT, CHI TIẾT BÀI TẬP)
+           ========================================================================== */
         .modal-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: rgba(0,0,0,0.95); z-index: 20000; justify-content: center; align-items: center;
@@ -465,11 +463,12 @@
         .toggle-row { display: flex; justify-content: space-between; align-items: center; font-size: 28px; margin-bottom: 20px; border-bottom: 2px dashed var(--dim-color); padding-bottom: 15px; font-weight: bold;}
 
         /* ==========================================================================
-           [7] BẢN IN PDF (PRINT MEDIA QUERY)
+           [7] BẢN IN PDF (PRINT MEDIA QUERY) - CHUẨN HÓA KHI NỘP BÀI CỰC ĐẸP
            ========================================================================== */
         @media print {
             body { background: #fff !important; color: #000 !important; font-family: 'Times New Roman', serif !important; font-size: 12pt !important; overflow: auto !important; height: auto !important; box-shadow: none !important; animation: none !important;}
             
+            /* Ẩn toàn bộ hiệu ứng và Sidebar không cần thiết */
             .crt-overlay, .scanlines, .scanline-bar, .top-bar, .audio-player, #term-toggle-btn, #terminal-drawer, .p-actions, .nav-container, .update-avatar-btn, .modal-overlay, .btn-scan, #matrix-canvas, .server-status, .live-logs-box, .scan-laser, .warning-tape, .tno-tabs, #back-to-top, .os-window { display: none !important; }
             
             #portfolio-app { display: block !important; background: none !important; }
@@ -518,6 +517,7 @@
             .report-title { color: #000 !important; text-shadow: none !important; font-size: 18pt !important; border-bottom: 2px solid #000 !important; padding-bottom: 10px !important;}
             .report-text { color: #000 !important; font-size: 12pt !important; padding: 0 !important; margin-bottom: 20px !important;}
             
+            /* Watermark chuyên nghiệp */
             body::before {
                 content: "UET K70E-EC1 - BÁO CÁO HỌC THUẬT: 25022175";
                 position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg);
@@ -565,7 +565,8 @@
             .report-text { font-size: 20px; padding: 0; }
 
             #terminal-drawer { left: 0; width: 100%; }
-            #term-toggle-btn { right: 50%; transform: translateX(50%); font-size: 20px; padding: 10px 20px; white-space: nowrap; }
+            /* Cập nhật trên Mobile: Ẩn bớt nút Terminal hoặc làm nhỏ lại */
+            #term-toggle-btn { display: none; } /* Trên mobile quá chật để xài Terminal */
 
             .settings-box-modal { width: 95% !important; padding: 20px !important; margin: 10px auto; }
             .detail-modal-box { width: 95% !important; }
@@ -573,6 +574,9 @@
             .stat-grid { grid-template-columns: 1fr; gap: 10px; }
             .detail-header { font-size: 26px; }
             .detail-content { font-size: 20px; }
+            
+            /* Nút back to top nhỏ hơn trên mobile */
+            #back-to-top { bottom: 15px; right: 15px; width: 45px; height: 45px; font-size: 25px; }
         }
 
         @media (max-width: 600px) {
@@ -586,7 +590,6 @@
     </style>
 </head>
 <body>
-    <!-- CỬA SỔ GAME BÍ MẬT (BẤM PHÍM 'G' ĐỂ MỞ) -->
     <div class="os-window" id="win-game" style="top: 80px; left: calc(50vw - 245px); width: 490px; height: 710px; border-color: var(--theme-red); box-shadow: 0 0 40px rgba(255, 42, 42, 0.4);">
         <div class="win-header" onmousedown="dragWindow(event, 'win-game')" style="background: var(--theme-red-dim); color: #fff; border-bottom: 2px solid var(--theme-red);">
             <span class="win-title">[🎮] C:\GAMES\FLAPPY_DRONE.exe</span>
@@ -599,23 +602,18 @@
         </div>
     </div>
 
-    <!-- CANVAS HIỆU ỨNG MƯA MA TRẬN (MATRIX RAIN) -->
     <canvas id="matrix-canvas"></canvas>
 
-    <!-- NATIVE AUDIO PLAYER (AYDEN GEORGE - OUR FINAL WAR) -->
     <audio id="os-bgm" loop preload="auto">
         <source src="our_final_war.mp3" type="audio/mpeg">
     </audio>
 
-    <!-- HIỆU ỨNG MÀN HÌNH -->
     <div class="crt-overlay" id="fx-crt"></div>
     <div class="scanlines" id="fx-scanlines"></div>
     <div class="scanline-bar" id="fx-scanbar"></div>
 
-    <!-- NÚT QUAY VỀ TRÊN CÙNG -->
     <button id="back-to-top" onclick="scrollToTop()" title="Trở về đầu trang">⏶</button>
 
-    <!-- MÀN HÌNH CHỜ -->
     <div id="pre-boot" style="display: flex;">
         <div class="sys-identity">HỆ THỐNG LƯU TRỮ UET K70</div>
         <div class="sys-sub">ĐẶC VỤ: NGUYỄN VŨ ĐÔNG (25022175)</div>
@@ -623,13 +621,11 @@
         <div style="margin-top: 40px; font-size: 24px; color: #888; font-family: monospace;">> Đảm bảo file 'avatar.jpg', 'game.html' và 'our_final_war.mp3' nằm cùng thư mục.</div>
     </div>
 
-    <!-- MÀN HÌNH MÃ HÓA BIOS BOOT -->
     <div id="boot-screen">
         <div id="boot-text"></div>
         <div><span class="blink-cursor">█</span></div>
     </div>
 
-    <!-- MÀN HÌNH RENDER XUẤT BÁO CÁO (FAKE COMPILING) -->
     <div id="compile-screen">
         <div class="compile-glitch">COMPILING DATA...</div>
         <div class="compile-text">ĐANG BIÊN DỊCH DỮ LIỆU ĐỂ XUẤT BÁO CÁO...</div>
@@ -639,15 +635,17 @@
         </div>
     </div>
 
-    <!-- GIAO DIỆN PORTFOLIO CHÍNH -->
     <div id="portfolio-app">
         
-        <!-- Thanh Taskbar Top -->
         <div class="top-bar">
-            <div class="sys-logo">UET ACADEMIC PORTFOLIO</div>
+            <div style="display: flex; gap: 30px; align-items: center;">
+                <span class="sys-logo">UET ACADEMIC PORTFOLIO</span>
+                <span style="color: var(--theme-yellow); font-size: 26px;">VER: 36.0 (ARCADE)</span>
+            </div>
             <div class="tb-buttons">
+                <button class="tb-btn tb-btn-game" onclick="openGameWindow()">🎮 ARCADE</button>
                 <button class="tb-btn" onclick="openModal('system-check-modal')">🛡️ CHẨN ĐOÁN</button>
-                <button class="tb-btn tb-btn-special" onclick="compileAndPrint()">🖨️ XUẤT BÁO CÁO (PDF)</button>
+                <button class="tb-btn tb-btn-special" onclick="compileAndPrint()">🖨️ XUẤT BÁO CÁO</button>
                 <button class="tb-btn" onclick="openModal('settings-modal')">⚙️ CÀI ĐẶT</button>
                 <div class="defcon-indicator" onclick="toggleDefcon()">TRẠNG THÁI: BÌNH THƯỜNG</div>
                 <div id="clock">00:00:00</div>
@@ -658,7 +656,6 @@
 
         <div class="main-container">
             
-            <!-- SIDEBAR: HỒ SƠ CÁ NHÂN -->
             <aside class="sidebar">
                 
                 <div class="profile-wrapper">
@@ -747,12 +744,10 @@
                 </div>
             </aside>
 
-            <!-- MAIN CONTENT: VÙNG CUỘN BÀI TẬP VÀ ĐỊNH HƯỚNG MỚI -->
             <main class="content-area" id="main-scroll">
                 
                 <h1 class="page-title">HỆ THỐNG BÁO CÁO NHIỆM VỤ (PROJECTS)</h1>
 
-                <!-- KHU VỰC ĐỊNH HƯỚNG HỌC THUẬT -->
                 <div class="tno-event-box" id="personal-dossier">
                     <div class="tno-event-header">HỒ SƠ ĐỊNH HƯỚNG CHIẾN LƯỢC // NGUYỄN VŨ ĐÔNG</div>
                     <div class="tno-event-body">
@@ -792,7 +787,6 @@
                     </div>
                 </div>
 
-                <!-- BẢNG ĐIỀU HƯỚNG NHANH -->
                 <div class="nav-container">
                     <div class="nav-title">GIAO THỨC ĐIỀU HƯỚNG NHANH (QUICK NAV)</div>
                     <div class="nav-grid">
@@ -807,7 +801,6 @@
                     </div>
                 </div>
 
-                <!-- BÀI 1 -->
                 <article class="project-card" id="project-1">
                     <div class="p-header">
                         <span class="p-icon">🗄️</span> 
@@ -828,21 +821,19 @@
                             <div class="p-col-title">II. ĐÁNH GIÁ & BÀI HỌC</div>
                             <div class="p-text">
                                 <ul>
-                                    <li><span class="tag-good">[ BÀI HỌC ]</span>: Hiểu được tầm quan trọng của việc tổ chức không gian số. Việc quy hoạch thông tin bài bản giúp tăng tốc độ tìm kiếm tài liệu lên đến 50%.</li>
+                                    <li><span class="tag-good">[ BÀI HỌC ]</span>: Hiểu được tầm quan trọng của việc tổ chức không gian số. Việc quy hoạch thông bài bản giúp tăng tốc độ tìm kiếm tài liệu lên đến 50%.</li>
                                     <li><span class="tag-warn">[ KHÓ KHĂN ]</span>: Gặp khó khăn ban đầu khi phải đối mặt và dọn dẹp hàng Gigabyte tệp tin hỗn tạp được lưu trữ từ các năm học trước.</li>
                                     <li><span class="tag-info">[ ÁP DỤNG ]</span>: Phương pháp lưu trữ này đã trở thành tiêu chuẩn cá nhân khi quản lý mã nguồn lập trình Python và đồ án kỹ thuật tại UET.</li>
                                 </ul>
                             </div>
                         </div>
                     </div>
-                    <!-- NÚT BẤM ĐA TẦNG -->
                     <div class="p-actions">
                         <button class="btn-half btn-detail" onclick="openDetails(1)">🔍 PHÂN TÍCH CHUYÊN SÂU DỮ LIỆU</button>
                         <a href="bai1.pdf" target="_blank" class="btn-half btn-download">⬇ TẢI XUỐNG TỆP MINH CHỨNG (PDF)</a>
                     </div>
                 </article>
 
-                <!-- BÀI 2 -->
                 <article class="project-card" id="project-2">
                     <div class="p-header">
                         <span class="p-icon">📡</span> 
@@ -875,7 +866,6 @@
                     </div>
                 </article>
 
-                <!-- BÀI 3 -->
                 <article class="project-card" id="project-3">
                     <div class="p-header">
                         <span class="p-icon">🧠</span> 
@@ -908,7 +898,6 @@
                     </div>
                 </article>
 
-                <!-- BÀI 4 -->
                 <article class="project-card" id="project-4">
                     <div class="p-header">
                         <span class="p-icon">🤝</span> 
@@ -942,7 +931,6 @@
                     </div>
                 </article>
 
-                <!-- BÀI 5 -->
                 <article class="project-card" id="project-5">
                     <div class="p-header">
                         <span class="p-icon">⚙️</span> 
@@ -976,7 +964,6 @@
                     </div>
                 </article>
 
-                <!-- BÀI 6 -->
                 <article class="project-card" id="project-6">
                     <div class="p-header">
                         <span class="p-icon">⚖️</span> 
@@ -1011,7 +998,6 @@
                     </div>
                 </article>
 
-                <!-- BÀI 7 -->
                 <article class="project-card" id="project-7" style="border-color: var(--theme-red);">
                     <div class="p-header" style="background: var(--theme-red-dim); color: #fff; border-bottom-color: var(--theme-red);">
                         <span class="p-icon">🛡️</span> 
@@ -1043,7 +1029,6 @@
                     </div>
                 </article>
 
-                <!-- SUPER EVENT REPORT (TỔNG KẾT NẰM Ở CUỐI TRANG) -->
                 <div class="report-box" id="final-report">
                     <div class="report-title">BÁO CÁO TỔNG KẾT CHIẾN DỊCH</div>
                     <div class="report-text">
@@ -1053,13 +1038,10 @@
                     <div style="font-size: 38px; font-weight: bold; color: var(--theme-cyan); letter-spacing: 3px;">"SỰ THẤU HIỂU LÀ VŨ KHÍ DUY NHẤT LÀM CHỦ CÔNG NGHỆ."</div>
                 </div>
                 
-                <div style="height: 150px;"></div> <!-- Đệm cuộn -->
-
-            </main>
+                <div style="height: 150px;"></div> </main>
         </div>
 
-        <!-- NGĂN KÉO TERMINAL ẨN CỰC NGẦU -->
-        <button id="term-toggle-btn" onclick="toggleTerminal()">>_ MỞ TERMINAL ĐIỀU KHIỂN</button>
+        <button id="term-toggle-btn" onclick="toggleTerminal()">>_ MỞ BẢNG ĐIỀU KHIỂN</button>
         <div id="terminal-drawer">
             <div class="term-header" onclick="toggleTerminal()">
                 <span>[ TERMINAL HỆ THỐNG UET K70 ]</span>
@@ -1067,7 +1049,7 @@
             </div>
             <div class="term-body">
                 <div class="term-output" id="term-output">
-                    <div class="term-entry term-sys">> HỆ THỐNG ACADEMIC TERMINAL V35.0 ĐÃ SẴN SÀNG.</div>
+                    <div class="term-entry term-sys">> HỆ THỐNG ACADEMIC TERMINAL V36.0 ĐÃ SẴN SÀNG.</div>
                     <div class="term-entry term-sys">> Đăng nhập dưới tư cách: Nguyễn Vũ Đông (25022175).</div>
                     <div class="term-entry term-sys">> Gõ lệnh 'help' để xem danh sách chỉ thị.</div>
                 </div>
@@ -1079,11 +1061,6 @@
         </div>
     </div>
 
-    <!-- ==========================================================================
-         [6] CÁC HỘP THOẠI MODAL (CÀI ĐẶT, ẢNH, CHI TIẾT BÀI)
-         ========================================================================== */ -->
-
-    <!-- Modal Hệ thống phụ -->
     <div class="modal-overlay" id="system-check-modal">
         <div class="settings-box-modal">
             <button class="modal-close-btn" onclick="closeModal('system-check-modal')">X</button>
@@ -1101,7 +1078,6 @@
         </div>
     </div>
 
-    <!-- Modal Cài đặt hệ thống -->
     <div class="modal-overlay" id="settings-modal">
         <div class="settings-box-modal" style="width: 900px;">
             <button class="modal-close-btn" onclick="closeModal('settings-modal')">X</button>
@@ -1127,7 +1103,6 @@
         </div>
     </div>
 
-    <!-- Modal Phân tích Chi tiết Bài tập (Dossier Expand) -->
     <div class="modal-overlay" id="detail-modal">
         <div class="settings-box-modal detail-modal-box">
             <button class="modal-close-btn" onclick="closeModal('detail-modal')">X</button>
@@ -1155,9 +1130,6 @@
         </div>
     </div>
 
-    <!-- ==========================================================================
-         [7] JAVASCRIPT LOGIC TỐI THƯỢNG
-         ========================================================================== */ -->
     <script>
         // --- 0. TNO TABS (KHU VỰC HỒ SƠ CÁ NHÂN) ---
         function openTnoTab(index, btnEl) {
@@ -1496,157 +1468,4 @@
                         termPrint("  sudo hack    : Kích hoạt chế độ mã hóa rác", 'term-sys');
                         termPrint("  close        : Thu nhỏ bảng điều khiển Terminal", 'term-sys');
                         break;
-                    case 'clear': termOutput.innerHTML = ''; break;
-                    case 'defcon': toggleDefcon(); break;
-                    case 'close': toggleTerminal(); break;
-                    case 'date': 
-                        const now = new Date();
-                        const formatter = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
-                        termPrint(`> Server Time (VN): ${formatter.format(now)}`, 'term-sys'); 
-                        break;
-                    case 'location': termPrint("> Tọa độ: Đại học Công nghệ (UET) - 144 Xuân Thủy, Cầu Giấy, Hà Nội.", 'term-sys'); break;
-                    case 'whoami': 
-                        termPrint("> USER: Nguyễn Vũ Đông | ID: 25022175 | LỚP: K70E-EC1 | ROLE: Tác giả", 'term-sys'); 
-                        break;
-                    case 'analyze':
-                        termPrint("> Phân tích cấu trúc: BÌNH THƯỜNG", 'term-sys');
-                        termPrint("> Lỗ hổng bảo mật: 0 phát hiện", 'term-sys');
-                        termPrint("> Lộ trình IELTS 6.5: Đang thực thi ôn luyện", 'term-sys');
-                        termPrint("> Lộ trình GPA 3.2: Khả thi", 'term-sys');
-                        break;
-                    case 'sudo':
-                        if(args[1] === 'hack') {
-                            termPrint("> CẢNH BÁO: Kích hoạt chế độ tải mã hóa rác...", 'term-err');
-                            let count = 0;
-                            const spamInterval = setInterval(() => {
-                                termPrint(generateScramble(80).replace(/<br>/g,''), 'term-sys');
-                                count++;
-                                if(count > 15) clearInterval(spamInterval);
-                            }, 100);
-                        } else if(args[1] === 'matrix') {
-                            document.body.classList.toggle('matrix-active');
-                            if(document.body.classList.contains('matrix-active')) {
-                                termPrint("> Lệnh 'Matrix' Đã Kích Hoạt. Nhìn ra phía sau nhé.", 'term-sys');
-                            } else {
-                                termPrint("> Đã tắt ảo ảnh Ma trận.", 'term-sys');
-                            }
-                        } else {
-                            termPrint("> Quyền truy cập bị từ chối. Lệnh không hợp lệ.", 'term-err');
-                        }
-                        break;
-                    default:
-                        termPrint(`> LỖI: Lệnh '${cmd}' không tồn tại. Gõ 'help' để xem danh sách.`, 'term-err');
-                }
-                termInput.value = '';
-            }
-        });
-
-        // --- 8. XUẤT BÁO CÁO (PRINT PROTOCOL) CỰC NGẦU ---
-        function compileAndPrint() {
-            const screen = document.getElementById('compile-screen');
-            const fill = document.getElementById('compile-fill');
-            const log = document.getElementById('compile-log');
-            
-            screen.style.display = 'flex';
-            termPrint("> Đang kết xuất báo cáo Academic Dossier ra định dạng PDF...", 'term-sys');
-            addLog("> Khởi chạy chuỗi lệnh in báo cáo PDF.");
-            
-            let progress = 0;
-            const steps = [
-                "> Khởi tạo giao thức kết xuất...",
-                "> Đang tải dữ liệu định danh sinh viên...",
-                "> Tổng hợp tham số CSS Variables...",
-                "> Vô hiệu hóa hiệu ứng nhiễu CRT...",
-                "> Dịch mã khối dữ liệu Bài 1 đến Bài 7...",
-                "> Kiểm tra mã định danh: NGUYỄN VŨ ĐÔNG (25022175)...",
-                "> Định dạng viền chuẩn văn bản A4...",
-                "> Đóng gói siêu liên kết tài liệu minh chứng PDF..."
-            ];
-
-            const interval = setInterval(() => {
-                progress += Math.floor(Math.random() * 12 + 3);
-                if(progress > 100) progress = 100;
-                
-                fill.style.width = progress + '%';
-                
-                if(progress < 100) {
-                    const stepIdx = Math.floor((progress / 100) * steps.length);
-                    if(steps[stepIdx]) {
-                        log.innerHTML += steps[stepIdx] + ` [${progress}%]<br>`;
-                        log.scrollTop = log.scrollHeight;
-                    }
-                } else {
-                    log.innerHTML += "<br>> BIÊN DỊCH HOÀN TẤT. KÍCH HOẠT MODULE IN!";
-                    log.scrollTop = log.scrollHeight;
-                    clearInterval(interval);
-                    
-                    setTimeout(() => {
-                        screen.style.display = 'none';
-                        fill.style.width = '0%';
-                        log.innerHTML = "> Khởi tạo giao thức kết xuất...<br>";
-                        window.print();
-                    }, 800);
-                }
-            }, 250);
-        }
-
-        // --- 11. GIAO THỨC EASTER EGG: BẤM PHÍM 'G' ĐỂ MỞ GAME ---
-        window.addEventListener('keydown', function(e) {
-            // Ngăn chặn việc bật game khi đang gõ chữ trong Terminal hoặc Modal
-            if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
-                return;
-            }
-            
-            // Nếu bấm phím G (chỉ khi Portfolio đã hiện)
-            if ((e.key === 'g' || e.key === 'G') && document.getElementById('portfolio-app').style.display === 'flex') {
-                e.preventDefault();
-                
-                // Mở cửa sổ game lên
-                const winGame = document.getElementById('win-game');
-                if (winGame) {
-                    winGame.style.display = 'flex';
-                    // Tăng z-index để game nổi lên trên cùng
-                    let zIndexCounter = 1000;
-                    winGame.style.zIndex = zIndexCounter++;
-                }
-
-                termPrint("> CẢNH BÁO: Giao thức giải trí tối mật [FLAPPY_DRONE.exe] đã được kích hoạt.", "term-err");
-                if (typeof addLog === "function") {
-                    addLog("> Phát hiện truy cập ngoại tuyến: FLAPPY_DRONE.exe");
-                }
-            }
-        });
-
-        // Hàm hỗ trợ Đóng/Mở Window (Dành cho Window Game)
-        function closeWindow(id) { 
-            const win = document.getElementById(id);
-            if (win) win.style.display = 'none'; 
-        }
-        
-        function dragWindow(e, id) {
-            e.preventDefault();
-            const win = document.getElementById(id);
-            if (!win) return;
-            
-            win.style.zIndex = 2000; // Force to top
-            let pos1 = 0, pos2 = 0, pos3 = e.clientX, pos4 = e.clientY;
-
-            document.onmouseup = () => { 
-                document.onmouseup = null; 
-                document.onmousemove = null; 
-            };
-            
-            document.onmousemove = (e) => {
-                e.preventDefault();
-                pos1 = pos3 - e.clientX; 
-                pos2 = pos4 - e.clientY;
-                pos3 = e.clientX; 
-                pos4 = e.clientY;
-                win.style.top = (win.offsetTop - pos2) + "px";
-                win.style.left = (win.offsetLeft - pos1) + "px";
-            };
-        }
-
-    </script>
-</body>
-</html>
+                    case 'clear': termOutput.innerHTML = '';
