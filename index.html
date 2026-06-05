@@ -1468,4 +1468,153 @@
                         termPrint("  sudo hack    : Kích hoạt chế độ mã hóa rác", 'term-sys');
                         termPrint("  close        : Thu nhỏ bảng điều khiển Terminal", 'term-sys');
                         break;
-                    case 'clear': termOutput.innerHTML = '';
+                    case 'clear': termOutput.innerHTML = ''; break;
+                    case 'defcon': toggleDefcon(); break;
+                    case 'close': toggleTerminal(); break;
+                    case 'date': 
+                        const now = new Date();
+                        const formatter = new Intl.DateTimeFormat('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh', hour12: false, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                        termPrint(`> Server Time (VN): ${formatter.format(now)}`, 'term-sys'); 
+                        break;
+                    case 'location': termPrint("> Tọa độ: Đại học Công nghệ (UET) - 144 Xuân Thủy, Cầu Giấy, Hà Nội.", 'term-sys'); break;
+                    case 'whoami': 
+                        termPrint("> USER: Nguyễn Vũ Đông | ID: 25022175 | LỚP: K70E-EC1 | ROLE: Tác giả", 'term-sys'); 
+                        break;
+                    case 'analyze':
+                        termPrint("> Phân tích cấu trúc: BÌNH THƯỜNG", 'term-sys');
+                        termPrint("> Lỗ hổng bảo mật: 0 phát hiện", 'term-sys');
+                        termPrint("> Lộ trình IELTS 6.5: Đang thực thi ôn luyện", 'term-sys');
+                        termPrint("> Lộ trình GPA 3.2: Khả thi", 'term-sys');
+                        break;
+                    case 'sudo':
+                        if(args[1] === 'hack') {
+                            termPrint("> CẢNH BÁO: Kích hoạt chế độ tải mã hóa rác...", 'term-err');
+                            let count = 0;
+                            const spamInterval = setInterval(() => {
+                                termPrint(generateScramble(80).replace(/<br>/g,''), 'term-sys');
+                                count++;
+                                if(count > 15) clearInterval(spamInterval);
+                            }, 100);
+                        } else if(args[1] === 'matrix') {
+                            document.body.classList.toggle('matrix-active');
+                            if(document.body.classList.contains('matrix-active')) {
+                                termPrint("> Lệnh 'Matrix' Đã Kích Hoạt. Nhìn ra phía sau nhé.", 'term-sys');
+                            } else {
+                                termPrint("> Đã tắt ảo ảnh Ma trận.", 'term-sys');
+                            }
+                        } else {
+                            termPrint("> Quyền truy cập bị từ chối. Lệnh không hợp lệ.", 'term-err');
+                        }
+                        break;
+                    default:
+                        termPrint(`> LỖI: Lệnh '${cmd}' không tồn tại. Gõ 'help' để xem danh sách.`, 'term-err');
+                }
+                termInput.value = '';
+            }
+        });
+
+        // --- 8. XUẤT BÁO CÁO (PRINT PROTOCOL) CỰC NGẦU ---
+        function compileAndPrint() {
+            const screen = document.getElementById('compile-screen');
+            const fill = document.getElementById('compile-fill');
+            const log = document.getElementById('compile-log');
+            
+            screen.style.display = 'flex';
+            termPrint("> Đang kết xuất báo cáo Academic Dossier ra định dạng PDF...", 'term-sys');
+            addLog("> Khởi chạy chuỗi lệnh in báo cáo PDF.");
+            
+            let progress = 0;
+            const steps = [
+                "> Khởi tạo giao thức kết xuất...",
+                "> Đang tải dữ liệu định danh sinh viên...",
+                "> Tổng hợp tham số CSS Variables...",
+                "> Vô hiệu hóa hiệu ứng nhiễu CRT...",
+                "> Dịch mã khối dữ liệu Bài 1 đến Bài 7...",
+                "> Kiểm tra mã định danh: NGUYỄN VŨ ĐÔNG (25022175)...",
+                "> Định dạng viền chuẩn văn bản A4...",
+                "> Đóng gói siêu liên kết tài liệu minh chứng PDF..."
+            ];
+
+            const interval = setInterval(() => {
+                progress += Math.floor(Math.random() * 12 + 3);
+                if(progress > 100) progress = 100;
+                
+                fill.style.width = progress + '%';
+                
+                if(progress < 100) {
+                    const stepIdx = Math.floor((progress / 100) * steps.length);
+                    if(steps[stepIdx]) {
+                        log.innerHTML += steps[stepIdx] + ` [${progress}%]<br>`;
+                        log.scrollTop = log.scrollHeight;
+                    }
+                } else {
+                    log.innerHTML += "<br>> BIÊN DỊCH HOÀN TẤT. KÍCH HOẠT MODULE IN!";
+                    log.scrollTop = log.scrollHeight;
+                    clearInterval(interval);
+                    
+                    setTimeout(() => {
+                        screen.style.display = 'none';
+                        fill.style.width = '0%';
+                        log.innerHTML = "> Khởi tạo giao thức kết xuất...<br>";
+                        window.print();
+                    }, 800);
+                }
+            }, 250);
+        }
+
+        // --- 9. HỖ TRỢ NÚT GAME ARCADE ---
+        function openGameWindow() {
+            const winGame = document.getElementById('win-game');
+            if (winGame) {
+                winGame.style.display = 'flex';
+                winGame.style.zIndex = 2000;
+            }
+            termPrint("> CẢNH BÁO: Giao thức giải trí [FLAPPY_DRONE.exe] đã được kích hoạt.", "term-err");
+            addLog("> Truy cập hệ thống Arcade nội bộ.");
+        }
+
+        // Hotkey 'G' để mở game (Easter Egg cũ)
+        window.addEventListener('keydown', function(e) {
+            if (document.activeElement.tagName === 'INPUT' || document.activeElement.tagName === 'TEXTAREA') {
+                return;
+            }
+            
+            if ((e.key === 'g' || e.key === 'G') && document.getElementById('portfolio-app').style.display === 'flex') {
+                e.preventDefault();
+                openGameWindow();
+            }
+        });
+
+        // Hàm hỗ trợ Đóng/Mở Window (Dành cho Window Game)
+        function closeWindow(id) { 
+            const win = document.getElementById(id);
+            if (win) win.style.display = 'none'; 
+        }
+        
+        function dragWindow(e, id) {
+            e.preventDefault();
+            const win = document.getElementById(id);
+            if (!win) return;
+            
+            win.style.zIndex = 2500; // Force to top
+            let pos1 = 0, pos2 = 0, pos3 = e.clientX, pos4 = e.clientY;
+
+            document.onmouseup = () => { 
+                document.onmouseup = null; 
+                document.onmousemove = null; 
+            };
+            
+            document.onmousemove = (e) => {
+                e.preventDefault();
+                pos1 = pos3 - e.clientX; 
+                pos2 = pos4 - e.clientY;
+                pos3 = e.clientX; 
+                pos4 = e.clientY;
+                win.style.top = (win.offsetTop - pos2) + "px";
+                win.style.left = (win.offsetLeft - pos1) + "px";
+            };
+        }
+
+    </script>
+</body>
+</html>
