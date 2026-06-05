@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UET CYBER DEFENSE // FLAPPY DRONE K70</title>
+    <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
+    <style>
+        /* ==========================================================================
+           [0] TNO CYBERPUNK CORE AESTHETICS
+           ========================================================================== */
+        :root {
+            --tno-cyan: #3df2db;
+            --tno-cyan-dim: #134d45;
+            --tno-cyan-dark: #061a17;
+            --tno-bg: #010404;
+            --tno-red: #ff2a2a;
+            --tno-yellow: #f4d35e;
+            --tno-text: #e0fcf9;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+        }
+
+        body {
+            background-color: var(--tno-bg);
+            color: var(--tno-text);
+            font-family: 'VT323', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100vw;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* CRT Screen Scanlines */
+        .crt-layer {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.3) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.05), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.05));
+            background-size: 100% 3px, 4px 100%;
+            pointer-events: none; z-index: 100;
+        }
+
+        .scanline-animation {
+            position: absolute; top: 0; left: 0; width: 100%; height: 20px;
+            background: rgba(61, 242, 219, 0.08); box-shadow: 0 0 30px var(--tno-cyan);
+            animation: line-scan 6s linear infinite; pointer-events: none; z-index: 99;
+        }
+        @keyframes line-scan { 0% { top: -20px; } 100% { top: 100vh; } }
+
+        /* Game Container Wrapper */
+        .game-wrapper {
+            position: relative;
+            width: 480px;
+            height: 640px;
+            border: 3px solid var(--tno-cyan);
+            box-shadow: 0 0 35px var(--tno-cyan-dim), inset 0 0 40px rgba(0,0,0,0.9);
+            background: #020909;
+            overflow: hidden;
+        }
+
+        /* Menu Overlays */
+        .screen-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(1, 4, 4, 0.9);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            z-index: 10; padding: 30px; text-align: center;
+        }
+
+        .ui-title {
+            font-size: 42px; color: var(--tno-cyan); font-weight: bold;
+            letter-spacing: 3px; margin-bottom: 10px; text-shadow: 0 0 15px var(--tno-cyan);
+            text-transform: uppercase;
+        }
+
+        .ui-subtitle {
+            font-size: 24px; color: var(--tno-yellow); margin-bottom: 40px;
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+
+        .ui-instructions {
+            font-size: 26px; color: #fff; line-height: 1.5; margin-bottom: 40px;
+        }
+
+        .action-btn {
+            background: var(--tno-cyan-dark); border: 2px solid var(--tno-cyan);
+            color: var(--tno-cyan); font-family: 'VT323', monospace; font-size: 32px;
+            padding: 12px 40px; cursor: pointer; font-weight: bold; text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(61, 242, 219, 0.3); transition: 0.2s;
+        }
+        .action-btn:hover {
+            background: var(--tno-cyan); color: #000; box-shadow: 0 0 25px var(--tno-cyan);
+            transform: scale(1.05);
+        }
+
+        /* HUD & Meta Display */
+        .game-hud {
+            position: absolute; top: 15px; left: 15px; right: 15px;
+            display: flex; justify-content: space-between; font-size: 26px;
+            color: var(--tno-cyan); font-weight: bold; z-index: 5;
+            text-shadow: 0 0 5px #000;
+        }
+        .hud-hl { color: var(--tno-yellow); }
+
+        .system-watermark {
+            position: absolute; bottom: 15px; left: 15px; right: 15px;
+            display: flex; justify-content: space-between; font-size: 18px;
+            color: rgba(61, 242, 219, 0.3); font-family: monospace; z-index: 4;
+        }
+
+        /* Game Over Specifics */
+        .danger-title {
+            color: var(--tno-red) !important;
+            text-shadow: 0 0 20px var(--tno-red) !important;
+        }
+        .danger-btn {
+            border-color: var(--tno-red) !important;
+            color: var(--tno-red) !important;
+            background: rgba(255, 42, 42, 0.1) !important;
+            box-shadow: 0 0 15px rgba(255, 42, 42, 0.3) !important;
+        }
+        .danger-btn:hover {
+            background: var(--tno-red) !important;
+            color: #fff !important;
+            box-shadow: 0 0 30px var(--tno-red) !important;
+        }
+
+        #gameCanvas {
+            display: block;
+            background: transparent;
+        }
+    </style>
+</head>
+<body>
+    <div class="crt-layer"></div>
+    <div class="scanline-animation"></div>
+
+    <div class="game-wrapper">
+        <!-- GAME HUD -->
+        <div class="game-hud">
+            <div>EXTRACTED DATA: <span id="current-score" class="hud-hl">000</span></div>
+            <div>HI-INTEL: <span id="high-score">000</span></div>
+        </div>
+
+        <!-- WATERMARK META -->
+        <div class="system-watermark">
+            <div>SYS_ID: 25022175</div>
+            <div>NODE: K70E-EC1</div>
+        </div>
+
+        <!-- CANVAS CORE -->
+        <canvas id="gameCanvas" width="480" height="640"></canvas>
+
+        <!-- START SCREEN OVERLAY -->
+        <div class="screen-overlay" id="start-screen">
+            <div class="ui-title">Giao thức Cyber-Defense</div>
+            <div class="ui-subtitle">Dự án Tối ưu hóa Chuỗi dữ liệu K70</div>
+            <div class="ui-instructions">
+                Điều khiển Đặc vụ Drone vượt qua các Bức tường lửa phòng thủ tinh vi.<br><br>
+                Sử dụng phím <span style="color: var(--tno-yellow);">[PHÍM CÁCH / SPACE]</span> hoặc nhấp chuột để tăng lực nâng.<br>
+                Tránh va chạm với các Cột sóng nhiễu mạng Auspex.
+            </div>
+            <button class="action-btn" onclick="initiateGameSession()">Khởi chạy Module</button>
+        </div>
+
+        <!-- GAME OVER SCREEN OVERLAY -->
+        <div class="screen-overlay" id="gameover-screen" style="display: none;">
+            <div class="ui-title danger-title">CRITICAL CRASH // LỖI HỆ THỐNG</div>
+            <div class="ui-subtitle" style="color:#aaa;">Kết nối luồng dữ liệu bị đứt gãy</div>
+            <div class="ui-instructions" style="font-size: 28px;">
+                Tổng số gói tin trích xuất: <span id="final-score" class="hud-hl" style="font-size:36px;">0</span> KB<br>
+                Mức định danh cao nhất: <span id="final-high" style="color: #fff;">0</span> KB
+            </div>
+            <button class="action-btn danger-btn" onclick="initiateGameSession()">Tái khởi động mạng (Reboot)</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // State Manager
+        let gameRunning = false;
+        let score = 0;
+        let highScore = localStorage.getItem('tno_flappy_highscore') || 0;
+        document.getElementById('high-score').innerText = String(highScore).padStart(3, '0');
+
+        // Game Configuration & Objects
+        let drone;
+        let towers = [];
+        let frames = 0;
+
+        const config = {
+            gravity: 0.25,
+            flapForce: -5.5,
+            towerSpeed: 2.2,
+            towerGap: 160,
+            towerInterval: 100
+        };
+
+        // Class Agent Drone
+        class CyberDrone {
+            constructor() {
+                this.x = 80;
+                this.y = 250;
+                this.width = 34;
+                this.height = 24;
+                this.velocity = 0;
+            }
+
+            draw() {
+                ctx.save();
+                ctx.translate(this.x, this.y);
+                
+                // Vẽ thân máy bay Neon Cyan Drone dạng mô phỏng vector radar
+                ctx.strokeStyle = '#3df2db';
+                ctx.lineWidth = 2;
+                ctx.fillStyle = 'rgba(19, 77, 69, 0.6)';
+                
+                // Thân chính hình thoi cánh delta đặc trưng quân sự
+                ctx.beginPath();
+                ctx.moveTo(this.width, 0);
+                ctx.lineTo(-this.width/2, -this.height/2);
+                ctx.lineTo(-this.width/4, 0);
+                ctx.lineTo(-this.width/2, this.height/2);
+                ctx.closePath();
+                ctx.fill();
+                ctx.stroke();
+
+                // Đèn LED định vị định vị màu vàng
+                ctx.fillStyle = '#f4d35e';
+                ctx.beginPath();
+                ctx.arc(this.width - 4, 0, 3, 0, Math.PI * 2);
+                ctx.fill();
+
+                ctx.restore();
+            }
+
+            update() {
+                this.velocity += config.gravity;
+                this.y += this.velocity;
+
+                // Thao tác va chạm với ranh giới sàn hoặc trần
+                if (this.y + this.height/2 >= canvas.height) {
+                    this.y = canvas.height - this.height/2;
+                    triggerFailureProtocol();
+                }
+                if (this.y - this.height/2 <= 0) {
+                    this.y = this.height/2;
+                    this.velocity = 0;
+                }
+            }
+
+            flap() {
+                this.velocity = config.flapForce;
+            }
+        }
+
+        // Class Cột Gây Nhiễu Auspex (Pipes)
+        class AuspexTower {
+            constructor() {
+                this.topHeight = Math.floor(Math.random() * (canvas.height - config.towerGap - 120)) + 40;
+                this.bottomHeight = canvas.height - this.topHeight - config.towerGap;
+                this.x = canvas.width;
+                this.width = 65;
+                this.passed = false;
+            }
+
+            draw() {
+                ctx.lineWidth = 2;
+                
+                // 1. Vẽ Tháp Phía Trên
+                ctx.strokeStyle = '#3df2db';
+                ctx.fillStyle = 'rgba(7, 31, 28, 0.8)';
+                ctx.fillRect(this.x, 0, this.width, this.topHeight);
+                ctx.strokeRect(this.x, 0, this.width, this.topHeight);
+
+                // Vân lưới dạng bảng mạch điều khiển tình báo bên trong cột tháp
+                ctx.strokeStyle = 'rgba(61, 242, 219, 0.2)';
+                ctx.beginPath();
+                for (let i = 20; i < this.topHeight; i += 20) {
+                    ctx.moveTo(this.x, i);
+                    ctx.lineTo(this.x + this.width, i - 10);
+                }
+                ctx.stroke();
+
+                // Đầu tháp phát sóng nhiễu có viền màu vàng/cam cảnh báo
+                ctx.strokeStyle = '#ff9900';
+                ctx.fillStyle = 'rgba(255, 153, 0, 0.2)';
+                ctx.fillRect(this.x - 3, this.topHeight - 15, this.width + 6, 15);
+                ctx.strokeRect(this.x - 3, this.topHeight - 15, this.width + 6, 15);
+
+                // 2. Vẽ Tháp Phía Dưới
+                ctx.strokeStyle = '#3df2db';
+                ctx.fillStyle = 'rgba(7, 31, 28, 0.8)';
+                ctx.fillRect(this.x, canvas.height - this.bottomHeight, this.width, this.bottomHeight);
+                ctx.strokeRect(this.x, canvas.height - this.bottomHeight, this.width, this.bottomHeight);
+
+                ctx.strokeStyle = 'rgba(61, 242, 219, 0.2)';
+                ctx.beginPath();
+                for (let i = canvas.height - this.bottomHeight + 20; i < canvas.height; i += 20) {
+                    ctx.moveTo(this.x, i);
+                    ctx.lineTo(this.x + this.width, i - 10);
+                }
+                ctx.stroke();
+
+                // Đầu tháp phát sóng nhiễu phía dưới
+                ctx.strokeStyle = '#ff9900';
+                ctx.fillStyle = 'rgba(255, 153, 0, 0.2)';
+                ctx.fillRect(this.x - 3, canvas.height - this.bottomHeight, this.width + 6, 15);
+                ctx.strokeRect(this.x - 3, canvas.height - this.bottomHeight, this.width + 6, 15);
+            }
+
+            update() {
+                this.x -= config.towerSpeed;
+            }
+
+            collidesWith(agent) {
+                // Kiểm tra hộp giới hạn va chạm toán học
+                if (agent.x + agent.width/2 > this.x && agent.x - agent.width/2 < this.x + this.width) {
+                    if (agent.y - agent.height/2 < this.topHeight || agent.y + agent.height/2 > canvas.height - this.bottomHeight) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        // Khởi động phiên làm việc mới
+        function initiateGameSession() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('gameover-screen').style.display = 'none';
+            
+            drone = new CyberDrone();
+            towers = [];
+            score = 0;
+            frames = 0;
+            updateScoreDisplay();
+            
+            gameRunning = true;
+            executeLoopAnimation();
+        }
+
+        // Luồng tuần hoàn game loop
+        function executeLoopAnimation() {
+            if (!gameRunning) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            // Vẽ nền lưới ma trận radar mờ mờ ở canvas nền
+            ctx.strokeStyle = 'rgba(19, 77, 69, 0.15)';
+            ctx.lineWidth = 1;
+            for(let i = 0; i < canvas.width; i += 40) {
+                ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, canvas.height); ctx.stroke();
+            }
+            for(let j = 0; j < canvas.height; j += 40) {
+                ctx.beginPath(); ctx.moveTo(0, j); ctx.lineTo(canvas.width, j); ctx.stroke();
+            }
+
+            // Sinh cấu trúc tháp cản trở tuần hoàn
+            if (frames % config.towerInterval === 0) {
+                towers.push(new AuspexTower());
+            }
+
+            // Xử lý logic mảng tháp nhiễu
+            for (let i = towers.length - 1; i >= 0; i--) {
+                towers[i].update();
+                towers[i].draw();
+
+                // Kiểm tra va chạm hạt nhân sập nguồn hệ thống
+                if (towers[i].collidesWith(drone)) {
+                    triggerFailureProtocol();
+                }
+
+                // Tăng tích lũy tệp tin trích xuất
+                if (!towers[i].passed && towers[i].x + towers[i].width < drone.x) {
+                    towers[i].passed = true;
+                    score++;
+                    updateScoreDisplay();
+                }
+
+                // Giải phóng các tháp đã trượt khỏi khung nhìn
+                if (towers[i].x + towers[i].width < 0) {
+                    towers.splice(i, 1);
+                }
+            }
+
+            drone.update();
+            drone.draw();
+
+            frames++;
+            requestAnimationFrame(executeLoopAnimation);
+        }
+
+        function updateScoreDisplay() {
+            const padScore = String(score).padStart(3, '0');
+            document.getElementById('current-score').innerText = padScore;
+        }
+
+        // Kích hoạt giao thức báo lỗi sập nguồn khi chết
+        function triggerFailureProtocol() {
+            gameRunning = false;
+            if (score > highScore) {
+                highScore = score;
+                localStorage.setItem('tno_flappy_highscore', highScore);
+                document.getElementById('high-score').innerText = String(highScore).padStart(3, '0');
+            }
+
+            document.getElementById('final-score').innerText = score;
+            document.getElementById('final-high').innerText = highScore;
+            document.getElementById('gameover-screen').style.display = 'flex';
+        }
+
+        // Event Listeners: Đảm bảo tương thích trên cả máy tính và điện thoại di động
+        window.addEventListener('keydown', function(e) {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (gameRunning) drone.flap();
+            }
+        });
+
+        canvas.addEventListener('touchstart', function(e) {
+            e.preventDefault();
+            if (gameRunning) drone.flap();
+        });
+
+        canvas.addEventListener('mousedown', function(e) {
+            if (gameRunning) drone.flap();
+        });
+    </script>
+</body>
+</html>
